@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "205307114753",
+    "firebase_url": "https://mataram-ec0eb.firebaseio.com",
+    "project_id": "mataram-ec0eb",
+    "storage_bucket": "mataram-ec0eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205307114753:android:082bc471c0b7387ac7d700",
+        "android_client_info": {
+          "package_name": "com.lukastyas.mataram2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "205307114753-5p6ul00kh6v0sehvndsodn5rojuplfe0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwGCk0kvkzCerd2IgGV1AZr_BT9ouUz0w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "205307114753-5p6ul00kh6v0sehvndsodn5rojuplfe0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
