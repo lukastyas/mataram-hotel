@@ -8,6 +8,7 @@ class UserServices {
     _userCollection.document(user.id).setData({
       'email': user.email,
       'name': user.name,
+      'role': user.role,
       'phoneNumber': user.phoneNumber,
       'profilePicture': user.profilePicture ?? ""
     });
@@ -17,6 +18,7 @@ class UserServices {
     DocumentSnapshot snapshot = await _userCollection.document(id).get();
     return User(id, snapshot.data['email'],
         name: snapshot.data['name'],
+        role: snapshot.data['role'],
         phoneNumber: snapshot.data['phoneNumber'],
         profilePicture: snapshot.data['profilePicture']);
   }

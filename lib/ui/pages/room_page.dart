@@ -3,8 +3,8 @@ part of 'pages.dart';
 class RoomPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Firestore firestore = Firestore.instance;
-    MediaQueryData mediaQueryData = MediaQuery.of(context);
+    // final Firestore firestore = Firestore.instance;
+    // MediaQueryData mediaQueryData = MediaQuery.of(context);
 
     return ListView(
       children: [
@@ -98,14 +98,14 @@ class RoomPage extends StatelessWidget {
           ),
         ),
 
-        // TODO : HOTEL ROOM
+        //* HOTEL ROOM
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             GestureDetector(
               onTap: () {
-                context.bloc<PageBloc>().add(GoToSearchRoomPage());
+                context.bloc<PageBloc>().add(GoToSearchRoomPage(0));
               },
               child: Container(
                 width: MediaQuery.of(context).size.width / 2.7,
@@ -127,22 +127,27 @@ class RoomPage extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              width: MediaQuery.of(context).size.width / 2.7,
-              height: MediaQuery.of(context).size.height / 3.3,
-              decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 2.0,
+            GestureDetector(
+              onTap: () {
+                context.bloc<PageBloc>().add(GoToSearchRoomPage(1));
+              },
+                          child: Container(
+                width: MediaQuery.of(context).size.width / 2.7,
+                height: MediaQuery.of(context).size.height / 3.3,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 2.0,
+                    ),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                margin: EdgeInsets.fromLTRB(25, 10, 20, 12),
+                child: Center(
+                  child: Text(
+                    "Meeting Room",
+                    style: blackTextFont.copyWith(
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-              margin: EdgeInsets.fromLTRB(25, 10, 20, 12),
-              child: Center(
-                child: Text(
-                  "Meeting Room",
-                  style: blackTextFont.copyWith(
-                      fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -218,5 +223,6 @@ class RoomPage extends StatelessWidget {
                 ))),
       ],
     );
+ 
   }
 }

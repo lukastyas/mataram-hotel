@@ -1,16 +1,23 @@
 part of 'models.dart';
 
 class RoomModel extends Equatable {
+  final String id;
   final String description;
   final String picture;
   final int price;
   final String roomName;
+  final String type;
   final int rate;
-  final List<int> data;
-  final List<Photo> photos;
+  final int noFRoom;
+  final int noRoom;
+  final String data;
+  final List<dynamic> photos;
 
-  RoomModel(
-      {this.photos,
+  RoomModel({this.noFRoom, this.noRoom, 
+      
+        this.id,
+        this.type,
+        this.photos,
       this.description,
       this.data,
       this.picture,
@@ -20,8 +27,12 @@ class RoomModel extends Equatable {
 
   RoomModel copyWith({String picture, String price, String roomName}) =>
       RoomModel(
+          id: this.id,
           description: this.description,
           picture: picture ?? this.picture,
+          noFRoom: noFRoom ?? this.noFRoom,
+          noRoom: noRoom ?? this.noRoom,
+          type: type ?? this.type,
           price: price ?? this.price,
           rate: rate ?? this.rate,
           roomName: roomName ?? this.roomName,
@@ -29,15 +40,19 @@ class RoomModel extends Equatable {
           photos: photos ?? this.photos);
 
   factory RoomModel.fromJson(Map<String, dynamic> json) => RoomModel(
+        id: json["id"],
         description: json["description"],
         picture: json["picture"],
         price: json["price"],
         rate: json["rate"],
+        type: json["type"],
         roomName: json["roomName"],
-        data: List<int>.from(json["facilities"].map((x) => x)),
+        data:json["facilities"],
         photos: List<Photo>.from(json["photos"].map((x) => Photo.fromJson(x))),
       );
 
+
+ 
   @override
   String toString() {
     return " - $picture, $description";

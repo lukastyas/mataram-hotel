@@ -15,7 +15,7 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO : MERUBAH THEME TEXTFIELD
+    //* MERUBAH THEME TEXTFIELD
     context
         .bloc<ThemeBloc>()
         .add(ChangeTheme(ThemeData().copyWith(primaryColor: accentColor2)));

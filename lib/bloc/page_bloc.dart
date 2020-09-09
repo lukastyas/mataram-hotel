@@ -29,15 +29,20 @@ class PageBloc extends Bloc<PageEvent, PageState> {
       yield OnProfilePage();
     } else if (event is GoToEditProfilePage) {
       yield OnEditProfilePage(event.user);
-    } 
-    else if (event is GoToMyBookingPage) {
+    } else if (event is GoToMyBookingPage) {
       yield OnMyBookingPage(event.pageEvent);
-    }
-    else if (event is GoToSearchRoomPage) {
-      yield OnSearchRoomPage();
-    }
-    else if (event is GotoDetailRoom) {
+    } else if (event is GoToSearchRoomPage) {
+      yield OnSearchRoomPage(event.typeRoom);
+    } else if (event is GotoDetailRoom) {
       yield OnRoomDetailPage(event.roomModel);
+    } else if (event is GotoBookDetail) {
+      yield OnBookDetailPage(event.roomModel);
+    } else if (event is GotoTransferPage) {
+      yield OnTransferPage(event.wallet, event.roomModel);
+    } else if (event is GotoSendEvidence) {
+      yield OnSendEvidence(event.room);
+    } else if (event is GotoCreateRoom) {
+      yield OnCreateRoom();
     }
   }
 }

@@ -13,9 +13,9 @@ class _TicketPageState extends State<TicketPage> {
     return Scaffold(
       body: Stack(
         children: [
-          // TODO : CONTENT
+         //* CONTENT
           Container(),
-          // TODO : HEADER
+         //* HEADER
           Container(
             height: 113,
             color: accentColor1,

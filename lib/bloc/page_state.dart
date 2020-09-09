@@ -63,14 +63,16 @@ class OnMyBookingPage extends PageState {
 
   @override
   List<Object> get props => [pageEvent];
-
 }
 
 class OnSearchRoomPage extends PageState {
+  final typeRoom;
+
+  OnSearchRoomPage(this.typeRoom);
   @override
   List<Object> get props => [];
-
 }
+
 class OnRoomDetailPage extends PageState {
   final RoomModel roomModel;
 
@@ -78,5 +80,37 @@ class OnRoomDetailPage extends PageState {
 
   @override
   List<Object> get props => [];
+}
 
+class OnBookDetailPage extends PageState {
+  final RoomModel roomModel;
+
+  OnBookDetailPage(this.roomModel);
+
+  @override
+  List<Object> get props => [];
+}
+
+class OnTransferPage extends PageState {
+  final wallet;
+  final RoomModel roomModel;
+
+  OnTransferPage(this.wallet, this.roomModel);
+
+  @override
+  List<Object> get props => [];
+}
+
+class OnSendEvidence extends PageState {
+  final RoomModel roomModel;
+
+  OnSendEvidence(this.roomModel);
+
+  @override
+  List<Object> get props => [];
+}
+
+class OnCreateRoom extends PageState {
+  @override
+  List<Object> get props => [];
 }

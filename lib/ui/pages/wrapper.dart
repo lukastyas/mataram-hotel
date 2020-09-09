@@ -34,9 +34,18 @@ class Wrapper extends StatelessWidget {
                                 : (pageState is OnMyBookingPage)
                                     ? MyBookingPage(pageState.pageEvent)
                                     : (pageState is OnSearchRoomPage)
-                                        ? SearchRoom()
+                                        ? SearchRoom(typeRoom: pageState.typeRoom)
                                         : (pageState is OnRoomDetailPage)
                                             ? RoomDetail(room: pageState.roomModel,)
+                                        : (pageState is OnBookDetailPage)
+                                            ? BookDetail(pageState.roomModel)
+                                        : (pageState is OnTransferPage)
+                                            ? TransferPage(wallet:pageState.wallet, room: pageState.roomModel,)
+                                        : (pageState is OnSendEvidence)
+                                            ? SendEvidencePage(room: pageState.roomModel,)
+                   
+                                        : (pageState is OnCreateRoom)
+                                            ? CreateRoom()
                                             : MainPage());
   }
 }

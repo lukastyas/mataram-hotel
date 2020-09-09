@@ -28,13 +28,19 @@ class DataSearch {
   DateTime selecetedDateFrom;
   DateTime selecetedDateTo;
   final List<RoomModel> room;
+   int adult;
+   int  children;
+   int rooms;
 
 
-  DataSearch({this.room, this.selecetedDateFrom,  this.selecetedDateTo});
+  DataSearch({this.adult=1, this.children=0, this.rooms=1, this.room, this.selecetedDateFrom,  this.selecetedDateTo});
 
   DataSearch copyWith(DataSearch data) => DataSearch(
         room: data.room ?? this.room,
         selecetedDateFrom: data.selecetedDateFrom ?? this.selecetedDateFrom,
         selecetedDateTo: data.selecetedDateTo ?? this.selecetedDateTo,
+        adult: data.adult?? this.adult,
+        children: data.children??this.children,
+        rooms: data.rooms??this.rooms
       );
 }

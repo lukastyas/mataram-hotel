@@ -39,31 +39,31 @@ class RoomDetail extends StatelessWidget {
       ),
     ];
 
-    List<FacilitiesModel> listIcon = List();
-    room.data.forEach((el) {
-      // final duplicateItems = getMenuss();
+    // List<FacilitiesModel> listIcon = List();
+    // room.data.forEach((el) {
+    //   // final duplicateItems = getMenuss();
 
-      facilities.forEach((e) {
-        if (el == e.id) {
-          print("e.id");
-          print(e.id);
-          listIcon.add(e);
-        }
-      });
-    });
+    //   facilities.forEach((e) {
+    //     if (el == e.id) {
+    //       print("e.id");
+    //       print(e.id);
+    //       listIcon.add(e);
+    //     }
+    //   });
+    // });
 
-    print("listIcon.toList()");
-    print(listIcon.toList());
+    // print("listIcon.toList()");
+    // print(listIcon.toList());
 
     return WillPopScope(
       onWillPop: () async {
-        context.bloc<PageBloc>().add(GoToSearchRoomPage());
+        context.bloc<PageBloc>().add(GoToSearchRoomPage(room.type));
 
         return;
       },
       child: Scaffold(
         body: SingleChildScrollView(
-                  child: Container(
+          child: Container(
             alignment: Alignment.center,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -101,7 +101,7 @@ class RoomDetail extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(room.roomName),
                 ),
-                Padding(
+               room.rate == null ? Container():  Padding(
                   padding: const EdgeInsets.only(left: 130.0),
                   child: RatingStars(
                     voteAverage: room.rate.toDouble(),
@@ -114,14 +114,14 @@ class RoomDetail extends StatelessWidget {
                       padding: const EdgeInsets.all(12.0),
                       child: Text("Facilities Room"),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 110.0),
-                      child: Row(
-                        children: listIcon.map((e) {
-                          return ContentTile(e.icon, e.title);
-                        }).toList(),
-                      ),
-                    )
+                    // Padding(
+                    //   padding: const EdgeInsets.only(left: 110.0),
+                    //   child: Row(
+                    //     children: listIcon.map((e) {
+                    //       return ContentTile(e.icon, e.title);
+                    //     }).toList(),
+                    //   ),
+                    // )
                   ],
                 ),
                 Padding(
@@ -129,17 +129,24 @@ class RoomDetail extends StatelessWidget {
                   child: ListTile(
                       title: Text("Description Room"),
                       subtitle: Text(
-                        room.description,
+                        room.description?? "",
                         style: TextStyle(
                           color: Colors.grey,
                         ),
                         textAlign: TextAlign.justify,
                       )),
                 ),
-                
                 MataramButton(
-                  onPressed: (){},
-                  title: Text("Countinue to Book", style: TextStyle(color:Colors.white),),color: 'edit',)
+                  onPressed: () {
+                    context.bloc<PageBloc>().add(GotoBookDetail(room));
+                    return;
+                  },
+                  title: Text(
+                    "Countinue to Book",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  color: 'edit',
+                )
               ],
             ),
           ),

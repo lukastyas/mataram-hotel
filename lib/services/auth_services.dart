@@ -52,3 +52,4 @@ class SignInSignUpResult {
 
   SignInSignUpResult({this.user, this.message});
 }
+

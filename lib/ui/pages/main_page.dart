@@ -20,57 +20,65 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            color: accentColor1,
-          ),
-          SafeArea(
-              child: Container(
-            color: Color(0xFFF6F7F9),
-          )),
-          PageView(
-            controller: pageController,
-            onPageChanged: (index) {
-              setState(() {
-                bottomNavBarIndex = index;
-              });
-            },
-            children: [
-              RoomPage(),
-              TicketPage()
-            ],
-          ),
-          createCustomBottomNavBar(),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 46,
-              width: 46,
-              margin: EdgeInsets.only(bottom: 42),
-              child: FloatingActionButton(
-                elevation: 0,
-                backgroundColor: accentColor2,
-                child: SizedBox(
-                  height: 26,
-                  width: 26,
-                  child: Icon(
-                    Icons.library_books,
-                    color: Colors.black.withOpacity(0.54),
-                  ),
-                ),
-                onPressed: () {
-                //*  TAMPILAN MY BOOKING N STATUS BOOKING
-                  context
-                      .bloc<PageBloc>()
-                      .add(GoToMyBookingPage(GoToMainPage()));
-                },
-              ),
+        body: BlocBuilder<UserBloc, UserState>(builder: (context, state) {
+      if (state is UserLoaded) {
+        print(state.user.role);
+        return Stack(
+          children: [
+            Container(
+              color: accentColor1,
             ),
-          )
-        ],
-      ),
-    );
+            SafeArea(
+                child: Container(
+              color: Color(0xFFF6F7F9),
+            )),
+            PageView(
+              controller: pageController,
+              onPageChanged: (index) {
+                setState(() {
+                  bottomNavBarIndex = index;
+                });
+              },
+              children: [
+                state.user.role == 1 ? RoomPageAdmin() : RoomPage(),
+                TicketPage()
+              ],
+            ),
+            createCustomBottomNavBar(),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: 46,
+                width: 46,
+                margin: EdgeInsets.only(bottom: 42),
+                child: FloatingActionButton(
+                  elevation: 0,
+                  backgroundColor: accentColor2,
+                  child: SizedBox(
+                    height: 26,
+                    width: 26,
+                    child: Icon(
+                      Icons.library_books,
+                      color: Colors.black.withOpacity(0.54),
+                    ),
+                  ),
+                  onPressed: () {
+                    //*  TAMPILAN MY BOOKING N STATUS BOOKING
+                    context
+                        .bloc<PageBloc>()
+                        .add(GoToMyBookingPage(GoToMainPage()));
+                  },
+                ),
+              ),
+            )
+          ],
+        );
+      }
+      return Center(child: CircularProgressIndicator(
+        strokeWidth: 0.5,
+        backgroundColor: Colors.amber,
+      ));
+    }));
   }
 
   Widget createCustomBottomNavBar() => Align(

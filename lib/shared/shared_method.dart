@@ -8,6 +8,12 @@ Future<File> getImage() async {
 
   return image;
 }
+Future<File> getImageFromCamera() async {
+  // ignore: deprecated_member_use
+  var image = await ImagePicker.pickImage(source: ImageSource.camera);
+
+  return image;
+}
 
 Future<String> uploadImage(File image) async {
   String fileName = basename(image.path);

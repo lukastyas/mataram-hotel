@@ -1,19 +1,20 @@
 part of 'pages.dart';
 
 class SearchRoom extends StatelessWidget {
+  final typeRoom;
   const SearchRoom({
-    Key key,
+    Key key, this.typeRoom,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    context.bloc<SearchRoomBloc>().add(LoadRoom());
+    context.bloc<SearchRoomBloc>().add(LoadRoom(typeRoom : typeRoom));
     TextEditingController _controller = TextEditingController();
     TextEditingController _controllerChildren = TextEditingController();
     TextEditingController _controllerRooms = TextEditingController();
     DateTime selectedDate = DateTime.now();
-    DateTime selectedDateto = DateTime.now();
     DateFormat dateFormat;
+    
     return WillPopScope(
         onWillPop: () async {
           context.bloc<PageBloc>().add(GoToMainPage());
@@ -140,9 +141,10 @@ class SearchRoom extends StatelessWidget {
                 BlocBuilder<SearchRoomBloc, SearchRoomState>(
                   builder: (context, state) {
                     dateFormat = new DateFormat("d MMMM yyyy");
-                     _controller.text = "0"; // if (state is RoomLoaded) {
-                     _controllerChildren.text = "0"; // if (state is RoomLoaded) {
-                     _controllerRooms.text = "0"; // if (state is RoomLoaded) {
+                    _controller.text = "0"; // if (state is RoomLoaded) {
+                    _controllerChildren.text =
+                        "0"; // if (state is RoomLoaded) {
+                    _controllerRooms.text = "0"; // if (state is RoomLoaded) {
                     if (state is SearchRoomInitial) {
                       return Container();
                     }
@@ -162,364 +164,377 @@ class SearchRoom extends StatelessWidget {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20))),
                           margin: EdgeInsets.fromLTRB(25, 10, 20, 12),
-                          child: Center(
-                            child: Column(
-                              children: <Widget>[
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Icon(Icons.date_range),
-                                    GestureDetector(
-                                      onTap: () async {
-                                        final DateTime picked =
-                                            await showDatePicker(
-                                                context: context,
-                                                initialDate: DateTime.now(),
-                                                firstDate: DateTime(2015, 8),
-                                                lastDate: DateTime(2040, 1));
-
-                                        if (picked != null &&
-                                            picked != selectedDate) {
-                                          state.dataSearch.selecetedDateFrom =
-                                              picked;
-
-                                          context
-                                              .bloc<SearchRoomBloc>()
-                                              .add(OnChangeDate());
-                                        }
-                                      },
-                                      child: Text(
-                                        state?.dataSearch?.selecetedDateFrom ==
-                                                null
-                                            ? "Check-In"
-                                            : dateFormat.format(state
-                                                .dataSearch.selecetedDateFrom),
-                                        style: blackTextFont.copyWith(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    SizedBox(width: 10),
-                                    Icon(Icons.date_range),
-                                    GestureDetector(
-                                      onTap: () async {
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(top: 20.0, bottom: 20.0),
+                            child: Center(
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Icon(Icons.date_range),
+                                      GestureDetector(
+                                        onTap: () async {
                                           final DateTime picked =
-                                            await showDatePicker(
-                                                context: context,
-                                                initialDate: DateTime.now(),
-                                                firstDate: DateTime(2015, 8),
-                                                lastDate: DateTime(2040, 1));
+                                              await showDatePicker(
+                                                  context: context,
+                                                  initialDate: DateTime.now(),
+                                                  firstDate: DateTime(2015, 8),
+                                                  lastDate: DateTime(2040, 1));
 
-                                        if (picked != null &&
-                                            picked != selectedDate) {
-                                          state.dataSearch.selecetedDateTo =
-                                              picked;
+                                          if (picked != null &&
+                                              picked != selectedDate) {
+                                            state.dataSearch.selecetedDateFrom =
+                                                picked;
 
-                                          context
-                                              .bloc<SearchRoomBloc>()
-                                              .add(OnChangeDate());
-                                        }
-                                      },
-                                      child: Text(
-                                       state?.dataSearch?.selecetedDateTo ==
-                                                null
-                                            ? "Checkout"
-                                            : dateFormat.format(state
-                                                .dataSearch.selecetedDateTo),
-                                        style: blackTextFont.copyWith(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text("Adult(s)"),
-                                    Container(
-                                      width: 40.0,
-                                      height: 30.0,
-                                      foregroundDecoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                        border: Border.all(
-                                          color: Colors.blueGrey,
-                                          width: 2.0,
+                                            context
+                                                .bloc<SearchRoomBloc>()
+                                                .add(OnChangeDate());
+                                          }
+                                        },
+                                        child: Text(
+                                          state?.dataSearch
+                                                      ?.selecetedDateFrom ==
+                                                  null
+                                              ? "Check-In"
+                                              : dateFormat.format(state
+                                                  .dataSearch
+                                                  .selecetedDateFrom),
+                                          style: blackTextFont.copyWith(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ),
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            child: TextFormField(
-                                              textAlign: TextAlign.center,
-                                              decoration: InputDecoration(
-                                                contentPadding:
-                                                    EdgeInsets.all(8.0),
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          5.0),
-                                                ),
-                                              ),
-                                              controller: _controller,
-                                              keyboardType: TextInputType
-                                                  .numberWithOptions(
-                                                decimal: false,
-                                                signed: true,
-                                              ),
-                                              inputFormatters: <
-                                                  TextInputFormatter>[
-                                                WhitelistingTextInputFormatter
-                                                    .digitsOnly
-                                              ],
-                                            ),
-                                          ),
-                                          Container(
-                                            height: 30.0,
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: <Widget>[
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    border: Border(
-                                                      bottom: BorderSide(
-                                                        width: 0.5,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  child: InkWell(
-                                                    child: Icon(
-                                                      Icons.arrow_drop_up,
-                                                      size: 10.0,
-                                                    ),
-                                                    onTap: () {
-                                                      int currentValue =
-                                                          int.parse(
-                                                              _controller.text);
-                                                      currentValue++;
-                                                      _controller.text =
-                                                          (currentValue)
-                                                              .toString(); //
-                                                    },
-                                                  ),
-                                                ),
-                                                InkWell(
-                                                  child: Icon(
-                                                    Icons.arrow_drop_down,
-                                                    size: 10.0,
-                                                  ),
-                                                  onTap: () {
-                                                    int currentValue =
-                                                          int.parse(
-                                                              _controller.text);
-                                                      currentValue--;
-                                                      _controller.text =
-                                                          (currentValue)
-                                                              .toString();
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(width: 10),
-                                    Text("Children"),
-                                    Container(
-                                      width: 40.0,
-                                      height: 30.0,
-                                      foregroundDecoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                        border: Border.all(
-                                          color: Colors.blueGrey,
-                                          width: 2.0,
+                                      SizedBox(width: 10),
+                                      Icon(Icons.date_range),
+                                      GestureDetector(
+                                        onTap: () async {
+                                          final DateTime picked =
+                                              await showDatePicker(
+                                                  context: context,
+                                                  initialDate: state
+                                                  .dataSearch
+                                                  .selecetedDateFrom.add(Duration(days: 1)) ,
+                                                  firstDate: DateTime.now(),
+                                                  lastDate: state
+                                                  .dataSearch
+                                                  .selecetedDateFrom.add(Duration(days: 30)));
+
+                                          if (picked != null &&
+                                              picked != selectedDate) {
+                                            state.dataSearch.selecetedDateTo =
+                                                picked;
+
+                                            context
+                                                .bloc<SearchRoomBloc>()
+                                                .add(OnChangeDate());
+                                          }
+                                        },
+                                        child: Text(
+                                          state?.dataSearch?.selecetedDateTo ==
+                                                  null
+                                              ? "Checkout"
+                                              : dateFormat.format(state
+                                                  .dataSearch.selecetedDateTo),
+                                          style: blackTextFont.copyWith(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ),
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            child: TextFormField(
-                                              textAlign: TextAlign.center,
-                                              decoration: InputDecoration(
-                                                contentPadding:
-                                                    EdgeInsets.all(8.0),
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          5.0),
-                                                ),
-                                              ),
-                                              controller: _controllerChildren,
-                                              keyboardType: TextInputType
-                                                  .numberWithOptions(
-                                                decimal: false,
-                                                signed: true,
-                                              ),
-                                              inputFormatters: <
-                                                  TextInputFormatter>[
-                                                WhitelistingTextInputFormatter
-                                                    .digitsOnly
-                                              ],
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 15.0, bottom: 8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text("Adult(s)"),
+                                        Container(
+                                          width: 40.0,
+                                          // height: 0.0,
+                                          foregroundDecoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                            border: Border.all(
+                                              color: Colors.blueGrey,
+                                              width: 2.0,
                                             ),
                                           ),
-                                          Container(
-                                            height: 30.0,
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: <Widget>[
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    border: Border(
-                                                      bottom: BorderSide(
-                                                        width: 0.5,
+                                          child: Row(
+                                            children: <Widget>[
+                                              Expanded(
+                                                child: Center(
+                                                  child: Text(state
+                                                      .dataSearch.adult
+                                                      .toString()),
+                                                ),
+                                              ),
+                                              Container(
+                                                // height: 30.0,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                        border: Border(
+                                                          bottom: BorderSide(
+                                                            width: 0.5,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      child: InkWell(
+                                                        child: Icon(
+                                                          Icons.arrow_drop_up,
+                                                          size: 20.0,
+                                                        ),
+                                                        onTap: () {
+                                                          int currentValue =
+                                                              state.dataSearch
+                                                                  .adult;
+                                                          currentValue++;
+                                                          state.dataSearch
+                                                                  .adult =
+                                                              (currentValue);
+
+                                                          context
+                                                              .bloc<
+                                                                  SearchRoomBloc>()
+                                                              .add(
+                                                                  OnChangeDate());
+                                                        },
                                                       ),
                                                     ),
-                                                  ),
-                                                  child: InkWell(
-                                                    child: Icon(
-                                                      Icons.arrow_drop_up,
-                                                      size: 10.0,
+                                                    InkWell(
+                                                      child: Icon(
+                                                        Icons.arrow_drop_down,
+                                                        size: 20.0,
+                                                      ),
+                                                      onTap: () {
+                                                        int currentValue = state
+                                                            .dataSearch.adult;
+                                                        currentValue--;
+                                                        state.dataSearch.adult =
+                                                            (currentValue);
+                                                        if (state.dataSearch
+                                                                .adult <=
+                                                            0) {
+                                                          state.dataSearch
+                                                              .adult = 0;
+                                                        }
+
+                                                        context
+                                                            .bloc<
+                                                                SearchRoomBloc>()
+                                                            .add(
+                                                                OnChangeDate());
+                                                      },
                                                     ),
-                                                    onTap: () {
-                                                      int currentValue =
-                                                          int.parse(
-                                                              _controllerChildren.text);
-                                                      currentValue++;
-                                                      _controllerChildren.text =
-                                                          (currentValue)
-                                                              .toString(); //
-                                                    },
-                                                  ),
+                                                  ],
                                                 ),
-                                                InkWell(
-                                                  child: Icon(
-                                                    Icons.arrow_drop_down,
-                                                    size: 10.0,
-                                                  ),
-                                                  onTap: () {
-                                                int currentValue =
-                                                          int.parse(
-                                                              _controllerChildren.text);
-                                                      currentValue--;
-                                                      _controllerChildren.text =
-                                                          (currentValue)
-                                                              .toString(); 
-                                                  },
-                                                ),
-                                              ],
-                                            ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(width: 10),
-                                    Text("Rooms"),
-                                    SizedBox(width: 5),
-                                    Container(
-                                      width: 40.0,
-                                      height: 30.0,
-                                      foregroundDecoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                        border: Border.all(
-                                          color: Colors.blueGrey,
-                                          width: 2.0,
                                         ),
-                                      ),
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            child: TextFormField(
-                                              textAlign: TextAlign.center,
-                                              decoration: InputDecoration(
-                                                contentPadding:
-                                                    EdgeInsets.all(8.0),
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          5.0),
-                                                ),
-                                              ),
-                                              controller: _controllerRooms,
-                                              keyboardType: TextInputType
-                                                  .numberWithOptions(
-                                                decimal: false,
-                                                signed: true,
-                                              ),
-                                              inputFormatters: <
-                                                  TextInputFormatter>[
-                                                WhitelistingTextInputFormatter
-                                                    .digitsOnly
-                                              ],
+                                        SizedBox(width: 10),
+                                        Text("Children"),
+                                        Container(
+                                          width: 40.0,
+                                          // height: 30.0,
+                                          foregroundDecoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                            border: Border.all(
+                                              color: Colors.blueGrey,
+                                              width: 2.0,
                                             ),
                                           ),
-                                          Container(
-                                            height: 30.0,
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: <Widget>[
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    border: Border(
-                                                      bottom: BorderSide(
-                                                        width: 0.5,
+                                          child: Row(
+                                            children: <Widget>[
+                                              Expanded(
+                                                child: Center(
+                                                  child: Text(state
+                                                      .dataSearch.children
+                                                      .toString()),
+                                                ),
+                                              ),
+                                              Container(
+                                                // height: 30.0,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                        border: Border(
+                                                          bottom: BorderSide(
+                                                            width: 0.5,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      child: InkWell(
+                                                        child: Icon(
+                                                          Icons.arrow_drop_up,
+                                                          size: 20.0,
+                                                        ),
+                                                        onTap: () {
+                                                          int currentValue =
+                                                              state.dataSearch
+                                                                  .children;
+                                                          currentValue++;
+                                                          state.dataSearch
+                                                                  .children =
+                                                              (currentValue);
+
+                                                          context
+                                                              .bloc<
+                                                                  SearchRoomBloc>()
+                                                              .add(
+                                                                  OnChangeDate());
+                                                        },
                                                       ),
                                                     ),
-                                                  ),
-                                                  child: InkWell(
-                                                    child: Icon(
-                                                      Icons.arrow_drop_up,
-                                                      size: 10.0,
+                                                    InkWell(
+                                                      child: Icon(
+                                                        Icons.arrow_drop_down,
+                                                        size: 20.0,
+                                                      ),
+                                                      onTap: () {
+                                                        int currentValue = state
+                                                            .dataSearch
+                                                            .children;
+                                                        currentValue--;
+                                                        state.dataSearch
+                                                                .children =
+                                                            (currentValue);
+                                                        if (state.dataSearch
+                                                                .children <=
+                                                            0) {
+                                                          state.dataSearch
+                                                              .children = 0;
+                                                        }
+
+                                                        context
+                                                            .bloc<
+                                                                SearchRoomBloc>()
+                                                            .add(
+                                                                OnChangeDate());
+                                                      },
                                                     ),
-                                                    onTap: () {
-                                                      int currentValue =
-                                                          int.parse(
-                                                              _controllerRooms.text);
-                                                      currentValue++;
-                                                      _controllerRooms.text =
-                                                          (currentValue)
-                                                              .toString(); //
-                                                    },
-                                                  ),
+                                                  ],
                                                 ),
-                                                InkWell(
-                                                  child: Icon(
-                                                    Icons.arrow_drop_down,
-                                                    size: 10.0,
-                                                  ),
-                                                  onTap: () {
-                                                    int currentValue =
-                                                          int.parse(
-                                                              _controllerRooms.text);
-                                                      currentValue--;
-                                                      _controllerRooms.text =
-                                                          (currentValue)
-                                                              .toString(); //
-                                                  },
-                                                ),
-                                              ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(width: 10),
+                                        Text("Rooms"),
+                                        SizedBox(width: 5),
+                                        Container(
+                                          width: 40.0,
+                                          // height: 30.0,
+                                          foregroundDecoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                            border: Border.all(
+                                              color: Colors.blueGrey,
+                                              width: 2.0,
                                             ),
                                           ),
-                                        ],
-                                      ),
+                                          child: Row(
+                                            children: <Widget>[
+                                              Expanded(
+                                                child: Center(
+                                                  child: Text(state
+                                                      .dataSearch.rooms
+                                                      .toString()),
+                                                ),
+                                              ),
+                                              Container(
+                                                // height: 30.0,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                        border: Border(
+                                                          bottom: BorderSide(
+                                                            width: 0.5,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      child: InkWell(
+                                                        child: Icon(
+                                                          Icons.arrow_drop_up,
+                                                          size: 20.0,
+                                                        ),
+                                                        onTap: () {
+                                                          int currentValue =
+                                                              state.dataSearch
+                                                                  .rooms;
+                                                          currentValue++;
+                                                          state.dataSearch
+                                                                  .rooms =
+                                                              (currentValue);
+
+                                                          context
+                                                              .bloc<
+                                                                  SearchRoomBloc>()
+                                                              .add(
+                                                                  OnChangeDate());
+                                                        },
+                                                      ),
+                                                    ),
+                                                    InkWell(
+                                                      child: Icon(
+                                                        Icons.arrow_drop_down,
+                                                        size: 20.0,
+                                                      ),
+                                                      onTap: () {
+                                                        int currentValue = state
+                                                            .dataSearch.rooms;
+                                                        currentValue--;
+                                                        state.dataSearch.rooms =
+                                                            (currentValue);
+                                                        if (state.dataSearch
+                                                                .rooms <=
+                                                            0) {
+                                                          state.dataSearch
+                                                              .rooms = 0;
+                                                        }
+
+                                                        context
+                                                            .bloc<
+                                                                SearchRoomBloc>()
+                                                            .add(
+                                                                OnChangeDate());
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -605,7 +620,7 @@ class SearchRoom extends StatelessWidget {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: <Widget>[
-                                                      RatingStars(
+                                                    state. dataSearch.room[index].rate == null ? Container():   RatingStars(
                                                         voteAverage: state
                                                             .dataSearch
                                                             .room[index]
@@ -702,7 +717,7 @@ class SearchRoom extends StatelessWidget {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: <Widget>[
-                                                    RatingStars(
+                                                  state. dataSearch.room[index].rate == null ? Container():   RatingStars(
                                                       voteAverage: state
                                                           .dataSearch
                                                           .room[index]
@@ -726,6 +741,7 @@ class SearchRoom extends StatelessWidget {
                     );
                   },
                 )
+        
               ],
             ),
           ),

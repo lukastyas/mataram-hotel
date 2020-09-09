@@ -4,6 +4,9 @@ abstract class SearchRoomEvent extends Equatable{
   const SearchRoomEvent();
 }
 class LoadRoom extends SearchRoomEvent {
+  final typeRoom;
+
+  LoadRoom({this.typeRoom});
 
   @override
   List<Object> get props => [];
