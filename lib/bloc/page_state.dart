@@ -58,8 +58,10 @@ class OnEditProfilePage extends PageState {
 
 class OnMyBookingPage extends PageState {
   final PageEvent pageEvent;
+  final List<BookModels> bookModels;
+  final List<RoomModel> roomModel;
 
-  OnMyBookingPage(this.pageEvent);
+  OnMyBookingPage(this.pageEvent, this.bookModels, this.roomModel);
 
   @override
   List<Object> get props => [pageEvent];
@@ -84,33 +86,60 @@ class OnRoomDetailPage extends PageState {
 
 class OnBookDetailPage extends PageState {
   final RoomModel roomModel;
+  final List<BookModels> bookModels;
 
-  OnBookDetailPage(this.roomModel);
+  OnBookDetailPage(this.roomModel, this.bookModels);
 
   @override
   List<Object> get props => [];
 }
 
 class OnTransferPage extends PageState {
+  final uid;
   final wallet;
+  final idOrder;
   final RoomModel roomModel;
 
-  OnTransferPage(this.wallet, this.roomModel);
+  OnTransferPage(
+    this.idOrder,
+    this.uid,
+    this.wallet,
+    this.roomModel,
+  );
 
   @override
   List<Object> get props => [];
 }
 
 class OnSendEvidence extends PageState {
+  final idOrder;
   final RoomModel roomModel;
 
-  OnSendEvidence(this.roomModel);
+  OnSendEvidence(this.idOrder, this.roomModel);
 
   @override
   List<Object> get props => [];
 }
 
 class OnCreateRoom extends PageState {
+  @override
+  List<Object> get props => [];
+}
+
+class OnBookingDetail extends PageState {
+  final BookModels book;
+  final PageEvent pageEvent;
+
+  OnBookingDetail(this.book, this.pageEvent);
+
+  @override
+  List<Object> get props => [];
+}
+class OnNewestPage extends PageState {
+  final List<BookModels> book;
+
+  OnNewestPage(this.book, );
+
   @override
   List<Object> get props => [];
 }

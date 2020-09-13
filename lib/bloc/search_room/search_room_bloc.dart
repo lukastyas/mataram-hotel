@@ -21,18 +21,20 @@ class SearchRoomBloc extends Bloc<SearchRoomEvent, SearchRoomState> {
     if (event is LoadRoom) {
       var room = await RoomServices.getRoom();
       List<RoomModel> roomModel = [];
-      print("ini ini");
-      print(event.typeRoom);
-      room.forEach((element) {
-        print(element.type);
-        print(element.type == event.typeRoom.toString());
-        if (element.type == event.typeRoom.toString()) {
-          print("ninin");
+      print("event.admin");
+      print(event.admin);
+      if (event.admin == false) {
+        room.forEach((element) {
+          if (element.type == event.typeRoom.toString()) {
+            roomModel.add(element);
+          }
+        });
+      } else {
+        room.forEach((element) {
           roomModel.add(element);
-        } 
-      });
-      print("fnwifnwiwf");
-      print(roomModel[0].roomName);
+        });
+      }
+
       yield RoomLoaded(dataSearch: DataSearch(room: roomModel));
     } else if (event is OnChangeDate) {
       DataSearch data = state.dataSearch;

@@ -6,6 +6,8 @@ import 'package:mataram2/models/models.dart';
 import 'package:mataram2/services/services.dart';
 import 'package:mataram2/shared/shared.dart';
 import 'package:meta/meta.dart';
+import 'package:uuid/uuid.dart';
+import 'package:uuid/uuid_util.dart';
 
 part 'create_room_event.dart';
 part 'create_room_state.dart';
@@ -40,7 +42,7 @@ class CreateRoomBloc extends Bloc<CreateRoomEvent, CreateRoomState> {
       yield CreateRoomData(data.copyWith(data));
     } else if (event is AddRoom) {
       CreateRoomModels data = state.createRoomModel;
-      yield CreateRoomInitial(createRoomModel :data.copyWith(data));
+      yield CreateRoomInitial(createRoomModel: data.copyWith(data));
 
       print("====data.price====");
       print(data.facility);
@@ -76,6 +78,9 @@ class CreateRoomBloc extends Bloc<CreateRoomEvent, CreateRoomState> {
         picture5,
         picture6
       ];
+      var uuid = Uuid();
+      var v4crypto = uuid.v4(options: {'rng': UuidUtil.cryptoRNG});
+
       print(picture1);
       print(picture2);
       print(picture3);
@@ -93,6 +98,7 @@ class CreateRoomBloc extends Bloc<CreateRoomEvent, CreateRoomState> {
 //       }).toList();
 
       RoomModel dataRoom = RoomModel(
+          id: v4crypto,
           price: event.price,
           description: data.desc,
           roomName: event.roomNamme,
@@ -108,7 +114,7 @@ class CreateRoomBloc extends Bloc<CreateRoomEvent, CreateRoomState> {
       var datas = CreateRoomService.createRoom(dataRoom);
       print("a");
       print(datas);
-      yield CreateRoomSuccess(createRoomModel :data.copyWith(data));
+      yield CreateRoomSuccess(createRoomModel: data.copyWith(data));
       // if (data.typeValue == null) {
       //   yield Error(data.copyWith(data), 'Room Type is Empty');
       // } else if (data.image == null) {

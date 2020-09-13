@@ -2,8 +2,10 @@ part of 'pages.dart';
 
 class BookDetail extends StatelessWidget {
   final RoomModel room;
+  final uid;
 
   const BookDetail(
+    this.uid,
     this.room, {
     Key key,
   }) : super(key: key);
@@ -13,10 +15,9 @@ class BookDetail extends StatelessWidget {
     DateFormat dateFormat;
 
     return WillPopScope(
-      onWillPop: () async{
+      onWillPop: () async {
         context.bloc<PageBloc>().add(GotoDetailRoom(room));
-                  return;
-
+        return;
       },
       child: BlocBuilder<SearchRoomBloc, SearchRoomState>(
         builder: (context, state) {
@@ -28,14 +29,14 @@ class BookDetail extends StatelessWidget {
           final total = price * difference;
           final totalRoom = price * state.dataSearch.rooms;
           final wallet = totalRoom + total;
-          print(difference);
+          print(" dir$difference");
           print(total);
 
           final formatCurrency =
               new NumberFormat.simpleCurrency(locale: 'id_ID');
-var uuid = Uuid();
-  var v4crypto = uuid.v4(options: {'rng': UuidUtil.cryptoRNG});
-         return Scaffold(
+          var uuid = Uuid();
+          var v4crypto = uuid.v4(options: {'rng': UuidUtil.cryptoRNG});
+          return Scaffold(
             body: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -46,15 +47,12 @@ var uuid = Uuid();
                     children: <Widget>[
                       Container(
                           width: 100,
-                          padding: const EdgeInsets.only(
-                            top: 50.0,
-                            bottom: 30
-                          ),
+                          padding: const EdgeInsets.only(top: 50.0, bottom: 30),
                           child: Text(
                             "Checkout Room",
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
-                            
                           )),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -76,7 +74,9 @@ var uuid = Uuid();
                               children: <Widget>[
                                 Text(room.roomName),
                                 RatingStars(
-                                  voteAverage: room.rate.toDouble(),
+                                  voteAverage: room.rate == null
+                                      ? 1.0
+                                      : room.rate.toDouble(),
                                   color: Colors.amber,
                                 )
                               ],
@@ -92,7 +92,10 @@ var uuid = Uuid();
                       ),
                       MataramTile(
                         title: Text('Order ID'),
-                        subtitle: Text(v4crypto, style: TextStyle(fontWeight: FontWeight.bold),) ,
+                        subtitle: Text(
+                          v4crypto,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                       MataramTile(
                         title: Text('Check-In'),
@@ -102,26 +105,25 @@ var uuid = Uuid();
                       ),
                       MataramTile(
                           title: Text('CheckOut'),
-                          subtitle:Text (dateFormat.format(
+                          subtitle: Text(dateFormat.format(
                             state.dataSearch.selecetedDateTo,
                           ))),
                       // MataramTile(
-                      //     title: 'Adult',
-                      //     subtitle: dateFormat.format(
-                      //       state.dataSearch.selecetedDateTo,
-                      //     )),
+                      //     title: Text('Adult'),
+                      //     subtitle: Text(state.dataSearch.adult.toString())),
                       MataramTile(
                         title: Text('Room'),
                         subtitle: Text(state.dataSearch.rooms.toString()),
                       ),
                       MataramTile(
                           title: Text('Price'),
-                          subtitle:
-                             Text( "${formatCurrency.format(price)} x $difference")),
+                          subtitle: Text(
+                              "${formatCurrency.format(price)} x $difference")),
                       MataramTile(
                         title: Text('Total'),
-                        subtitle:
-                            Text("${formatCurrency.format(price)} x ${state.dataSearch.rooms}",style: TextStyle( fontWeight:  FontWeight.bold)),
+                        subtitle: Text(
+                            "${formatCurrency.format(price)} x ${state.dataSearch.rooms}",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
                       ),
                       Container(
                         alignment: Alignment.center,
@@ -131,13 +133,27 @@ var uuid = Uuid();
                       ),
                       MataramTile(
                         title: Text('Your Wallet'),
-                        subtitle: Text(formatCurrency.format(wallet).toString(), style: TextStyle(fontWeight: FontWeight.bold),),
+                        subtitle: Text(
+                          formatCurrency.format(wallet).toString(),
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                       Container(
                         margin: EdgeInsets.all(70),
-                                              child: MataramButton(
+                        child: MataramButton(
                           onPressed: () {
-                            context.bloc<PageBloc>().add(GotoTransferPage(roomModel: room));
+                            context.bloc<PageBloc>().add(GotoTransferPage(
+                              idOrder:v4crypto ,
+                              uid: uid,
+                              totalNight :difference,
+                              room: state.dataSearch.rooms,
+                              back: false,
+                              wallet: wallet,
+                                selecetedDateFrom:
+                                    state.dataSearch.selecetedDateFrom,
+                                selecetedDateTo:
+                                    state.dataSearch.selecetedDateTo,
+                                roomModel: room));
                             return;
                           },
                           title: Text(

@@ -10,12 +10,16 @@ class _TicketPageState extends State<TicketPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-         //* CONTENT
-          Container(),
-         //* HEADER
+    return BlocBuilder<PageBloc, PageState>(
+      builder: (context, state) {
+        return Scaffold(
+          body: Stack(
+            children: [
+              //* CONTENT
+              isExpiredTickets == false
+                  ? Newest()
+                  : Oldest(),
+          //* HEADER
           Container(
             height: 113,
             color: accentColor1,
@@ -43,6 +47,8 @@ class _TicketPageState extends State<TicketPage> {
                           children: [
                             GestureDetector(
                               onTap: () {
+                                context.bloc<PageBloc>().add(GotoNewestPage());
+
                                 setState(() {
                                   isExpiredTickets = !isExpiredTickets;
                                 });
@@ -107,6 +113,9 @@ class _TicketPageState extends State<TicketPage> {
         ],
       ),
     );
+      }
+    );
+    
   }
 }
 

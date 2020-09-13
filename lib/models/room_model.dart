@@ -14,7 +14,7 @@ class RoomModel extends Equatable {
   final List<dynamic> photos;
 
   RoomModel({this.noFRoom, this.noRoom, 
-      
+     
         this.id,
         this.type,
         this.photos,
@@ -39,19 +39,30 @@ class RoomModel extends Equatable {
           data: data ?? this.data,
           photos: photos ?? this.photos);
 
-  factory RoomModel.fromJson(Map<String, dynamic> json) => RoomModel(
-        id: json["id"],
+  factory RoomModel.fromJson(Map<String, dynamic> json, b) => RoomModel(
+        id: b,
         description: json["description"],
         picture: json["picture"],
         price: json["price"],
         rate: json["rate"],
         type: json["type"],
+        noFRoom: json["no_of_roomm"],
         roomName: json["roomName"],
         data:json["facilities"],
         photos: List<Photo>.from(json["photos"].map((x) => Photo.fromJson(x))),
       );
 
-
+ Map<String, dynamic> toJson() => {
+        "description": description,
+        "picture": picture,
+        "price": price,
+        "rate": rate,
+        "type": type,
+        "no_of_roomm": noFRoom,
+        "roomName": roomName,
+        "facilities": data,
+       
+      };
  
   @override
   String toString() {

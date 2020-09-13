@@ -1,21 +1,48 @@
 part of 'pages.dart';
 
-class TransferPage extends StatelessWidget {
+class TransferPage extends StatefulWidget {
   final wallet;
-    final RoomModel room;
+  final idOrder;
+  final RoomModel room;
 
-  const TransferPage({Key key, this.wallet, this.room}) : super(key: key);
+  const TransferPage(this.idOrder, {Key key, this.wallet, this.room})
+      : super(key: key);
+
+  @override
+  _TransferPageState createState() => _TransferPageState();
+}
+
+class _TransferPageState extends State<TransferPage>
+    with SingleTickerProviderStateMixin {
+  AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: Duration(minutes: 60));
+    _controller.forward();
+
+    print("_controller");
+
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    print(room.price);
-    print(room.data);
-    return WillPopScope(onWillPop: () async {
-      context.bloc<PageBloc>().add(GotoBookDetail(room));
-      return;
-    },
-          child: Scaffold(
+    print(widget.room.price);
+    print(widget.room.data);
+    return WillPopScope(
+      onWillPop: () async {
+        context.bloc<PageBloc>().add(GotoBookDetail(widget.room));
+        return;
+      },
+      child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.only(top: 100.0),
           child: Column(
@@ -58,7 +85,17 @@ class TransferPage extends StatelessWidget {
                             )),
                         Padding(
                           padding: EdgeInsets.all(8.0),
-                          child: Text("Please complete payment within 60 min"),
+                          child: Row(
+                            children: <Widget>[
+                              Text("Please complete payment within "),
+                              Countdown(
+                                animation: StepTween(
+                                  begin:  60*60,
+                                  end: 0,
+                                ).animate(_controller),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -69,7 +106,10 @@ class TransferPage extends StatelessWidget {
                 margin: EdgeInsets.only(top: 200),
                 child: MataramButton(
                   onPressed: () {
-                    context.bloc<PageBloc>().add(GotoSendEvidence(  room));
+                    context.bloc<PageBloc>().add(GotoSendEvidence(
+                          widget.room,
+                          widget.idOrder,
+                        ));
                     return;
                   },
                   title: Text(

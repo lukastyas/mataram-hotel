@@ -6,6 +6,7 @@ class CreateRoomService{
 
         static Future<void> createRoom(RoomModel room) async {
     _userCollection.document(room.id).setData({
+      'id_room': room.id,
       'description': room.description,
       'picture': room.picture,
       'price': room.price,

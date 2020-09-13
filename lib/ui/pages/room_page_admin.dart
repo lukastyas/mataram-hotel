@@ -5,7 +5,7 @@ class RoomPageAdmin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.bloc<SearchRoomBloc>().add(LoadRoom());
+    context.bloc<SearchRoomBloc>().add(LoadRoom(admin: true));
 
     return Scaffold(
       floatingActionButton: Padding(
@@ -119,13 +119,14 @@ class RoomPageAdmin extends StatelessWidget {
               return Container();
             }
             if (state is RoomLoaded) {
+              print(state.dataSearch.room.length);
               return Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
                       margin: EdgeInsets.fromLTRB(25, 10, 20, 12),
-                      height: MediaQuery.of(context).size.height,
+                      height: MediaQuery.of(context).size.height/1.5,
                       child: GridView.builder(
                           gridDelegate:
                               new SliverGridDelegateWithFixedCrossAxisCount(

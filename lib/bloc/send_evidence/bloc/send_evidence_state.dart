@@ -19,6 +19,11 @@ class OnSendEvidencePage extends SendEvidenceState {
 
   OnSendEvidencePage({this.sendEvidence});
 }
+class OnSuccess extends SendEvidenceState {
+  final SendEvidence sendEvidence;
+
+  OnSuccess({this.sendEvidence});
+}
 
 class SendEvidence {
   File image;
