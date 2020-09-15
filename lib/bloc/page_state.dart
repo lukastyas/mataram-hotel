@@ -24,6 +24,11 @@ class OnMainPage extends PageState {
   List<Object> get props => [];
 }
 
+class OnMainPageUser extends PageState {
+  @override
+  List<Object> get props => [];
+}
+
 class OnRegistrationPage extends PageState {
   final RegistrationData registrationData;
 
@@ -60,8 +65,17 @@ class OnMyBookingPage extends PageState {
   final PageEvent pageEvent;
   final List<BookModels> bookModels;
   final List<RoomModel> roomModel;
+  final role;
 
-  OnMyBookingPage(this.pageEvent, this.bookModels, this.roomModel);
+  OnMyBookingPage(this.pageEvent, this.bookModels, this.roomModel, this.role);
+
+  @override
+  List<Object> get props => [pageEvent];
+}
+class OnScanPage extends PageState {
+  final PageEvent pageEvent;
+
+  OnScanPage(this.pageEvent);
 
   @override
   List<Object> get props => [pageEvent];

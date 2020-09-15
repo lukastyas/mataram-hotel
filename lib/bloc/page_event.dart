@@ -19,6 +19,11 @@ class GoToMainPage extends PageEvent {
   @override
   List<Object> get props => [];
 }
+class GoToMainPageUser extends PageEvent {
+  
+  @override
+  List<Object> get props => [];
+}
 
 class GoToRegistrationPage extends PageEvent {
   final RegistrationData registrationData;
@@ -54,8 +59,18 @@ class GoToEditProfilePage extends PageEvent {
 
 class GoToMyBookingPage extends PageEvent {
   final PageEvent pageEvent;
+  final role;
 
-  GoToMyBookingPage(this.pageEvent);
+  GoToMyBookingPage(this.pageEvent, this.role);
+
+  @override
+  List<Object> get props => [pageEvent];
+
+}
+class GotoScanPage extends PageEvent {
+  final PageEvent pageEvent;
+
+  GotoScanPage(this.pageEvent, );
 
   @override
   List<Object> get props => [pageEvent];

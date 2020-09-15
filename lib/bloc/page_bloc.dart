@@ -20,30 +20,40 @@ class PageBloc extends Bloc<PageEvent, PageState> {
       yield OnSplashPage();
     } else if (event is GoToLoginPage) {
       yield OnLoginPage();
-    } else if (event is GoToMainPage) {
+    } 
+    else if (event is GoToMainPage) {
       yield OnMainPage();
-    } else if (event is GoToRegistrationPage) {
+    } 
+    else if (event is GoToMainPageUser) {
+        var book = await BookService.getBook();
+        print("book.length");
+        print(book.length);
+      yield OnNewestPage(book);
+      // yield OnMainPageUser();
+    } 
+    else if (event is GoToRegistrationPage) {
       yield OnRegistrationPage(event.registrationData);
     } else if (event is GoToAccountConfirmationPage) {
       yield OnAccountConfirmationPage(event.registrationData);
     } else if (event is GoToProfilePage) {
       yield OnProfilePage();
-    } else if (event is GoToEditProfilePage) {
+    } 
+    else if (event is GoToEditProfilePage) {
       yield OnEditProfilePage(event.user);
-    } else if (event is GoToMyBookingPage) {
+    } 
+    else if (event is GotoScanPage) {
+      yield OnScanPage(event.pageEvent);
+    } 
+    else if (event is GoToMyBookingPage) {
       var book = await BookService.getBook();
-
-      print("ini");
       var roomS = await RoomServices.getRoom();
       List<RoomModel> roomModel = [];
 
       roomS.map((e) {
         roomModel.add(e);
-        print("iniaa");
-        // print(e);
       }).toList();
 
-      yield OnMyBookingPage(event.pageEvent, book, roomModel);
+      yield OnMyBookingPage(event.pageEvent, book, roomModel, event.role);
     } else if (event is GoToSearchRoomPage) {
       yield OnSearchRoomPage(event.typeRoom);
     } else if (event is GotoDetailRoom) {
@@ -86,10 +96,6 @@ class PageBloc extends Bloc<PageEvent, PageState> {
       yield OnBookingDetail(event.book, event.pageEvent);
     } else if (event is GotoNewestPage) {
       var book = await BookService.getBook();
-
-      print("book");
-      print(book);
-
       yield OnNewestPage(book);
     }
   }

@@ -13,10 +13,14 @@ class BookModels {
   final String totalNight;
   final String room;
   final String status;
+  final double rate;
+  final String review;
 
   BookModels({this.totalNight, this.room, 
       this.idOrder,
+      this.review,
       this.status,
+      this.rate,
       this.idUser,
       this.idRoom,
       this.roomName,

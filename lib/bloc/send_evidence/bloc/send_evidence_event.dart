@@ -26,3 +26,13 @@ class OnPickedImage extends SendEvidenceEvent {
   @override
   List<Object> get props => throw UnimplementedError();
 }
+class SendReview extends SendEvidenceEvent {
+  final rate;
+  final review;
+  final idRoom;
+  
+
+  SendReview(this.rate, this.review, this.idRoom);
+  @override
+  List<Object> get props => throw UnimplementedError();
+}

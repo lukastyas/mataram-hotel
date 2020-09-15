@@ -31,6 +31,15 @@ class BookService {
       'evidence': user.evidence,
     });
   }
+  static Future<void> updateRate(RoomModel user, idRoom) async {
+    print(user.rate);
+    print(user.review);
+    print(idRoom);
+    roomCollection.document(idRoom).updateData({
+      'rate': user.rate,
+      "review" :user.review
+    });
+  }
   static Future<void> approve(BookModels user) async {
     _bookCollection.document(user.idOrder).updateData({
       'status': user.status,

@@ -32,7 +32,7 @@ class Wrapper extends StatelessWidget {
                             : (pageState is OnEditProfilePage)
                                 ? EditProfilePage(pageState.user)
                                 : (pageState is OnMyBookingPage)
-                                    ? MyBookingPage(pageState.bookModels,pageState.pageEvent)
+                                    ? MyBookingPage(pageState.bookModels,pageState.pageEvent, pageState.role)
                                     : (pageState is OnSearchRoomPage)
                                         ? SearchRoom(typeRoom: pageState.typeRoom)
                                         : (pageState is OnRoomDetailPage)
@@ -45,6 +45,8 @@ class Wrapper extends StatelessWidget {
                                             ? SendEvidencePage(idOrder: pageState.idOrder, room: pageState.roomModel, )
                                         : (pageState is OnBookingDetail)
                                             ? BookingDetail(book : pageState.book,pageEvent: pageState.pageEvent, )
+                                        : (pageState is OnScanPage)
+                                            ? ScanQRPage( )
                    
                                         : (pageState is OnCreateRoom)
                                             ? CreateRoom()

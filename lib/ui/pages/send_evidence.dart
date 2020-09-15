@@ -85,7 +85,6 @@ class SendEvidencePage extends StatelessWidget {
                           icon: Icon(Icons.image),
                           onPressed: () async {
                             a = await getImage();
-                            print(a.path);
                             state.sendEvidence.image = a;
                             context
                                 .bloc<SendEvidenceBloc>()

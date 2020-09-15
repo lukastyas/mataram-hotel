@@ -51,6 +51,9 @@ dev_dependencies:
   countdown: ^0.1.0
   barcode: ^1.17.0
   flutter_rating_bar: ^3.0.1+1
+  fluttertoast: ^7.1.1
+  qr_flutter: ^3.2.0
+  flutter_barcode_scanner: ^1.0.1
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

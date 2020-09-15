@@ -7,14 +7,15 @@ class RoomModel extends Equatable {
   final int price;
   final String roomName;
   final String type;
-  final int rate;
+  final double rate;
   final int noFRoom;
   final int noRoom;
   final String data;
+  final String review;
   final List<dynamic> photos;
 
   RoomModel({this.noFRoom, this.noRoom, 
-     
+     this.review,
         this.id,
         this.type,
         this.photos,

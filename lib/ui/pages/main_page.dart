@@ -41,7 +41,8 @@ class _MainPageState extends State<MainPage> {
               },
               children: [
                 state.user.role == 1 ? RoomPageAdmin() : RoomPage(),
-                TicketPage()
+                state.user.role == 1 ? ScanQRPage() : TicketPage(),
+         
               ],
             ),
             createCustomBottomNavBar(),
@@ -64,9 +65,9 @@ class _MainPageState extends State<MainPage> {
                   ),
                   onPressed: () {
                     //*  TAMPILAN MY BOOKING N STATUS BOOKING
-                    context
+         context
                         .bloc<PageBloc>()
-                        .add(GoToMyBookingPage(GoToMainPage()));
+                        .add(GoToMyBookingPage(GoToMainPage(), state.user.role)) ;
                   },
                 ),
               ),
@@ -74,7 +75,8 @@ class _MainPageState extends State<MainPage> {
           ],
         );
       }
-      return Center(child: CircularProgressIndicator(
+      return Center(
+          child: CircularProgressIndicator(
         strokeWidth: 0.5,
         backgroundColor: Colors.amber,
       ));

@@ -32,9 +32,16 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
       SendEvidence data = state.sendEvidence;
 
       yield OnSendEvidencePage(sendEvidence: data.copyWith(data));
-    } else if (event is SendApproval) {
+    } 
+    else if (event is SendApproval) {
       await BookService.approve(
           BookModels(idOrder: event.idOrder, status: event.status));
+
+      yield OnSuccess();
+    }
+    else if (event is SendReview) {
+      await BookService.updateRate(
+          RoomModel(rate: event.rate, review: event.review,),   event.idRoom);
 
       yield OnSuccess();
     }
