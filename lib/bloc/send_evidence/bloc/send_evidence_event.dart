@@ -14,9 +14,26 @@ class LoadSendEvidence extends SendEvidenceEvent {
 
 class SendApproval extends SendEvidenceEvent {
   final idOrder;
+  final idUser;
   final status;
 
-  SendApproval(this.idOrder, this.status);
+  SendApproval(this.idOrder,this.idUser, this.status);
+
+  @override
+  List<Object> get props => [];
+}
+class SendCheckIn extends SendEvidenceEvent {
+  final idOrder;
+
+  SendCheckIn(this.idOrder,);
+
+  @override
+  List<Object> get props => [];
+}
+class SendCheckOut extends SendEvidenceEvent {
+  final idOrder;
+
+  SendCheckOut(this.idOrder,);
 
   @override
   List<Object> get props => [];

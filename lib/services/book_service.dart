@@ -45,6 +45,18 @@ class BookService {
       'status': user.status,
     });
   }
+  static Future<void> checkIn(BookModels user) async {
+    _bookCollection.document(user.idOrder).updateData({
+      'check_in': user.checkIn,
+      'status_check_in' : "1"
+    });
+  }
+  static Future<void> checkOut(BookModels user) async {
+    _bookCollection.document(user.idOrder).updateData({
+      'check_out': user.checkOut,
+      'status_check_in' : "2"
+    });
+  }
 
 
   static Future<List<BookModels>> getBook() async {
@@ -64,6 +76,7 @@ class BookService {
             idRoom: e.data['id_room'],
             price: e.data['price'],
             status: e.data['status'],
+            statuscheckIn: e.data['status_check_in'],
             evidence: e.data['evidence']))
         .toList();
     return room;

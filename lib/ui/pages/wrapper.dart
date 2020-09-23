@@ -32,24 +32,50 @@ class Wrapper extends StatelessWidget {
                             : (pageState is OnEditProfilePage)
                                 ? EditProfilePage(pageState.user)
                                 : (pageState is OnMyBookingPage)
-                                    ? MyBookingPage(pageState.bookModels,pageState.pageEvent, pageState.role)
+                                    ? MyBookingPage(pageState.bookModels,
+                                        pageState.pageEvent, pageState.role)
                                     : (pageState is OnSearchRoomPage)
-                                        ? SearchRoom(typeRoom: pageState.typeRoom)
+                                    
+                                        ? SearchRoom(
+                                            typeRoom: pageState.typeRoom)
                                         : (pageState is OnRoomDetailPage)
-                                            ? RoomDetail(room: pageState.roomModel,)
-                                        : (pageState is OnBookDetailPage)
-                                            ? BookDetail(firebaseUser.uid , pageState.roomModel)
-                                        : (pageState is OnTransferPage)
-                                            ? TransferPage(pageState.idOrder, wallet:pageState.wallet, room: pageState.roomModel,)
-                                        : (pageState is OnSendEvidence)
-                                            ? SendEvidencePage(idOrder: pageState.idOrder, room: pageState.roomModel, )
-                                        : (pageState is OnBookingDetail)
-                                            ? BookingDetail(book : pageState.book,pageEvent: pageState.pageEvent, )
-                                        : (pageState is OnScanPage)
-                                            ? ScanQRPage( )
-                   
-                                        : (pageState is OnCreateRoom)
-                                            ? CreateRoom()
-                                            : MainPage());
+                                            ? RoomDetail(
+                                                room: pageState.roomModel,
+                                              )
+                                            : (pageState is OnBookDetailPage)
+                                                ? BookDetail(firebaseUser.uid,
+                                                    pageState.roomModel)
+                                                : (pageState is OnTransferPage)
+                                                    ? TransferPage(
+                                                        pageState.idOrder,
+                                                        wallet:
+                                                            pageState.wallet,
+                                                        room:
+                                                            pageState.roomModel,
+                                                      )
+                                                    : (pageState
+                                                            is OnSendEvidence)
+                                                        ? SendEvidencePage(
+                                                            idOrder: pageState
+                                                                .idOrder,
+                                                            room: pageState
+                                                                .roomModel,
+                                                          )
+                                                        : (pageState
+                                                                is OnBookingDetail)
+                                                            ? BookingDetail(
+                                                                book: pageState
+                                                                    .book,
+                                                                pageEvent:
+                                                                    pageState
+                                                                        .pageEvent,
+                                                              )
+                                                            : (pageState
+                                                                    is OnScanPage)
+                                                                ? ScanQRPage()
+                                                                : (pageState
+                                                                        is OnCreateRoom)
+                                                                    ? CreateRoom()
+                                                                    : MainPage());
   }
 }

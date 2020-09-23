@@ -5,6 +5,7 @@ class BookModels {
   final String idUser;
   final String idRoom;
   final String checkIn;
+  final String statuscheckIn;
   final String checkOut;
   final String evidence;
   final int price;
@@ -21,6 +22,7 @@ class BookModels {
       this.review,
       this.status,
       this.rate,
+      this.statuscheckIn,
       this.idUser,
       this.idRoom,
       this.roomName,
@@ -43,6 +45,7 @@ class BookModels {
         idOrder: json["id_order"],
         idUser: json["id_user"],
         idRoom: json["id_room"],
+        statuscheckIn: json["status_check_in"],
         price: json["price"],
         checkIn: json["check_in"],
         evidence: json["evidence"],

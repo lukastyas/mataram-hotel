@@ -2,6 +2,7 @@ part of 'services.dart';
 
 class AuthServices {
   static FirebaseAuth _auth = FirebaseAuth.instance;
+FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   static Future<SignInSignUpResult> signUp(
       String email, String password, String name, String phoneNumber) async {

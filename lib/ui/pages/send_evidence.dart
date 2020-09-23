@@ -86,9 +86,11 @@ class SendEvidencePage extends StatelessWidget {
                           onPressed: () async {
                             a = await getImage();
                             state.sendEvidence.image = a;
+                              print(a.path);
                             context
                                 .bloc<SendEvidenceBloc>()
                                 .add(OnPickedImage());
+                                          print( state.sendEvidence.image);
                             return;
                           })
                     ],

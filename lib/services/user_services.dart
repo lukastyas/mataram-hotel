@@ -4,13 +4,14 @@ class UserServices {
   static CollectionReference _userCollection =
       Firestore.instance.collection('users');
 
-  static Future<void> updateUser(User user) async {
+  static Future<void> updateUser(User user, {token}) async {
     _userCollection.document(user.id).setData({
       'email': user.email,
       'name': user.name,
       'role': user.role,
       'phoneNumber': user.phoneNumber,
-      'profilePicture': user.profilePicture ?? ""
+      'profilePicture': user.profilePicture ?? "",
+      'fcm_token': token
     });
   }
 
@@ -19,6 +20,7 @@ class UserServices {
     return User(id, snapshot.data['email'],
         name: snapshot.data['name'],
         role: snapshot.data['role'],
+        fcmToken: snapshot.data['fcm_token'],
         phoneNumber: snapshot.data['phoneNumber'],
         profilePicture: snapshot.data['profilePicture']);
   }

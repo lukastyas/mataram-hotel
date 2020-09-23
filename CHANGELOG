@@ -2,9 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.0.6
+- scan Barcode checkin checkOut
 ## v1.0.5
 - Create Room Fix
 - rate
 - book detail
 - newest
 - QR COde
+

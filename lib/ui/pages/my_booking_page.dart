@@ -25,7 +25,6 @@ class _MyBookingPageState extends State<MyBookingPage> {
   void initState() {
     super.initState();
     dateFormat = new DateFormat("d MMMM yyyy");
-    print("INI");
   }
 
   @override
@@ -39,11 +38,11 @@ class _MyBookingPageState extends State<MyBookingPage> {
         return;
       },
       child: Scaffold(
-         appBar: AppBar(
-           centerTitle: true,
-        backgroundColor: accentColor1,
-        title: Text("Book"),
-      ),
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: accentColor1,
+          title: Text("Book"),
+        ),
         body: Stack(
           children: [
             SafeArea(
@@ -66,73 +65,107 @@ class _MyBookingPageState extends State<MyBookingPage> {
               child: ListView.builder(
                   itemCount: widget.bookModels.length,
                   itemBuilder: (context, index) {
-                    print("UID ${firebaseUser.uid}");
-                    print("ID USER${widget.bookModels[index].idUser}");
-                    print(widget.bookModels.length);
+                    print(firebaseUser.uid);
+                    print(widget.bookModels[index].idUser);
                     if (firebaseUser.uid == widget.bookModels[index].idUser &&
-                        widget.role == 0) {
-                      return Container(
-                        margin: const EdgeInsets.all(18.0),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 2.0,
-                          ),
-                          color: Colors.white,
-                        ),
-                        // height: MediaQuery.of(context).size.height / 4,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                width: MediaQuery.of(context).size.width,
-                                height:
-                                    MediaQuery.of(context).size.height / 6.5,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: (widget.bookModels[index]
-                                                    .thumbnail ==
-                                                ""
-                                            ? AssetImage("assets/user_pic.png")
-                                            : NetworkImage(widget
-                                                .bookModels[index].thumbnail)),
-                                        fit: BoxFit.cover)),
+                        widget.role == 0 &&
+                        widget.bookModels[index].status.toString() == "2") {
+                      return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => BookDetailUserPage(
+                                          book: widget.bookModels[index],
+                                        )));
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.all(18.0),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 2.0,
                               ),
-                              Container(
-                                padding: EdgeInsets.all(8.0),
-                                // width: MediaQuery.of(context).size.width / 2,
-                                child: Text(widget.bookModels[index].roomName
-                                    .toString()),
-                              ),
-                              Row(
+                              color: Colors.white,
+                            ),
+                            // height: MediaQuery.of(context).size.height / 4,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(dateFormat.format(DateTime.parse(
-                                      widget.bookModels[index].checkIn))),
-                                  Text(' - '),
-                                  Text(dateFormat.format(DateTime.parse(
-                                      widget.bookModels[index].checkOut))),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Text("${widget.bookModels[index].room} Room"),
-                                  Text(' - '),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: MediaQuery.of(context).size.height /
+                                        6.5,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: (widget.bookModels[index]
+                                                        .thumbnail ==
+                                                    ""
+                                                ? AssetImage(
+                                                    "assets/user_pic.png")
+                                                : NetworkImage(widget
+                                                    .bookModels[index]
+                                                    .thumbnail)),
+                                            fit: BoxFit.cover)),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    // width: MediaQuery.of(context).size.width / 2,
+                                    child: Text(widget
+                                        .bookModels[index].roomName
+                                        .toString()),
+                                  ),  
                                   Text(
-                                      "${widget.bookModels[index].totalNight} Nights"),
+                                      "Check In : ${dateFormat.format(DateTime.parse(widget.bookModels[index].checkIn))}"),
+                                  Text(
+                                      "Check Out : ${dateFormat.format(DateTime.parse(widget.bookModels[index].checkOut))}"),
+                                  Row(
+                                    children: <Widget>[
+                                      Text(
+                                          "${widget.bookModels[index].room} Room"),
+                                      Text(' - '),
+                                      Text(
+                                          "${widget.bookModels[index].totalNight} Nights"),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Text("Status"),
+                                      Text(' : '),
+                                      Text(
+                                          widget.bookModels[index].status
+                                                      .toString() ==
+                                                  "1"
+                                              ? "Pending"
+                                              : widget.bookModels[index].status
+                                                          .toString() ==
+                                                      "2"
+                                                  ? "Success"
+                                                  : "Pending",
+                                          style: TextStyle(
+                                              color: widget.bookModels[index]
+                                                          .status
+                                                          .toString() ==
+                                                      "1"
+                                                  ? Colors.amber
+                                                  : widget.bookModels[index]
+                                                              .status
+                                                              .toString() ==
+                                                          "2"
+                                                      ? Colors.green
+                                                      : Colors.red)),
+                                    ],
+                                  ),
                                 ],
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    } else if(widget.role == 1){
+                              ),
+                            ),
+                          ));
+                    } else if (widget.role == 1) {
                       return GestureDetector(
                         onTap: () {
-                          print("INI kah");
-                          print(widget.role);
                           widget.role == 1
                               ? context.bloc<PageBloc>().add(GotoBookingDetail(
                                   widget.bookModels[index], widget.pageEvent))
@@ -140,6 +173,7 @@ class _MyBookingPageState extends State<MyBookingPage> {
                               : null;
                         },
                         child: Container(
+                          height: MediaQuery.of(context).size.height / 2.6,
                           margin: const EdgeInsets.all(18.0),
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -152,7 +186,7 @@ class _MyBookingPageState extends State<MyBookingPage> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Container(
@@ -172,10 +206,19 @@ class _MyBookingPageState extends State<MyBookingPage> {
                                           fit: BoxFit.cover)),
                                 ),
                                 Container(
-                                  padding: EdgeInsets.all(8.0),
+                                  // padding: EdgeInsets.all(8.0),
                                   // width: MediaQuery.of(context).size.width / 2,
-                                  child: Text(widget.bookModels[index].roomName
-                                      .toString()),
+                                  child: Text(
+                                      "Room Name : ${widget.bookModels[index].roomName.toString()}"),
+                                ),
+                                Container(
+                                  // padding: EdgeInsets.all(8.0),
+                                  // width: MediaQuery.of(context).size.width / 2,
+                                  child: Text(
+                                    "ID User : ${widget.bookModels[index].idUser.toString()}",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                                 Row(
                                   children: <Widget>[
@@ -195,30 +238,34 @@ class _MyBookingPageState extends State<MyBookingPage> {
                                         "${widget.bookModels[index].totalNight} Nights"),
                                   ],
                                 ),
-                                 Row(
-                                children: <Widget>[
-                                  Text("Status"),
-                                  Text(' : '),
-                                  Text(
-                                       widget.bookModels[index].status.toString() == "1"
-                                          ? "Pending"
-                                          :  widget.bookModels[index].status
-                                                      .toString() ==
-                                                  "2"
-                                              ? "Success"
-                                              : "Pending",
-                                      style: TextStyle(
-                                          color:  widget.bookModels[index].status
-                                                      .toString() ==
-                                                  "1"
-                                              ? Colors.amber
-                                              :  widget.bookModels[index].status
-                                                          .toString() ==
-                                                      "2"
-                                                  ? Colors.green
-                                                  : Colors.red)),
-                                ],
-                              ),
+                                Row(
+                                  children: <Widget>[
+                                    Text("Status"),
+                                    Text(' : '),
+                                    Text(
+                                        widget.bookModels[index].status
+                                                    .toString() ==
+                                                "1"
+                                            ? "Pending"
+                                            : widget.bookModels[index].status
+                                                        .toString() ==
+                                                    "2"
+                                                ? "Success"
+                                                : "Pending",
+                                        style: TextStyle(
+                                            color: widget.bookModels[index]
+                                                        .status
+                                                        .toString() ==
+                                                    "1"
+                                                ? Colors.amber
+                                                : widget.bookModels[index]
+                                                            .status
+                                                            .toString() ==
+                                                        "2"
+                                                    ? Colors.green
+                                                    : Colors.red)),
+                                  ],
+                                ),
                               ],
                             ),
                           ),

@@ -44,13 +44,13 @@ class _TransferPageState extends State<TransferPage>
       },
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.only(top: 100.0),
+          padding: const EdgeInsets.only(top: 100.0,left: 50.0, right: 50.0 ),
           child: Column(
             children: <Widget>[
               Center(
                 child: Container(
                   color: Colors.white,
-                  width: MediaQuery.of(context).size.width / 1.4,
+                  // width: MediaQuery.of(context).size.width / 1,
                   height: MediaQuery.of(context).size.height / 3,
                   child: Container(
                     padding: EdgeInsets.all(8.0),

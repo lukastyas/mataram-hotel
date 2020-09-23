@@ -54,6 +54,10 @@ dev_dependencies:
   fluttertoast: ^7.1.1
   qr_flutter: ^3.2.0
   flutter_barcode_scanner: ^1.0.1
+  firebase_messaging: ^6.0.9
+  shared_preferences: ^0.5.11
+  flutter_local_notifications: ^1.4.4+4
+  rxdart: ^0.23.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

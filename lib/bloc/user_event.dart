@@ -14,6 +14,9 @@ class LoadUser extends UserEvent {
 }
 
 class SignOut extends UserEvent {
+    final User user;
+
+  SignOut(this.user);
   @override
   List<Object> get props => [];
 

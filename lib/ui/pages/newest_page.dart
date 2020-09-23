@@ -7,25 +7,53 @@ class Newest extends StatelessWidget {
   Widget build(BuildContext context) {
     context.bloc<PageBloc>().add(GotoNewestPage());
     DateFormat dateFormat;
+    DateFormat dateFormatHour;
     FirebaseUser firebaseUser = Provider.of<FirebaseUser>(context);
 
     return BlocBuilder<PageBloc, PageState>(
       builder: (context, state) {
-        dateFormat = new DateFormat("d MMMM yyyy");
+        dateFormat = new DateFormat("d MMM yyyy");
+        dateFormatHour = new DateFormat("hh:mm");
 
         if (state is OnNewestPage) {
+          final difference = DateTime.now()
+              .difference(DateTime.parse(state.book[0].checkOut))
+              .inDays;
+          print("difference");
+          print(difference);
+          print(DateTime.parse(state.book[0].checkOut));
+          var a;
+          List<DateTime> b = [];
+          for (int x = 0; x <= difference; x++) {
+            a = DateTime.parse(state.book[0].checkOut).add(Duration(days: x));
+            b.add(
+                DateTime.parse(state.book[0].checkOut).add(Duration(days: x)));
+          }
+          b.map((e) {
+            print("1111");
+            print(dateFormat.format(e));
+            print(dateFormat.format(DateTime.now()));
+            if (dateFormat.format(e) == dateFormat.format(DateTime.now())) {
+              print("e");
+              print(e);
+            }
+          }).toList();
           return Container(
+            height: MediaQuery.of(context).size.height/1.1,
             padding: EdgeInsets.only(top: 100),
             child: ListView.builder(
                 itemCount: state.book.length,
                 itemBuilder: (context, index) {
-                  final difference = DateTime.parse(state.book[index].checkIn)
-                      .difference(DateTime.now())
-                      .inDays;
+                  // final difference = DateTime.now()
+                  //     .difference(DateTime.parse(state.book[index].checkIn))
+                  //     .inDays;
 
+               
                   if (firebaseUser.uid == state.book[index].idUser &&
-                      3 >= difference &&
                       state.book[index].status.toString() == "2") {
+                     print("AKAKA");
+                  print(state.book[index].statuscheckIn);
+
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -36,8 +64,6 @@ class Newest extends StatelessWidget {
                                     )));
                       },
                       child: Container(
-                        height: MediaQuery.of(context).size.height / 3,
-
                         margin: const EdgeInsets.all(18.0),
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -74,6 +100,7 @@ class Newest extends StatelessWidget {
                               ),
                               Row(
                                 children: <Widget>[
+                                  Text("Duration :"),
                                   Text(dateFormat.format(DateTime.parse(
                                       state.book[index].checkIn))),
                                   Text(' - '),
@@ -81,6 +108,10 @@ class Newest extends StatelessWidget {
                                       state.book[index].checkOut))),
                                 ],
                               ),
+                              Text(
+                                  "Check In : ${state.book[index].statuscheckIn == "1" ? dateFormatHour.format(DateTime.parse(state.book[index].checkIn)) : "-"  }"),
+                              Text(
+                                  "Check Out : ${state.book[index].statuscheckIn == "2" ? dateFormatHour.format(DateTime.parse(state.book[index].checkOut)): "-"}"),
                               Row(
                                 children: <Widget>[
                                   Text("${state.book[index].room} Room"),
@@ -119,11 +150,7 @@ class Newest extends StatelessWidget {
                       ),
                     );
                   }
-                  return Center(
-                      child: Container(
-                    alignment: Alignment.center,
-                    child: Text("No Data"),
-                  ));
+                  return Center(child: Container());
                 }),
           );
         }

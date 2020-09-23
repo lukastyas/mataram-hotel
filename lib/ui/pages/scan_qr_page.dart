@@ -13,13 +13,18 @@ class _ScanQRPageState extends State<ScanQRPage> {
     super.initState();
   }
 
-  Future<void> scanQR() async {
+  Future<void> scanQR(test) async {
     String barcodeScanRes;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           "#ff6666", "Cancel", true, ScanMode.QR);
       print(barcodeScanRes);
+      if (test == 1) {
+        context.bloc<SendEvidenceBloc>().add(SendCheckIn(barcodeScanRes));
+      } else if (test == 2) {
+        context.bloc<SendEvidenceBloc>().add(SendCheckOut(barcodeScanRes));
+      }
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
@@ -36,26 +41,48 @@ class _ScanQRPageState extends State<ScanQRPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
-            appBar: AppBar(
-              centerTitle: true,
-              title: const Text('Scan QR Code'),
-              backgroundColor: accentColor1,
-            ),
-            body: Builder(builder: (BuildContext context) {
-              return Container(
-                  alignment: Alignment.center,
-                  child: Flex(
-                      direction: Axis.vertical,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        RaisedButton(
-                            onPressed: () => scanQR(),
-                            child: Text("Start QR scan")),
-                        Text('Scan result : $_scanBarcode\n',
-                            style: TextStyle(fontSize: 20))
-                      ]));
-            })));
+    return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('Scan QR Code'),
+          backgroundColor: accentColor1,
+        ),
+        body: Builder(builder: (BuildContext context) {
+          return Container(
+              padding: EdgeInsets.all(10.0),
+              alignment: Alignment.center,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('Scan result : $_scanBarcode\n',
+                        style: TextStyle(fontSize: 20)),
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          MataramButton(
+                            onPressed: () => scanQR(1),
+                            title: Text(
+                              "Check In",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            color: 'edit',
+                          ),
+                          SizedBox(
+                            width: 50,
+                          ),
+                          MataramButton(
+                           onPressed: () => scanQR(2),
+                            title: Text(
+                              "Check Out",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            color: 'edit',
+                          ),
+                        ],
+                      ),
+                    )
+                  ]));
+        }));
   }
 }

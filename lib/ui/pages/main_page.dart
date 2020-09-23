@@ -42,7 +42,6 @@ class _MainPageState extends State<MainPage> {
               children: [
                 state.user.role == 1 ? RoomPageAdmin() : RoomPage(),
                 state.user.role == 1 ? ScanQRPage() : TicketPage(),
-         
               ],
             ),
             createCustomBottomNavBar(),
@@ -65,9 +64,8 @@ class _MainPageState extends State<MainPage> {
                   ),
                   onPressed: () {
                     //*  TAMPILAN MY BOOKING N STATUS BOOKING
-         context
-                        .bloc<PageBloc>()
-                        .add(GoToMyBookingPage(GoToMainPage(), state.user.role)) ;
+                    context.bloc<PageBloc>().add(
+                        GoToMyBookingPage(GoToMainPage(), state.user.role));
                   },
                 ),
               ),

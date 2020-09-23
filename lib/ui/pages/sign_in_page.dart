@@ -8,11 +8,12 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
   bool isEmailValid = false;
   bool isPasswordValid = false;
   bool isSigningIn = false;
 
+
+ 
   @override
   Widget build(BuildContext context) {
     //* MERUBAH THEME TEXTFIELD

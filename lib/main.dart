@@ -17,6 +17,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Notif notif = Notif();
     return StreamProvider.value(
       value: AuthServices.userStream,
       child: MultiBlocProvider(
@@ -29,10 +30,13 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (_) => CreateRoomBloc())
           ],
           child: BlocBuilder<ThemeBloc, ThemeState>(
-              builder: (_, themeState) => MaterialApp(
+              builder: (_, themeState) {
+                notif.notifConfig();
+               return  MaterialApp(
                   theme: themeState.themeData,
                   debugShowCheckedModeBanner: false,
-                  home: Wrapper()))),
+                  home: Wrapper());
+              } )),
     );
   }
 }

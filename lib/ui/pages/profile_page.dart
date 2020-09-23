@@ -8,6 +8,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
+     User user;
     return WillPopScope(
       onWillPop: () async {
         context.bloc<PageBloc>().add(GoToMainPage());
@@ -25,7 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   BlocBuilder<UserBloc, UserState>(
                     builder: (_, userState) {
                       if (userState is UserLoaded) {
-                        User user = userState.user;
+                         user = userState.user;
 
                         return Column(
                           children: <Widget>[
@@ -177,7 +178,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       GestureDetector(
                         onTap: () async {
                           await AuthServices.signOut();
-                          context.bloc<UserBloc>().add(SignOut());
+                          context.bloc<UserBloc>().add(SignOut(user));
                         },
                         child: Row(
                           children: <Widget>[

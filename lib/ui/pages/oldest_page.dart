@@ -119,8 +119,6 @@ class Oldest extends StatelessWidget {
                   }
                   return Center(
                       child: Container(
-                    alignment: Alignment.center,
-                    child: Text("No Data"),
                   ));
                 }),
           );

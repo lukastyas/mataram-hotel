@@ -27,16 +27,16 @@ class _BookingDetailState extends State<BookingDetail> {
         return;
       },
       child: Scaffold(
-         appBar: AppBar(
-           centerTitle: true,
-        backgroundColor: accentColor1,
-        title: Text("Book Detail"),
-      ),
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: accentColor1,
+          title: Text("Book Detail"),
+        ),
         body: SingleChildScrollView(
-                  child: Column(
+          child: Column(
             children: <Widget>[
               Container(
-                height: MediaQuery.of(context).size.height / 3,
+                // height: MediaQuery.of(context).size.height / 3,
 
                 margin: const EdgeInsets.all(18.0),
                 decoration: BoxDecoration(
@@ -67,6 +67,11 @@ class _BookingDetailState extends State<BookingDetail> {
                         padding: EdgeInsets.all(8.0),
                         // width: MediaQuery.of(context).size.width / 2,
                         child: Text(widget.book.roomName.toString()),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(8.0),
+                        // width: MediaQuery.of(context).size.width / 2,
+                        child: Text("ID User : ${widget.book.idUser.toString()}"),
                       ),
                       Row(
                         children: <Widget>[
@@ -121,9 +126,8 @@ class _BookingDetailState extends State<BookingDetail> {
                 margin: EdgeInsets.only(top: 50),
                 child: MataramButton(
                   onPressed: () async {
-                    context
-                        .bloc<SendEvidenceBloc>()
-                        .add(SendApproval(widget.book.idOrder, '2'));
+                    context.bloc<SendEvidenceBloc>().add(SendApproval(
+                        widget.book.idOrder, widget.book.idUser, '2'));
                   },
                   title: Text(
                     "Approval",

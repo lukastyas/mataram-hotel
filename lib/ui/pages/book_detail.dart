@@ -27,7 +27,7 @@ class BookDetail extends StatelessWidget {
               .difference(state.dataSearch.selecetedDateFrom)
               .inDays;
           final total = price * difference;
-          final totalRoom = price * state.dataSearch.rooms;
+          final totalRoom = (price * state.dataSearch.rooms)*difference;
           final wallet = totalRoom + total;
           print(" dir$difference");
           print(total);
@@ -108,9 +108,12 @@ class BookDetail extends StatelessWidget {
                           subtitle: Text(dateFormat.format(
                             state.dataSearch.selecetedDateTo,
                           ))),
-                      // MataramTile(
-                      //     title: Text('Adult'),
-                      //     subtitle: Text(state.dataSearch.adult.toString())),
+                      MataramTile(
+                          title: Text('Adult'),
+                          subtitle: Text(state.dataSearch.adult.toString())),
+                      MataramTile(
+                          title: Text('Children'),
+                          subtitle: Text(state.dataSearch.children.toString())),
                       MataramTile(
                         title: Text('Room'),
                         subtitle: Text(state.dataSearch.rooms.toString()),
@@ -118,25 +121,19 @@ class BookDetail extends StatelessWidget {
                       MataramTile(
                           title: Text('Price'),
                           subtitle: Text(
-                              "${formatCurrency.format(price)} x $difference")),
-                      MataramTile(
-                        title: Text('Total'),
-                        subtitle: Text(
-                            "${formatCurrency.format(price)} x ${state.dataSearch.rooms}",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      ),
+                              "${formatCurrency.format(price)} x ${state.dataSearch.rooms.toString()} Room(s)")),
+                    
                       Container(
                         alignment: Alignment.center,
                         margin: EdgeInsets.only(top: 20, bottom: 16, left: 20),
                         child: generateDashedDivider(
                             MediaQuery.of(context).size.width / 1.2),
                       ),
-                      MataramTile(
-                        title: Text('Your Wallet'),
+                        MataramTile(
+                        title: Text('Total'),
                         subtitle: Text(
-                          formatCurrency.format(wallet).toString(),
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
+                            "${formatCurrency.format(totalRoom)}",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
                       ),
                       Container(
                         margin: EdgeInsets.all(70),

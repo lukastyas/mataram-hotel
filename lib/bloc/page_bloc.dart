@@ -20,31 +20,25 @@ class PageBloc extends Bloc<PageEvent, PageState> {
       yield OnSplashPage();
     } else if (event is GoToLoginPage) {
       yield OnLoginPage();
-    } 
-    else if (event is GoToMainPage) {
+    } else if (event is GoToMainPage) {
       yield OnMainPage();
-    } 
-    else if (event is GoToMainPageUser) {
-        var book = await BookService.getBook();
-        print("book.length");
-        print(book.length);
+    } else if (event is GoToMainPageUser) {
+      var book = await BookService.getBook();
+      print("book.length");
+      print(book.length);
       yield OnNewestPage(book);
       // yield OnMainPageUser();
-    } 
-    else if (event is GoToRegistrationPage) {
+    } else if (event is GoToRegistrationPage) {
       yield OnRegistrationPage(event.registrationData);
     } else if (event is GoToAccountConfirmationPage) {
       yield OnAccountConfirmationPage(event.registrationData);
     } else if (event is GoToProfilePage) {
       yield OnProfilePage();
-    } 
-    else if (event is GoToEditProfilePage) {
+    } else if (event is GoToEditProfilePage) {
       yield OnEditProfilePage(event.user);
-    } 
-    else if (event is GotoScanPage) {
+    } else if (event is GotoScanPage) {
       yield OnScanPage(event.pageEvent);
-    } 
-    else if (event is GoToMyBookingPage) {
+    } else if (event is GoToMyBookingPage) {
       var book = await BookService.getBook();
       var roomS = await RoomServices.getRoom();
       List<RoomModel> roomModel = [];
@@ -77,6 +71,7 @@ class PageBloc extends Bloc<PageEvent, PageState> {
             roomName: event.roomModel.roomName,
             thumbnail: event.roomModel.picture,
             idOrder: event.idOrder,
+            statuscheckIn: "",
             idUser: event.uid,
             totalNight: event.totalNight.toString(),
             room: event.room.toString(),

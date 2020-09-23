@@ -33,15 +33,33 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
 
       yield OnSendEvidencePage(sendEvidence: data.copyWith(data));
     } 
+    else if (event is SendCheckIn) {
+      DateTime time = DateTime.now();
+      await BookService.checkIn(BookModels(
+          idOrder: event.idOrder,
+          checkIn: time.toString(),));
+    } 
+    else if (event is SendCheckOut) {
+      DateTime time = DateTime.now();
+      await BookService.checkOut(BookModels(
+          idOrder: event.idOrder,
+          checkOut: time.toString(),));
+    } 
     else if (event is SendApproval) {
       await BookService.approve(
           BookModels(idOrder: event.idOrder, status: event.status));
-
+      var a = await UserServices.getUser(event.idUser);
+      var b = await Network.sendAndRetrieveMessage(a.fcmToken);
+      print("a.fcmToken");
+      print(b);
       yield OnSuccess();
-    }
-    else if (event is SendReview) {
+    } else if (event is SendReview) {
       await BookService.updateRate(
-          RoomModel(rate: event.rate, review: event.review,),   event.idRoom);
+          RoomModel(
+            rate: event.rate,
+            review: event.review,
+          ),
+          event.idRoom);
 
       yield OnSuccess();
     }

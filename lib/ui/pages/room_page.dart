@@ -161,7 +161,7 @@ class RoomPage extends StatelessWidget {
             title: Text("Fasilitas"),
             subtitle: Container(
                 // padding: EdgeInsets.all(2.0),
-                width: MediaQuery.of(context).size.width / 1.2,
+                width: MediaQuery.of(context).size.width /2,
                 height: MediaQuery.of(context).size.height / 7,
                 decoration: BoxDecoration(
                   color: Colors.white,
