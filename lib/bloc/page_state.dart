@@ -157,3 +157,8 @@ class OnNewestPage extends PageState {
   @override
   List<Object> get props => [];
 }
+class OnNewestPageGlobal extends PageState {
+ 
+  @override
+  List<Object> get props => [];
+}

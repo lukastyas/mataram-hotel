@@ -17,10 +17,7 @@ class _ReviewPageState extends State<ReviewPage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: accentColor1,
-          title: Text("Review"),
-        ),
+        
         body: BlocListener<SendEvidenceBloc, SendEvidenceState>(
           listener: (context, state) {
             print(state);
@@ -43,7 +40,7 @@ class _ReviewPageState extends State<ReviewPage> {
                 children: <Widget>[
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height / 3,
+                    height: MediaQuery.of(context).size.height / 5,
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             image: (widget.book.thumbnail == ""
@@ -54,24 +51,28 @@ class _ReviewPageState extends State<ReviewPage> {
                   SizedBox(
                     height: 50.0,
                   ),
-                  RatingBar(
-                    initialRating: 3,
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                    itemBuilder: (context, _) => Icon(
-                      Icons.star,
-                      color: Colors.amber,
+                  Container(
+                    child: RatingBar(
+                      initialRating: 3,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemSize: 25,
+                      itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                        size: 10,
+                      ),
+                      onRatingUpdate: (rating) {
+                        print(rating);
+                        setState(() {
+                          rateResult = rating;
+                        });
+                        print(rateResult);
+                      },
                     ),
-                    onRatingUpdate: (rating) {
-                      print(rating);
-                      setState(() {
-                        rateResult = rating;
-                      });
-                      print(rateResult);
-                    },
                   ),
                   SizedBox(
                     height: 50.0,

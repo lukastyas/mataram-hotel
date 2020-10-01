@@ -3,6 +3,8 @@ part of 'pages.dart';
 class RoomPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    context.bloc<SearchRoomBloc>().add(LoadRoom(admin: true));
+
     // final Firestore firestore = Firestore.instance;
     // MediaQueryData mediaQueryData = MediaQuery.of(context);
 
@@ -105,7 +107,7 @@ class RoomPage extends StatelessWidget {
           children: <Widget>[
             GestureDetector(
               onTap: () {
-                context.bloc<PageBloc>().add(GoToSearchRoomPage(0));
+                context.bloc<PageBloc>().add(GoToSearchRoomPage(1));
               },
               child: Container(
                 width: MediaQuery.of(context).size.width / 2.7,
@@ -129,9 +131,9 @@ class RoomPage extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                context.bloc<PageBloc>().add(GoToSearchRoomPage(1));
+                context.bloc<PageBloc>().add(GoToSearchRoomPage(2));
               },
-                          child: Container(
+              child: Container(
                 width: MediaQuery.of(context).size.width / 2.7,
                 height: MediaQuery.of(context).size.height / 3.3,
                 decoration: BoxDecoration(
@@ -161,7 +163,7 @@ class RoomPage extends StatelessWidget {
             title: Text("Fasilitas"),
             subtitle: Container(
                 // padding: EdgeInsets.all(2.0),
-                width: MediaQuery.of(context).size.width /2,
+                width: MediaQuery.of(context).size.width / 2,
                 height: MediaQuery.of(context).size.height / 7,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -208,8 +210,107 @@ class RoomPage extends StatelessWidget {
                         'Toiletries'),
                   ],
                 ))),
+        BlocBuilder<SearchRoomBloc, SearchRoomState>(builder: (context, state) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.fromLTRB(25, 10, 20, 5),
+                child: Text(
+                  "Recomended",
+                  style: blackTextFont.copyWith(
+                      fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Container(
+                  margin: EdgeInsets.fromLTRB(25, 10, 20, 12),
+                  height: MediaQuery.of(context).size.height / 5,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: state.dataSearch.room.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {},
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                                padding: const EdgeInsets.all(8.0),
+                                width: MediaQuery.of(context).size.width / 1.3,
+                                height: MediaQuery.of(context).size.height / 6,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 2.0,
+                                  ),
+                                  color: Colors.white,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      width:
+                                          MediaQuery.of(context).size.width / 3,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              4,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: (state
+                                                          .dataSearch
+                                                          .room[index]
+                                                          .picture ==
+                                                      ""
+                                                  ? AssetImage(
+                                                      "assets/user_pic.png")
+                                                  : NetworkImage(state
+                                                      .dataSearch
+                                                      .room[index]
+                                                      .picture)),
+                                              fit: BoxFit.cover)),
+                                    ),
+                                    Container(
+                                        padding: EdgeInsets.only(
+                                            left: 8.0, right: 8.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            RatingStars(
+                                              voteAverage: double.parse((state
+                                                      .dataSearch
+                                                      .room[index]
+                                                      .rate == "null" || state
+                                                      .dataSearch
+                                                      .room[index]
+                                                      .rate ==  null) ? 
+                                                  "5.0":state
+                                                      .dataSearch
+                                                      .room[index]
+                                                      .rate),
+                                              color: Colors.amber,
+                                            ),
+                                            Text(state.dataSearch.room[index]
+                                                .roomName),
+                                            Text(state.dataSearch.room[index]
+                                                .roomName),
+                                            Text(
+                                                "Rp. ${state.dataSearch.room[index].price.toString()} / Night"),
+                                          ],
+                                        )),
+                                  ],
+                                )),
+                          ),
+                        );
+                      })),
+            ],
+          );
+        }),
         ListTile(
-            title: Text("Deskripsi Hotel"),
+            title: Text("Description"),
             subtitle: Container(
                 // padding: EdgeInsets.all(2.0),
                 width: MediaQuery.of(context).size.width / 1.2,
@@ -223,6 +324,5 @@ class RoomPage extends StatelessWidget {
                 ))),
       ],
     );
- 
   }
 }

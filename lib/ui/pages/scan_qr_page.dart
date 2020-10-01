@@ -47,42 +47,63 @@ class _ScanQRPageState extends State<ScanQRPage> {
           title: const Text('Scan QR Code'),
           backgroundColor: accentColor1,
         ),
-        body: Builder(builder: (BuildContext context) {
-          return Container(
-              padding: EdgeInsets.all(10.0),
-              alignment: Alignment.center,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text('Scan result : $_scanBarcode\n',
-                        style: TextStyle(fontSize: 20)),
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          MataramButton(
-                            onPressed: () => scanQR(1),
-                            title: Text(
-                              "Check In",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            color: 'edit',
+        body: Container(
+            padding: EdgeInsets.all(10.0),
+            alignment: Alignment.center,
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('Scan result : $_scanBarcode\n',
+                      style: TextStyle(fontSize: 20)),
+                  BlocListener<SendEvidenceBloc, SendEvidenceState>(
+                    listener: (context, state) {
+                      if (state is Errors) {
+                        Flushbar(
+                          duration: Duration(milliseconds: 1500),
+                          flushbarPosition: FlushbarPosition.BOTTOM,
+                          backgroundColor: Colors.red,
+                          message: state.message,
+                        )..show(context);
+                      }
+                    },
+                    child: BlocBuilder<SendEvidenceBloc, SendEvidenceState>(
+                        builder: (BuildContext context, state) {
+                      if (state is ScanResult) {
+                        return Text(state.statuCheckin == "1"
+                            ? "Check-in"
+                            : state.statuCheckin == "2"
+                                ? "Check Out"
+                                : "No Check-in");
+                      }
+                      return Container();
+                    }),
+                  ),
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        MataramButton(
+                          onPressed: () => scanQR(1),
+                          title: Text(
+                            "Check In",
+                            style: TextStyle(color: Colors.white),
                           ),
-                          SizedBox(
-                            width: 50,
+                          color: 'edit',
+                        ),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        MataramButton(
+                          onPressed: () => scanQR(2),
+                          title: Text(
+                            "Check Out",
+                            style: TextStyle(color: Colors.white),
                           ),
-                          MataramButton(
-                           onPressed: () => scanQR(2),
-                            title: Text(
-                              "Check Out",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            color: 'edit',
-                          ),
-                        ],
-                      ),
-                    )
-                  ]));
-        }));
+                          color: 'edit',
+                        ),
+                      ],
+                    ),
+                  )
+                ])));
   }
 }

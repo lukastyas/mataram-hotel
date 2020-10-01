@@ -139,6 +139,11 @@ class GotoCreateRoom extends PageEvent {
   @override
   List<Object> get props => [];
 }
+class GotoNewest extends PageEvent {
+
+  @override
+  List<Object> get props => [];
+}
 class GotoBookingDetail extends PageEvent {
     final BookModels book;
       final PageEvent pageEvent;

@@ -35,7 +35,6 @@ class Wrapper extends StatelessWidget {
                                     ? MyBookingPage(pageState.bookModels,
                                         pageState.pageEvent, pageState.role)
                                     : (pageState is OnSearchRoomPage)
-                                    
                                         ? SearchRoom(
                                             typeRoom: pageState.typeRoom)
                                         : (pageState is OnRoomDetailPage)
@@ -76,6 +75,9 @@ class Wrapper extends StatelessWidget {
                                                                 : (pageState
                                                                         is OnCreateRoom)
                                                                     ? CreateRoom()
+                                                                : (pageState
+                                                                        is OnNewestPageGlobal)
+                                                                    ? Newest()
                                                                     : MainPage());
   }
 }

@@ -20,6 +20,7 @@ class SendEvidencePage extends StatelessWidget {
         child: Scaffold(
             body: BlocListener<SendEvidenceBloc, SendEvidenceState>(
           listener: (context, state) {
+            
             if (state is OnSuccess) {
               Flushbar(
                 duration: Duration(milliseconds: 1500),
@@ -27,25 +28,17 @@ class SendEvidencePage extends StatelessWidget {
                 backgroundColor: Colors.green,
                 message: 'Success',
               )..show(context);
-                 context
-              .bloc<PageBloc>()
-              .add(GotoTransferPage(roomModel: room, back: true));
-          return;
+              context
+                  .bloc<PageBloc>()
+                  .add(GotoNewest());
+      
             }
-                   
-
           },
           child: BlocBuilder<SendEvidenceBloc, SendEvidenceState>(
               builder: (context, state) {
             print("ini state");
             print(state);
-            // if (state is SendEvidenceInitial){
-            //   return Center(
-            //             child: CircularProgressIndicator(
-            //           strokeWidth: 0.5,
-            //           backgroundColor: Colors.amber,
-            //         ));
-            // }
+           
             return Padding(
               padding: const EdgeInsets.only(top: 100.0),
               child: Column(
@@ -59,12 +52,15 @@ class SendEvidencePage extends StatelessWidget {
                       ),
                       width: MediaQuery.of(context).size.width / 1.4,
                       height: MediaQuery.of(context).size.height / 3,
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                          child: Image.asset(
-                              state?.sendEvidence?.image?.path == null
-                                  ? ""
-                                  : state.sendEvidence.image.path)),
+                      child: state?.sendEvidence?.image?.path == null
+                          ? Container()
+                          : ClipRRect(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              child:
+                                  Image.file(
+                                    
+                                    state.sendEvidence.image)),
                     ),
                   ),
                   Row(
@@ -86,11 +82,11 @@ class SendEvidencePage extends StatelessWidget {
                           onPressed: () async {
                             a = await getImage();
                             state.sendEvidence.image = a;
-                              print(a.path);
+                            print(a.path);
                             context
                                 .bloc<SendEvidenceBloc>()
                                 .add(OnPickedImage());
-                                          print( state.sendEvidence.image);
+                            print(state.sendEvidence.image);
                             return;
                           })
                     ],

@@ -27,7 +27,7 @@ class BookDetail extends StatelessWidget {
               .difference(state.dataSearch.selecetedDateFrom)
               .inDays;
           final total = price * difference;
-          final totalRoom = (price * state.dataSearch.rooms)*difference;
+          final totalRoom = (price * state.dataSearch.rooms) * difference;
           final wallet = totalRoom + total;
           print(" dir$difference");
           print(total);
@@ -76,7 +76,7 @@ class BookDetail extends StatelessWidget {
                                 RatingStars(
                                   voteAverage: room.rate == null
                                       ? 1.0
-                                      : room.rate.toDouble(),
+                                      : double.parse(room.rate),
                                   color: Colors.amber,
                                 )
                               ],
@@ -108,31 +108,37 @@ class BookDetail extends StatelessWidget {
                           subtitle: Text(dateFormat.format(
                             state.dataSearch.selecetedDateTo,
                           ))),
-                      MataramTile(
-                          title: Text('Adult'),
-                          subtitle: Text(state.dataSearch.adult.toString())),
-                      MataramTile(
-                          title: Text('Children'),
-                          subtitle: Text(state.dataSearch.children.toString())),
-                      MataramTile(
-                        title: Text('Room'),
-                        subtitle: Text(state.dataSearch.rooms.toString()),
-                      ),
+                      room.type == "2"
+                          ? Container()
+                          : MataramTile(
+                              title: Text('Adult'),
+                              subtitle:
+                                  Text(state.dataSearch.adult.toString())),
+                      room.type == "2"
+                          ? Container()
+                          : MataramTile(
+                              title: Text('Children'),
+                              subtitle:
+                                  Text(state.dataSearch.children.toString())),
+                      room.type == "2"
+                          ? Container()
+                          : MataramTile(
+                              title: Text('Room'),
+                              subtitle: Text(state.dataSearch.rooms.toString()),
+                            ),
                       MataramTile(
                           title: Text('Price'),
                           subtitle: Text(
                               "${formatCurrency.format(price)} x ${state.dataSearch.rooms.toString()} Room(s)")),
-                    
                       Container(
                         alignment: Alignment.center,
                         margin: EdgeInsets.only(top: 20, bottom: 16, left: 20),
                         child: generateDashedDivider(
                             MediaQuery.of(context).size.width / 1.2),
                       ),
-                        MataramTile(
+                      MataramTile(
                         title: Text('Total'),
-                        subtitle: Text(
-                            "${formatCurrency.format(totalRoom)}",
+                        subtitle: Text("${formatCurrency.format(totalRoom)}",
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       ),
                       Container(
@@ -140,12 +146,12 @@ class BookDetail extends StatelessWidget {
                         child: MataramButton(
                           onPressed: () {
                             context.bloc<PageBloc>().add(GotoTransferPage(
-                              idOrder:v4crypto ,
-                              uid: uid,
-                              totalNight :difference,
-                              room: state.dataSearch.rooms,
-                              back: false,
-                              wallet: wallet,
+                                idOrder: v4crypto,
+                                uid: uid,
+                                totalNight: difference,
+                                room: state.dataSearch.rooms,
+                                back: false,
+                                wallet: wallet,
                                 selecetedDateFrom:
                                     state.dataSearch.selecetedDateFrom,
                                 selecetedDateTo:

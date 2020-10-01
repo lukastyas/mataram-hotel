@@ -18,7 +18,7 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
   ) async* {
     if (event is LoadSendEvidence) {
       SendEvidence data = state.sendEvidence;
-      // yield  SendEvidenceInitial(sendEvidence: SendEvidence());
+      yield SendEvidenceInitial(sendEvidence: SendEvidence());
       print("event.room.id");
       print(data.image);
       String evidence;
@@ -32,31 +32,59 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
       SendEvidence data = state.sendEvidence;
 
       yield OnSendEvidencePage(sendEvidence: data.copyWith(data));
-    } 
-    else if (event is SendCheckIn) {
+    } else if (event is SendCheckIn) {
       DateTime time = DateTime.now();
-      await BookService.checkIn(BookModels(
+      print("book[0].roomName");
+      print(event.idOrder);
+      List<BookModels> book = await BookService.getBook();
+      String statusCheckin;
+      book.forEach((element) {
+        statusCheckin = element.statuscheckIn;
+      });
+      if (statusCheckin == "0" || statusCheckin == null) {
+        await BookService.checkIn(BookModels(
           idOrder: event.idOrder,
-          checkIn: time.toString(),));
-    } 
-    else if (event is SendCheckOut) {
+          checkIn: time.toString(),
+        ));
+        yield ScanResult(statuCheckin: statusCheckin);
+      } else if (statusCheckin == "1") {
+        yield Errors(message: 'This Room has been check-in');
+      } else if (statusCheckin == "2") {
+        yield Errors(message: 'This Room has been check-out');
+      }
+    } else if (event is SendCheckOut) {
       DateTime time = DateTime.now();
-      await BookService.checkOut(BookModels(
+      List<BookModels> book = await BookService.getBook();
+      String statusCheckin;
+      book.forEach((element) {
+        statusCheckin = element.statuscheckIn;
+      });
+      if (statusCheckin == "1") {
+        await BookService.checkOut(BookModels(
           idOrder: event.idOrder,
-          checkOut: time.toString(),));
-    } 
-    else if (event is SendApproval) {
+          checkOut: time.toString(),
+        ));
+        yield ScanResult(statuCheckin: statusCheckin);
+      } else if (statusCheckin == "2") {
+        yield Errors(message: 'This Room has been check-out');
+      } else {
+        yield Errors(message: 'Please Check Your ticket');
+      }
+    } else if (event is SendApproval) {
+      // yield OnSuccess();
+      print("a.fcmToken");
+      print("b");
       await BookService.approve(
           BookModels(idOrder: event.idOrder, status: event.status));
       var a = await UserServices.getUser(event.idUser);
-      var b = await Network.sendAndRetrieveMessage(a.fcmToken);
-      print("a.fcmToken");
-      print(b);
+      print(a.fcmToken);
+      await Network.sendAndRetrieveMessage(a.fcmToken);
+
       yield OnSuccess();
     } else if (event is SendReview) {
       await BookService.updateRate(
           RoomModel(
-            rate: event.rate,
+            rate: event.rate.toString(),
             review: event.review,
           ),
           event.idRoom);

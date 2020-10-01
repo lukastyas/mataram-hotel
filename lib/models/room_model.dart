@@ -3,15 +3,17 @@ part of 'models.dart';
 class RoomModel extends Equatable {
   final String id;
   final String description;
+  final String facility;
   final String picture;
   final int price;
   final String roomName;
   final String type;
-  final double rate;
+  final String rate;
   final int noFRoom;
   final int noRoom;
   final String data;
   final String review;
+  final String capacity;
   final List<dynamic> photos;
 
   RoomModel({this.noFRoom, this.noRoom, 
@@ -19,6 +21,8 @@ class RoomModel extends Equatable {
         this.id,
         this.type,
         this.photos,
+        this.facility,
+        this.capacity,
       this.description,
       this.data,
       this.picture,
@@ -32,6 +36,8 @@ class RoomModel extends Equatable {
           description: this.description,
           picture: picture ?? this.picture,
           noFRoom: noFRoom ?? this.noFRoom,
+          facility: facility ?? this.facility,
+          capacity: capacity ?? this.capacity,
           noRoom: noRoom ?? this.noRoom,
           type: type ?? this.type,
           price: price ?? this.price,
@@ -45,7 +51,9 @@ class RoomModel extends Equatable {
         description: json["description"],
         picture: json["picture"],
         price: json["price"],
+        capacity: json["capacity"],
         rate: json["rate"],
+        facility: json["facilities"],
         type: json["type"],
         noFRoom: json["no_of_roomm"],
         roomName: json["roomName"],
@@ -56,7 +64,9 @@ class RoomModel extends Equatable {
  Map<String, dynamic> toJson() => {
         "description": description,
         "picture": picture,
+        "facilities": facility,
         "price": price,
+        "capacity": capacity,
         "rate": rate,
         "type": type,
         "no_of_roomm": noFRoom,

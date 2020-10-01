@@ -24,7 +24,6 @@ class _TransferPageState extends State<TransferPage>
     _controller.forward();
 
     print("_controller");
-
   }
 
   @override
@@ -44,8 +43,9 @@ class _TransferPageState extends State<TransferPage>
       },
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.only(top: 100.0,left: 50.0, right: 50.0 ),
+          padding: const EdgeInsets.only(top: 100.0, left: 20, right: 20),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Center(
                 child: Container(
@@ -55,6 +55,8 @@ class _TransferPageState extends State<TransferPage>
                   child: Container(
                     padding: EdgeInsets.all(8.0),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(
                           "Amount To be Paid",
@@ -62,7 +64,7 @@ class _TransferPageState extends State<TransferPage>
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text("Rp. 1212"),
+                          child: Text("Rp. ${widget.wallet}"),
                         ),
                         Container(
                             width: MediaQuery.of(context).size.width / 1.3,
@@ -90,7 +92,7 @@ class _TransferPageState extends State<TransferPage>
                               Text("Please complete payment within "),
                               Countdown(
                                 animation: StepTween(
-                                  begin:  60*60,
+                                  begin: 60 * 60,
                                   end: 0,
                                 ).animate(_controller),
                               ),

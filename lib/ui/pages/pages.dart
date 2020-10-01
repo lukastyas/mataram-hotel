@@ -25,6 +25,10 @@ import 'package:barcode/barcode.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+
+
+
 part 'account_confirmation_page.dart';
 part 'book_detail.dart';
 part 'create_room.dart';

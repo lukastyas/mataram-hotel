@@ -32,29 +32,47 @@ class _BookingDetailState extends State<BookingDetail> {
           backgroundColor: accentColor1,
           title: Text("Book Detail"),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Container(
-                // height: MediaQuery.of(context).size.height / 3,
-
-                margin: const EdgeInsets.all(18.0),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 2.0,
-                  ),
-                  color: Colors.white,
-                ),
-                // height: MediaQuery.of(context).size.height / 4,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+        body: BlocBuilder<SendEvidenceBloc, SendEvidenceState>(
+          builder: (context, state) {
+             if (state is SendEvidenceInitial) {
+                Center(
+                    child: CircularProgressIndicator(
+                  strokeWidth: 0.5,
+                ));
+              } else if (state is OnSuccess) {
+                context.bloc<PageBloc>().add(widget.pageEvent);
+                Flushbar(
+                  duration: Duration(milliseconds: 1500),
+                  flushbarPosition: FlushbarPosition.BOTTOM,
+                  backgroundColor: Colors.green,
+                  message: "Success",
+                )..show(context);
+              }
+              print("======state=====");
+              print(state);
+            return SingleChildScrollView(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
-                        width: MediaQuery.of(context).size.width,
+                        // height: MediaQuery.of(context).size.height / 3,
+        
+                        margin: const EdgeInsets.all(18.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 2.0,
+                          ),
+                          color: Colors.white,
+                        ),
+                        // height: MediaQuery.of(context).size.height / 4,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height / 6.5,
                         decoration: BoxDecoration(
                             image: DecorationImage(
@@ -138,6 +156,8 @@ class _BookingDetailState extends State<BookingDetail> {
               )
             ],
           ),
+        )       ;
+          },
         ),
       ),
     );

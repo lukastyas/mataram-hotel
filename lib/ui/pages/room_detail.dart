@@ -104,7 +104,7 @@ class RoomDetail extends StatelessWidget {
                room.rate == null ? Container():  Padding(
                   padding: const EdgeInsets.only(left: 130.0),
                   child: RatingStars(
-                    voteAverage: room.rate.toDouble(),
+                    voteAverage:double.parse( room.rate),
                     color: Colors.amber,
                   ),
                 ),
@@ -128,13 +128,35 @@ class RoomDetail extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: ListTile(
                       title: Text("Description Room"),
-                      subtitle: Text(
-                        room.description?? "",
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
-                        textAlign: TextAlign.justify,
-                      )),
+                      subtitle:HtmlWidget(
+                        room.description?? ""
+                      )
+                      
+                      //  Text(
+                      //   room.description?? "",
+                      //   style: TextStyle(
+                      //     color: Colors.grey,
+                      //   ),
+                      //   textAlign: TextAlign.justify,
+                      // )
+                      ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                      title: Text("Facility"),
+                      subtitle:HtmlWidget(
+                        room.facility?? ""
+                      )
+                      
+                      //  Text(
+                      //   room.description?? "",
+                      //   style: TextStyle(
+                      //     color: Colors.grey,
+                      //   ),
+                      //   textAlign: TextAlign.justify,
+                      // )
+                      ),
                 ),
                 MataramButton(
                   onPressed: () {

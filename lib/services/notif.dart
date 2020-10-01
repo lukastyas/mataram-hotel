@@ -80,7 +80,7 @@ Future showNotification() async {
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
-        showNotification();
+        // showNotification();
       },
       onLaunch: (Map<String, dynamic> message) async {
         print("onLaunch: $message");

@@ -10,7 +10,7 @@ class Network {
       const IosNotificationSettings(
           sound: true, badge: true, alert: true, provisional: false),
     );
-
+print(tokenTo);
     await http.post(
       'https://fcm.googleapis.com/fcm/send',
       headers: <String, String>{
@@ -20,8 +20,8 @@ class Network {
       body: jsonEncode(
         <String, dynamic>{
           'notification': <String, dynamic>{
-            'body': 'this is a body',
-            'title': 'this is a title'
+            'body': 'Your Booking was be Approve',
+            'title': 'Booking'
           },
           'priority': 'high',
           'data': <String, dynamic>{
@@ -29,7 +29,7 @@ class Network {
             'id': '1',
             'status': 'done'
           },
-          'to': await firebaseMessaging.getToken(),
+          'to': tokenTo,
         },
       ),
     );

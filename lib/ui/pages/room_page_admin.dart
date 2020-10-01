@@ -113,13 +113,10 @@ class RoomPageAdmin extends StatelessWidget {
           ),
           BlocBuilder<SearchRoomBloc, SearchRoomState>(
               builder: (context, state) {
-            print("INNI SIISIS");
-            print(state);
             if (state is SearchRoomInitial) {
               return Container();
             }
             if (state is RoomLoaded) {
-              print(state.dataSearch.room.length);
               return Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,7 +135,7 @@ class RoomPageAdmin extends StatelessWidget {
                           itemCount: state.dataSearch.room.length,
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding: const EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(2.0),
                               child: Container(
                                   padding: const EdgeInsets.all(8.0),
                                   width: MediaQuery.of(context).size.width / 2,
@@ -188,9 +185,8 @@ class RoomPageAdmin extends StatelessWidget {
                                             children: <Widget>[
                                             state. dataSearch.room[index].rate == null ? Container(): RatingStars(
                                                 starSize: 12.0,
-                                                voteAverage: state
-                                                    .dataSearch.room[index].rate
-                                                    .toDouble(),
+                                                voteAverage: double.parse( state
+                                                    .dataSearch.room[index].rate),
                                                 color: Colors.amber,
                                               ),
                                               Padding(
@@ -217,7 +213,10 @@ class RoomPageAdmin extends StatelessWidget {
                                               Padding(
                                                 padding: const EdgeInsets.only(
                                                     top: 8.0),
-                                                child: Text(
+                                                child: state
+                                                            .dataSearch
+                                                            .room[index].type =="1" ? Text(
+                                                    "Rp. ${state.dataSearch.room[index].price.toString()} / Pax") :Text(
                                                     "Rp. ${state.dataSearch.room[index].price.toString()} / Night"),
                                               ),
                                             ],

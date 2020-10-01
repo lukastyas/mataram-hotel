@@ -69,15 +69,15 @@ class _MyBookingPageState extends State<MyBookingPage> {
                     print(widget.bookModels[index].idUser);
                     if (firebaseUser.uid == widget.bookModels[index].idUser &&
                         widget.role == 0 &&
-                        widget.bookModels[index].status.toString() == "2") {
+                        widget.bookModels[index].status.toString() == "1") {
                       return GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => BookDetailUserPage(
-                                          book: widget.bookModels[index],
-                                        )));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => BookDetailUserPage(
+                            //               book: widget.bookModels[index],
+                            //             )));
                           },
                           child: Container(
                             margin: const EdgeInsets.all(18.0),
@@ -139,7 +139,7 @@ class _MyBookingPageState extends State<MyBookingPage> {
                                           widget.bookModels[index].status
                                                       .toString() ==
                                                   "1"
-                                              ? "Pending"
+                                              ? "Processing"
                                               : widget.bookModels[index].status
                                                           .toString() ==
                                                       "2"
@@ -166,6 +166,7 @@ class _MyBookingPageState extends State<MyBookingPage> {
                     } else if (widget.role == 1) {
                       return GestureDetector(
                         onTap: () {
+                          print("INI KUY");
                           widget.role == 1
                               ? context.bloc<PageBloc>().add(GotoBookingDetail(
                                   widget.bookModels[index], widget.pageEvent))

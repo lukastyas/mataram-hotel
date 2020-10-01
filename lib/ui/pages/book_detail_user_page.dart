@@ -15,22 +15,28 @@ class _BookDetailUserPageState extends State<BookDetailUserPage> {
   void initState() {
     super.initState();
     dateFormat = new DateFormat("d MMMM yyyy");
+ WidgetsBinding.instance.addPostFrameCallback((_) async {
+   if (widget.book.statuscheckIn == "2") {
+      await showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => new AlertDialog(
+              title: new Text("Please Rate Us"),
+              content: ReviewPage(
+                        book: widget.book,
+                      ),
+             
+            ),
+      );
+   }
+    });
+ 
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-       if (DateTime.parse(widget.book.checkOut) != DateTime.now()){
-         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ReviewPage(
-                                    book: widget.book,
-                                  )));
-       } 
-      },
-          child: Scaffold(
+    return  Scaffold(
         appBar: AppBar(
           backgroundColor: accentColor1,
           title: Text("Ticket Detail"),
@@ -61,9 +67,11 @@ class _BookDetailUserPageState extends State<BookDetailUserPage> {
                 ),
                 Row(
                   children: <Widget>[
-                    Text(dateFormat.format(DateTime.parse(widget.book.checkIn))),
+                    Text(
+                        dateFormat.format(DateTime.parse(widget.book.checkIn))),
                     Text(' - '),
-                    Text(dateFormat.format(DateTime.parse(widget.book.checkOut))),
+                    Text(dateFormat
+                        .format(DateTime.parse(widget.book.checkOut))),
                   ],
                 ),
                 Row(
@@ -118,9 +126,7 @@ class _BookDetailUserPageState extends State<BookDetailUserPage> {
                     left: 80,
                   ),
                   child: MataramButton(
-                    onPressed: () async {
-                     
-                    },
+                    onPressed: () async {},
                     title: Text(
                       "Please Review Us",
                       style: TextStyle(color: Colors.white),
@@ -132,7 +138,6 @@ class _BookDetailUserPageState extends State<BookDetailUserPage> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }

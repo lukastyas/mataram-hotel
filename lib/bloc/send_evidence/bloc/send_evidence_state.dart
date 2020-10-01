@@ -24,7 +24,14 @@ class OnSuccess extends SendEvidenceState {
 
   OnSuccess({this.sendEvidence});
 }
-
+class ScanResult extends SendEvidenceState{
+  final String statuCheckin;
+  ScanResult({this.statuCheckin});
+}
+class Errors extends SendEvidenceState{
+  final String message;
+  Errors({this.message});
+}
 class SendEvidence {
   File image;
 
@@ -33,3 +40,4 @@ class SendEvidence {
   SendEvidence copyWith(SendEvidence data) =>
       SendEvidence(image: data.image ?? this.image);
 }
+
