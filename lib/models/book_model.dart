@@ -12,24 +12,30 @@ class BookModels {
   final String roomName;
   final String thumbnail;
   final String totalNight;
+  final String type;
   final String room;
   final String status;
   final double rate;
   final String review;
+  final int noofRoom;
+  final String startEvent;
 
   BookModels({this.totalNight, this.room, 
       this.idOrder,
       this.review,
+      this.type,
       this.status,
       this.rate,
       this.statuscheckIn,
       this.idUser,
+      this.noofRoom,
       this.idRoom,
       this.roomName,
       this.thumbnail,
       this.checkIn,
       this.checkOut,
       this.evidence,
+      this.startEvent,
       this.price});
 
   factory BookModels.fromJson(
@@ -42,6 +48,7 @@ class BookModels {
         thumbnail: json['thumbnail'],
         roomName: json['roomName'],
         checkOut: json["check_out"],
+        type: json["type"],
         idOrder: json["id_order"],
         idUser: json["id_user"],
         idRoom: json["id_room"],
@@ -49,5 +56,7 @@ class BookModels {
         price: json["price"],
         checkIn: json["check_in"],
         evidence: json["evidence"],
+        startEvent: json["start_event"],
+        noofRoom: json["no_of_room"],
       );
 }

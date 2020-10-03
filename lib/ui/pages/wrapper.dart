@@ -33,7 +33,7 @@ class Wrapper extends StatelessWidget {
                                 ? EditProfilePage(pageState.user)
                                 : (pageState is OnMyBookingPage)
                                     ? MyBookingPage(pageState.bookModels,
-                                        pageState.pageEvent, pageState.role)
+                                        pageState.pageEvent, pageState.role, pageState.roomModel)
                                     : (pageState is OnSearchRoomPage)
                                         ? SearchRoom(
                                             typeRoom: pageState.typeRoom)
@@ -59,6 +59,7 @@ class Wrapper extends StatelessWidget {
                                                                 .idOrder,
                                                             room: pageState
                                                                 .roomModel,
+                                                                wallet: pageState.wallet,
                                                           )
                                                         : (pageState
                                                                 is OnBookingDetail)

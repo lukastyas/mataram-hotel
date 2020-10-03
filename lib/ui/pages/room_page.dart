@@ -107,7 +107,7 @@ class RoomPage extends StatelessWidget {
           children: <Widget>[
             GestureDetector(
               onTap: () {
-                context.bloc<PageBloc>().add(GoToSearchRoomPage(1));
+                context.bloc<PageBloc>().add(GoToSearchRoomPage(0));
               },
               child: Container(
                 width: MediaQuery.of(context).size.width / 2.7,
@@ -131,7 +131,7 @@ class RoomPage extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                context.bloc<PageBloc>().add(GoToSearchRoomPage(2));
+                context.bloc<PageBloc>().add(GoToSearchRoomPage(1));
               },
               child: Container(
                 width: MediaQuery.of(context).size.width / 2.7,
@@ -186,31 +186,33 @@ class RoomPage extends StatelessWidget {
                         'Satelite Television'),
                     ContentTile(
                         Icon(
-                          Icons.wifi,
+                          Icons.local_drink,
                           size: 16,
                         ),
                         'Mineral Water'),
+                   
                     ContentTile(
                         Icon(
-                          Icons.wifi,
-                          size: 16,
-                        ),
-                        'Clean Linen'),
-                    ContentTile(
-                        Icon(
-                          Icons.wifi,
+                          Icons.hot_tub,
                           size: 16,
                         ),
                         'Clean Washroom'),
                     ContentTile(
                         Icon(
-                          Icons.wifi,
+                          Icons.directions_walk,
                           size: 16,
                         ),
                         'Toiletries'),
                   ],
                 ))),
         BlocBuilder<SearchRoomBloc, SearchRoomState>(builder: (context, state) {
+          if(state is SearchRoomInitial){
+               return Center(
+          child: CircularProgressIndicator(
+        strokeWidth: 0.5,
+        backgroundColor: Colors.amber,
+      ));
+          }
           return Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -281,15 +283,17 @@ class RoomPage extends StatelessWidget {
                                           children: <Widget>[
                                             RatingStars(
                                               voteAverage: double.parse((state
-                                                      .dataSearch
-                                                      .room[index]
-                                                      .rate == "null" || state
-                                                      .dataSearch
-                                                      .room[index]
-                                                      .rate ==  null) ? 
-                                                  "5.0":state
-                                                      .dataSearch
-                                                      .room[index]
+                                                              .dataSearch
+                                                              .room[index]
+                                                              .rate ==
+                                                          "null" ||
+                                                      state
+                                                              .dataSearch
+                                                              .room[index]
+                                                              .rate ==
+                                                          null)
+                                                  ? "5.0"
+                                                  : state.dataSearch.room[index]
                                                       .rate),
                                               color: Colors.amber,
                                             ),

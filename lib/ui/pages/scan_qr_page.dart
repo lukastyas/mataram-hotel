@@ -69,6 +69,7 @@ class _ScanQRPageState extends State<ScanQRPage> {
                     child: BlocBuilder<SendEvidenceBloc, SendEvidenceState>(
                         builder: (BuildContext context, state) {
                       if (state is ScanResult) {
+                        print(state.statuCheckin);
                         return Text(state.statuCheckin == "1"
                             ? "Check-in"
                             : state.statuCheckin == "2"

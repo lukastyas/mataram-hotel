@@ -15,6 +15,7 @@ class CreateRoomService{
       'roomName': room.roomName ,
       'capacity': room.capacity ,
       'facilities': room.data ,
+      'duration':room.duration,
       'photos': room.photos ,
       'no_room': room.noRoom ,
       'no_of_room': room.noFRoom ,

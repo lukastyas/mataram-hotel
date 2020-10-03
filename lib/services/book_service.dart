@@ -15,9 +15,12 @@ class BookService {
       'check_out': bookModel.checkOut,
       'room_name': bookModel.roomName,
       'thumbnail': bookModel.thumbnail,
+      'start_event': bookModel.startEvent,
       'total_night': bookModel.totalNight,
       'room': bookModel.room,
       'status': "1",
+      'type':bookModel.type,
+      'create_date':DateTime.now(),
 
       // 'time_stamp': firebase.database.ServerValue.TIMESTAMP ,
 
@@ -27,7 +30,11 @@ class BookService {
     // print(snapshot);
   }
 
-
+ static Future<void> updateNofRoom(BookModels user) async {
+    roomCollection.document(user.idRoom).updateData({
+      'no_of_room': user.noofRoom,
+    });
+  }
 
   static Future<void> updateUser(BookModels user) async {
     _bookCollection.document(user.idOrder).updateData({
@@ -76,6 +83,8 @@ class BookService {
             idOrder: e.data['id_order'],
             idUser: e.data['id_user'],
             idRoom: e.data['id_room'],
+            type: e.data['type'],
+            startEvent: e.data['start_event'],
             price: e.data['price'],
             status: e.data['status'],
             statuscheckIn: e.data['status_check_in'],

@@ -13,7 +13,8 @@ class AddRoom extends CreateRoomEvent{
   final int noFRoom;
   final String roomNamme;
   final String capacity;
+  final String duration;
 
 
-  AddRoom({this.noRoom, this.capacity, this.noFRoom, this.description, this.price, this.roomNamme});
+  AddRoom({this.noRoom, this.capacity,  this.duration, this.noFRoom, this.description, this.price, this.roomNamme});
 }

@@ -2,6 +2,7 @@ part of 'pages.dart';
 
 class MyBookingPage extends StatefulWidget {
   final List<BookModels> bookModels;
+  final List<RoomModel> roomModels;
   final PageEvent pageEvent;
   final role;
 
@@ -9,6 +10,7 @@ class MyBookingPage extends StatefulWidget {
     this.bookModels,
     this.pageEvent,
     this.role,
+    this.roomModels,
   );
 
   @override
@@ -25,12 +27,14 @@ class _MyBookingPageState extends State<MyBookingPage> {
   void initState() {
     super.initState();
     dateFormat = new DateFormat("d MMMM yyyy");
+    print("irebaseUser.uid");
+    print(widget.bookModels[0].type);
+    print(widget.roomModels[0].roomName);
   }
 
   @override
   Widget build(BuildContext context) {
     FirebaseUser firebaseUser = Provider.of<FirebaseUser>(context);
-
     return WillPopScope(
       onWillPop: () async {
         context.bloc<PageBloc>().add(widget.pageEvent);
@@ -65,8 +69,6 @@ class _MyBookingPageState extends State<MyBookingPage> {
               child: ListView.builder(
                   itemCount: widget.bookModels.length,
                   itemBuilder: (context, index) {
-                    print(firebaseUser.uid);
-                    print(widget.bookModels[index].idUser);
                     if (firebaseUser.uid == widget.bookModels[index].idUser &&
                         widget.role == 0 &&
                         widget.bookModels[index].status.toString() == "1") {
@@ -117,11 +119,24 @@ class _MyBookingPageState extends State<MyBookingPage> {
                                     child: Text(widget
                                         .bookModels[index].roomName
                                         .toString()),
-                                  ),  
+                                  ),
                                   Text(
                                       "Check In : ${dateFormat.format(DateTime.parse(widget.bookModels[index].checkIn))}"),
-                                  Text(
-                                      "Check Out : ${dateFormat.format(DateTime.parse(widget.bookModels[index].checkOut))}"),
+                               widget.bookModels[index].type == "0" ? Container():    Row(
+                                    children: <Widget>[
+                                      Text("Start Event"),
+                                      Text(' : '),
+                                      Text(
+                                          widget.bookModels[index].startEvent
+                                                      .toString() 
+                                                ),
+                                    ],
+                                  ),
+                                  widget.bookModels[index].type == "0"
+                                      ? Text(
+                                          "Check Out : ${dateFormat.format(DateTime.parse(widget.bookModels[index].checkOut))}")
+                                      : Text(
+                                          "End Event : ${widget.bookModels[index].checkOut}"),
                                   Row(
                                     children: <Widget>[
                                       Text(
@@ -226,8 +241,11 @@ class _MyBookingPageState extends State<MyBookingPage> {
                                     Text(dateFormat.format(DateTime.parse(
                                         widget.bookModels[index].checkIn))),
                                     Text(' - '),
-                                    Text(dateFormat.format(DateTime.parse(
-                                        widget.bookModels[index].checkOut))),
+                                     widget.bookModels[index].type == "0"
+                                      ? Text(
+                                          "${dateFormat.format(DateTime.parse(widget.bookModels[index].checkOut))}")
+                                      : Text(
+                                          "End Event : ${widget.bookModels[index].checkOut}"),
                                   ],
                                 ),
                                 Row(

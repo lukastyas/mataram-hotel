@@ -41,6 +41,8 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
       book.forEach((element) {
         statusCheckin = element.statuscheckIn;
       });
+      print("statusCheckin");
+      print(statusCheckin);
       if (statusCheckin == "0" || statusCheckin == null) {
         await BookService.checkIn(BookModels(
           idOrder: event.idOrder,

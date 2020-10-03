@@ -32,14 +32,11 @@ class PageBloc extends Bloc<PageEvent, PageState> {
       yield OnRegistrationPage(event.registrationData);
     } else if (event is GoToAccountConfirmationPage) {
       yield OnAccountConfirmationPage(event.registrationData);
-    }
-     else if (event is GoToProfilePage) {
+    } else if (event is GoToProfilePage) {
       yield OnProfilePage();
-    } 
-     else if (event is GotoNewest) {
+    } else if (event is GotoNewest) {
       yield OnNewestPageGlobal();
-    } 
-    else if (event is GoToEditProfilePage) {
+    } else if (event is GoToEditProfilePage) {
       yield OnEditProfilePage(event.user);
     } else if (event is GotoScanPage) {
       yield OnScanPage(event.pageEvent);
@@ -77,19 +74,24 @@ class PageBloc extends Bloc<PageEvent, PageState> {
             thumbnail: event.roomModel.picture,
             idOrder: event.idOrder,
             statuscheckIn: "",
+            type: event.roomModel.type,
             idUser: event.uid,
+            startEvent: event.startEvent.toString(),
             totalNight: event.totalNight.toString(),
             room: event.room.toString(),
             idRoom: event.roomModel.id,
             checkIn: event.selecetedDateFrom.toString(),
             checkOut: event.selecetedDateTo.toString(),
             price: event.wallet));
+
+        await BookService.updateNofRoom(BookModels(
+            idRoom: event.roomModel.id, noofRoom: event.roomModel.noFRoom - 1));
       }
 
       yield OnTransferPage(
           event.idOrder, event.uid, event.wallet, event.roomModel);
     } else if (event is GotoSendEvidence) {
-      yield OnSendEvidence(event.idOrder, event.room);
+      yield OnSendEvidence(event.idOrder, event.room, event.wallet);
     } else if (event is GotoCreateRoom) {
       yield OnCreateRoom();
     } else if (event is GotoBookingDetail) {

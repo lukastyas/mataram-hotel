@@ -134,95 +134,102 @@ class RoomPageAdmin extends StatelessWidget {
                           ),
                           itemCount: state.dataSearch.room.length,
                           itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: Container(
-                                  padding: const EdgeInsets.all(8.0),
-                                  width: MediaQuery.of(context).size.width / 2,
-                                  height:
-                                      MediaQuery.of(context).size.height / 2,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.black,
-                                      width: 2.0,
-                                    ),
-                                    color: Colors.white,
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        height:
-                                            MediaQuery.of(context).size.height /
-                                                6.5,
-                                        decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                image: (state
-                                                            .dataSearch
-                                                            .room[index]
-                                                            .picture ==
-                                                        ""
-                                                    ? AssetImage(
-                                                        "assets/user_pic.png")
-                                                    : NetworkImage(state
-                                                        .dataSearch
-                                                        .room[index]
-                                                        .picture)),
-                                                fit: BoxFit.cover)),
+                            return GestureDetector(
+                              onTap: (){
+                                print(state.dataSearch.room[index].id);
+                              },
+                                                          child: Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: Container(
+                                    padding: const EdgeInsets.all(8.0),
+                                    width: MediaQuery.of(context).size.width / 2,
+                                    height:
+                                        MediaQuery.of(context).size.height / 2,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.black,
+                                        width: 2.0,
                                       ),
-                                      Container(
-                                          padding: EdgeInsets.only(
-                                              top: 8.0, left: 8.0, right: 8.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                            state. dataSearch.room[index].rate == null ? Container(): RatingStars(
-                                                starSize: 12.0,
-                                                voteAverage: double.parse( state
-                                                    .dataSearch.room[index].rate),
-                                                color: Colors.amber,
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8.0),
-                                                child: Text(
-                                                    state.dataSearch.room[index]
-                                                                .type ==
-                                                            "1"
-                                                        ? "Room Name"
-                                                        : "Meeting Room Name",
-                                                    style: TextStyle(
-                                                        fontSize: 12.0)),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8.0),
-                                                child: Text(
-                                                    state.dataSearch.room[index]
-                                                        .roomName,
-                                                    style: TextStyle(
-                                                        fontSize: 12.0)),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8.0),
-                                                child: state
-                                                            .dataSearch
-                                                            .room[index].type =="1" ? Text(
-                                                    "Rp. ${state.dataSearch.room[index].price.toString()} / Pax") :Text(
-                                                    "Rp. ${state.dataSearch.room[index].price.toString()} / Night"),
-                                              ),
-                                            ],
-                                          )),
-                                    ],
-                                  )),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          height:
+                                              MediaQuery.of(context).size.height /
+                                                  6.5,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: (state
+                                                              .dataSearch
+                                                              .room[index]
+                                                              .picture ==
+                                                          ""
+                                                      ? AssetImage(
+                                                          "assets/user_pic.png")
+                                                      : NetworkImage(state
+                                                          .dataSearch
+                                                          .room[index]
+                                                          .picture)),
+                                                  fit: BoxFit.cover)),
+                                        ),
+                                        Container(
+                                            padding: EdgeInsets.only(
+                                                top: 8.0, left: 8.0, right: 8.0),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                              state. dataSearch.room[index].rate == null ? Container(): RatingStars(
+                                                  starSize: 12.0,
+                                                  voteAverage: double.parse( state
+                                                      .dataSearch.room[index].rate == "null" ||state
+                                                      .dataSearch.room[index].rate == null ?"5.0": state
+                                                      .dataSearch.room[index].rate  ),
+                                                  color: Colors.amber,
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.only(
+                                                      top: 8.0),
+                                                  child: Text(
+                                                      state.dataSearch.room[index]
+                                                                  .type ==
+                                                              "1"
+                                                          ? "Room Name"
+                                                          : "Meeting Room Name",
+                                                      style: TextStyle(
+                                                          fontSize: 12.0)),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.only(
+                                                      top: 8.0),
+                                                  child: Text(
+                                                      state.dataSearch.room[index]
+                                                          .roomName,
+                                                      style: TextStyle(
+                                                          fontSize: 12.0)),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.only(
+                                                      top: 8.0),
+                                                  child: state
+                                                              .dataSearch
+                                                              .room[index].type =="1" ? Text(
+                                                      "Rp. ${state.dataSearch.room[index].price.toString()} / Pax") :Text(
+                                                      "Rp. ${state.dataSearch.room[index].price.toString()} / Night"),
+                                                ),
+                                              ],
+                                            )),
+                                      ],
+                                    )),
+                              ),
                             );
                           })),
                 ],

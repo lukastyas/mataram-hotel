@@ -7,6 +7,7 @@ class CreateRoom extends StatelessWidget {
   final priceController = TextEditingController();
   final norController = TextEditingController();
   final capacityController = TextEditingController();
+  final durationController = TextEditingController();
   final descController = TextEditingController();
   GlobalKey<FlutterSummernoteState> _keyEditorDesc = GlobalKey();
   GlobalKey<FlutterSummernoteState> _keyEditor = GlobalKey();
@@ -562,6 +563,21 @@ class CreateRoom extends StatelessWidget {
                                     )),
                               ),
                             ),
+                         state.createRoomModel.typeValue == "0" ? Container() :    MataramTile(
+                              title: Text("Duration"),
+                              subtitle: Container(
+                                child: TextField(
+                                    keyboardType: TextInputType.number,
+                                    controller: durationController,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      labelText: "Duration",
+                                      hintText: "Duration",
+                                    )),
+                              ),
+                            ),
                             MataramTile(
                               title: Text("Price"),
                               subtitle: Container(
@@ -681,6 +697,7 @@ class CreateRoom extends StatelessWidget {
                                         .getText();
                                     state.createRoomModel.desc = b;
                                     context.bloc<CreateRoomBloc>().add(AddRoom(
+                                      duration: durationController.text??"",
                                       capacity: capacityController.text??"",
                                           price:
                                               int.parse(priceController.text),

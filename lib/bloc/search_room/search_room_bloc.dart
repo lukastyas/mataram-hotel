@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:mataram2/models/models.dart';
 import 'package:mataram2/services/services.dart';
 import 'package:meta/meta.dart';
@@ -19,6 +20,7 @@ class SearchRoomBloc extends Bloc<SearchRoomEvent, SearchRoomState> {
     SearchRoomEvent event,
   ) async* {
     if (event is LoadRoom) {
+        yield SearchRoomInitial(dataSearch: DataSearch());
       var room = await RoomServices.getRoom();
       List<RoomModel> roomModel = [];
       print("event.typeRoom");
@@ -31,25 +33,32 @@ class SearchRoomBloc extends Bloc<SearchRoomEvent, SearchRoomState> {
       //     }
       //   });
       // } else {
-        room.forEach((element) {
-          if (event.typeRoom == 2) { 
-            if (element.type == "1") {
-              print("element.typesss");
-              print(element.roomName);
+        
+        room.map((element) {
+          print("element.typesss");
+              print(event.typeRoom.toString() == element.type);
+          if (event.typeRoom == 1) { 
+          
+               print("element");
+              print(element.type);
+              if(element.type == "1"){
               roomModel.add(element);
-            }
 
-            print(element.type);
+              }
+            
+
           } else if (event.admin == true){
-            // if (element.type == "1") {
+           print("element.admin");
+              print(element.type);
               roomModel.add(element);
             // }
           }else {
              if (element.type == "0") {
+                  
               roomModel.add(element);
             }
           }
-        });
+        }).toList();
       // }
 
       yield RoomLoaded(dataSearch: DataSearch(room: roomModel));

@@ -15,6 +15,7 @@ class SearchRoom extends StatelessWidget {
     TextEditingController _controllerRooms = TextEditingController();
     DateTime selectedDate = DateTime.now();
     DateFormat dateFormat;
+    DateFormat dateFormatHour;
 
     return WillPopScope(
         onWillPop: () async {
@@ -141,16 +142,24 @@ class SearchRoom extends StatelessWidget {
                 ),
                 BlocBuilder<SearchRoomBloc, SearchRoomState>(
                   builder: (context, state) {
+                    print("stateaaaa");
+                    print(typeRoom);
                     dateFormat = new DateFormat("d MMMM yyyy");
+                    dateFormatHour = new DateFormat("hh:mm");
                     _controller.text = "0"; // if (state is RoomLoaded) {
                     _controllerChildren.text =
                         "0"; // if (state is RoomLoaded) {
                     _controllerRooms.text = "0"; // if (state is RoomLoaded) {
                     if (state is SearchRoomInitial) {
-                      return Container();
+                        return Center(
+          child: CircularProgressIndicator(
+        strokeWidth: 0.5,
+        backgroundColor: Colors.amber,
+      ));
                     }
-
-                    if (typeRoom == 1) {
+print("WAH");
+print(typeRoom);
+                    if (typeRoom == 0) {
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -577,7 +586,9 @@ class SearchRoom extends StatelessWidget {
                                   scrollDirection: Axis.horizontal,
                                   itemCount: state.dataSearch.room.length,
                                   itemBuilder: (context, index) {
-                                    return GestureDetector(
+                                    return   state.dataSearch .room[index].noFRoom <= 0 ?  Container(
+
+                                    ): GestureDetector(
                                       onTap: () {
                                         if (state
                                                 .dataSearch.selecetedDateFrom ==
@@ -696,10 +707,7 @@ class SearchRoom extends StatelessWidget {
                                                             .dataSearch
                                                             .room[index]
                                                             .roomName),
-                                                        Text(state
-                                                            .dataSearch
-                                                            .room[index]
-                                                            .roomName),
+                                                        Text("No of room : ${state.dataSearch .room[index].noFRoom}"),
                                                         Text(
                                                             "Rp. ${state.dataSearch.room[index].price.toString()} / Night"),
                                                       ],
@@ -765,7 +773,7 @@ class SearchRoom extends StatelessWidget {
                                             state?.dataSearch
                                                         ?.selecetedDateFrom ==
                                                     null
-                                                ? "Check-In"
+                                                ? "Event Date"
                                                 : dateFormat.format(state
                                                     .dataSearch
                                                     .selecetedDateFrom),
@@ -774,41 +782,53 @@ class SearchRoom extends StatelessWidget {
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
-                                        SizedBox(width: 10),
-                                        Icon(Icons.date_range),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "Start Event : ",
+                                          style: blackTextFont.copyWith(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                         GestureDetector(
                                           onTap: () async {
-                                            final DateTime picked =
-                                                await showDatePicker(
-                                                    context: context,
-                                                    initialDate: state
-                                                        .dataSearch
-                                                        .selecetedDateFrom
-                                                        .add(Duration(days: 1)),
-                                                    firstDate: DateTime.now(),
-                                                    lastDate: state.dataSearch
-                                                        .selecetedDateFrom
-                                                        .add(Duration(
-                                                            days: 30)));
+                                            var picked =
+                                              await  DatePicker.showTimePicker(
+                                                    context,
+                                                    showTitleActions: true,
+                                                    onChanged: (date) {
+                                              print(
+                                                  'change $date in time zone ' +
+                                                      date.timeZoneOffset
+                                                          .inHours
+                                                          .toString());
+                                            }, onConfirm: (date) {
+                                              print('confirm $date');
+                                            }, currentTime: DateTime.now());
 
-                                            if (picked != null &&
-                                                picked != selectedDate) {
-                                              state.dataSearch.selecetedDateTo =
-                                                  picked;
+                                            print("ini");
+                                            print(picked);
+                                            state.dataSearch.timeOfDay = picked;
 
-                                              context
-                                                  .bloc<SearchRoomBloc>()
-                                                  .add(OnChangeDate());
-                                            }
+                                            context
+                                                .bloc<SearchRoomBloc>()
+                                                .add(OnChangeDate());
                                           },
                                           child: Text(
-                                            state?.dataSearch
-                                                        ?.selecetedDateTo ==
-                                                    null
-                                                ? "Checkout"
-                                                : dateFormat.format(state
+                                            state?.dataSearch?.timeOfDay == null
+                                                ? "Choose your start event"
+                                                :  dateFormatHour.format(state
                                                     .dataSearch
-                                                    .selecetedDateTo),
+                                                    .timeOfDay),
                                             style: blackTextFont.copyWith(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.bold),
@@ -852,10 +872,9 @@ class SearchRoom extends StatelessWidget {
                                                 FlushbarPosition.BOTTOM,
                                             backgroundColor: Colors.red,
                                             message:
-                                                "Please Insert your Chekck-in",
+                                                "Please Insert your Event Date",
                                           )..show(context);
-                                        } else if (state
-                                                .dataSearch.selecetedDateTo ==
+                                        } else if (state.dataSearch.timeOfDay ==
                                             null) {
                                           Flushbar(
                                             duration:
@@ -864,7 +883,7 @@ class SearchRoom extends StatelessWidget {
                                                 FlushbarPosition.BOTTOM,
                                             backgroundColor: Colors.red,
                                             message:
-                                                "Please Insert your Chekck-out",
+                                                "Please Insert your Start Event",
                                           )..show(context);
                                         } else {
                                           context.bloc<PageBloc>().add(
@@ -964,6 +983,8 @@ class SearchRoom extends StatelessWidget {
                                                             "Rp. ${state.dataSearch.room[index].price.toString()} / Pax"),
                                                         Text(
                                                             "Capacity : Min ${state.dataSearch.room[index].capacity}"),
+                                                        Text(
+                                                            "Duration : ${state.dataSearch.room[index].duration} Hours"),
                                                       ],
                                                     )),
                                               ],

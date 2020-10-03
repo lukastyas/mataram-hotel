@@ -13,7 +13,10 @@ class BookDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateFormat dateFormat;
+        DateFormat dateFormatHour;
 
+    print("room.type");
+    print(room.noFRoom);
     return WillPopScope(
       onWillPop: () async {
         context.bloc<PageBloc>().add(GotoDetailRoom(room));
@@ -22,15 +25,23 @@ class BookDetail extends StatelessWidget {
       child: BlocBuilder<SearchRoomBloc, SearchRoomState>(
         builder: (context, state) {
           dateFormat = new DateFormat("d MMMM yyyy");
+                    dateFormatHour = new DateFormat("HH:mm");
           var price = room.price;
-          final difference = state.dataSearch.selecetedDateTo
-              .difference(state.dataSearch.selecetedDateFrom)
-              .inDays;
-          final total = price * difference;
-          final totalRoom = (price * state.dataSearch.rooms) * difference;
-          final wallet = totalRoom + total;
-          print(" dir$difference");
-          print(total);
+          var difference;
+          var totalRoom;
+
+          print("room.duration");
+          print(room.duration);
+
+          if (room.type == "1") {
+            difference = state.dataSearch.timeOfDay.add(Duration(hours: int.parse(room.duration)));
+                
+          } else {
+            difference = state.dataSearch.selecetedDateTo
+                .difference(state.dataSearch.selecetedDateFrom)
+                .inDays;
+            totalRoom = (price * state.dataSearch.rooms) * difference;
+          }
 
           final formatCurrency =
               new NumberFormat.simpleCurrency(locale: 'id_ID');
@@ -74,9 +85,10 @@ class BookDetail extends StatelessWidget {
                               children: <Widget>[
                                 Text(room.roomName),
                                 RatingStars(
-                                  voteAverage: room.rate == null
-                                      ? 1.0
-                                      : double.parse(room.rate),
+                                  voteAverage: double.parse(
+                                      (room.rate == "null" || room.rate == null)
+                                          ? "5.0"
+                                          : room.rate),
                                   color: Colors.amber,
                                 )
                               ],
@@ -98,29 +110,36 @@ class BookDetail extends StatelessWidget {
                         ),
                       ),
                       MataramTile(
-                        title: Text('Check-In'),
+                        title:
+                            Text(room.type == "1" ? 'Event Date' : 'Check-In'),
                         subtitle: Text(dateFormat.format(
                           state.dataSearch.selecetedDateFrom,
                         )),
                       ),
-                      MataramTile(
-                          title: Text('CheckOut'),
-                          subtitle: Text(dateFormat.format(
-                            state.dataSearch.selecetedDateTo,
-                          ))),
-                      room.type == "2"
+                    room.type == "1" ?   MataramTile(
+                        title: Text('Start Event'),
+                        subtitle: Text(
+                          dateFormatHour.format(state.dataSearch.timeOfDay),
+                        ),
+                      ):Container(),
+  MataramTile(
+                              title: Text(room.type == "1" ? "End Event" :  'CheckOut'),
+                              subtitle: Text(room.type == "1" ? dateFormatHour.format(difference) : dateFormat.format(
+                                state.dataSearch.selecetedDateTo,
+                              ))),
+                      room.type == "1"
                           ? Container()
                           : MataramTile(
                               title: Text('Adult'),
                               subtitle:
                                   Text(state.dataSearch.adult.toString())),
-                      room.type == "2"
+                      room.type == "1"
                           ? Container()
                           : MataramTile(
                               title: Text('Children'),
                               subtitle:
                                   Text(state.dataSearch.children.toString())),
-                      room.type == "2"
+                      room.type == "1"
                           ? Container()
                           : MataramTile(
                               title: Text('Room'),
@@ -138,8 +157,11 @@ class BookDetail extends StatelessWidget {
                       ),
                       MataramTile(
                         title: Text('Total'),
-                        subtitle: Text("${formatCurrency.format(totalRoom)}",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        subtitle: room.type == "0"
+                            ? Text("${formatCurrency.format(totalRoom)}",
+                                style: TextStyle(fontWeight: FontWeight.bold))
+                            : Text("${formatCurrency.format(room.price)}",
+                                style: TextStyle(fontWeight: FontWeight.bold)),
                       ),
                       Container(
                         margin: EdgeInsets.all(70),
@@ -148,14 +170,18 @@ class BookDetail extends StatelessWidget {
                             context.bloc<PageBloc>().add(GotoTransferPage(
                                 idOrder: v4crypto,
                                 uid: uid,
-                                totalNight: difference,
+                                totalNight:room.type == "1" ?"": difference,
                                 room: state.dataSearch.rooms,
                                 back: false,
-                                wallet: wallet,
+                                startEvent:
+                                
+                                room.type == "1" ?   dateFormatHour.format( state.dataSearch.timeOfDay): null,
+                                wallet:
+                                    room.type == "1" ? room.price : totalRoom,
                                 selecetedDateFrom:
                                     state.dataSearch.selecetedDateFrom,
                                 selecetedDateTo:
-                                    state.dataSearch.selecetedDateTo,
+                                  room.type == "1" ? dateFormatHour.format(difference): state.dataSearch.selecetedDateTo,
                                 roomModel: room));
                             return;
                           },

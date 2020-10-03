@@ -14,6 +14,7 @@ class RoomModel extends Equatable {
   final String data;
   final String review;
   final String capacity;
+  final String duration;
   final List<dynamic> photos;
 
   RoomModel({this.noFRoom, this.noRoom, 
@@ -25,6 +26,7 @@ class RoomModel extends Equatable {
         this.capacity,
       this.description,
       this.data,
+      this.duration,
       this.picture,
       this.price,
       this.roomName,
@@ -36,6 +38,7 @@ class RoomModel extends Equatable {
           description: this.description,
           picture: picture ?? this.picture,
           noFRoom: noFRoom ?? this.noFRoom,
+          duration: duration ?? this.duration,
           facility: facility ?? this.facility,
           capacity: capacity ?? this.capacity,
           noRoom: noRoom ?? this.noRoom,
@@ -53,9 +56,10 @@ class RoomModel extends Equatable {
         price: json["price"],
         capacity: json["capacity"],
         rate: json["rate"],
+        duration: json["duration"],
         facility: json["facilities"],
         type: json["type"],
-        noFRoom: json["no_of_roomm"],
+        noFRoom: json["no_of_room"],
         roomName: json["roomName"],
         data:json["facilities"],
         photos: List<Photo>.from(json["photos"].map((x) => Photo.fromJson(x))),
@@ -71,7 +75,7 @@ class RoomModel extends Equatable {
         "type": type,
         "no_of_roomm": noFRoom,
         "roomName": roomName,
-        "facilities": data,
+        "duration": duration,
        
       };
  

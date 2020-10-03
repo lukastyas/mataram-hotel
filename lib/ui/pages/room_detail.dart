@@ -39,6 +39,7 @@ class RoomDetail extends StatelessWidget {
       ),
     ];
 
+
     // List<FacilitiesModel> listIcon = List();
     // room.data.forEach((el) {
     //   // final duplicateItems = getMenuss();
@@ -104,7 +105,7 @@ class RoomDetail extends StatelessWidget {
                room.rate == null ? Container():  Padding(
                   padding: const EdgeInsets.only(left: 130.0),
                   child: RatingStars(
-                    voteAverage:double.parse( room.rate),
+                    voteAverage:double.parse( (room.rate == "null"|| room.rate == null)? "5.0" :room.rate ),
                     color: Colors.amber,
                   ),
                 ),

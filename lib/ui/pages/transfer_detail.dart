@@ -36,6 +36,9 @@ class _TransferPageState extends State<TransferPage>
   Widget build(BuildContext context) {
     print(widget.room.price);
     print(widget.room.data);
+              final formatCurrency =
+              new NumberFormat.simpleCurrency(locale: 'id_ID');
+
     return WillPopScope(
       onWillPop: () async {
         context.bloc<PageBloc>().add(GotoBookDetail(widget.room));
@@ -64,7 +67,7 @@ class _TransferPageState extends State<TransferPage>
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text("Rp. ${widget.wallet}"),
+                          child: Text("${formatCurrency.format(widget.wallet)}"),
                         ),
                         Container(
                             width: MediaQuery.of(context).size.width / 1.3,
@@ -111,6 +114,7 @@ class _TransferPageState extends State<TransferPage>
                     context.bloc<PageBloc>().add(GotoSendEvidence(
                           widget.room,
                           widget.idOrder,
+                          widget.wallet,
                         ));
                     return;
                   },

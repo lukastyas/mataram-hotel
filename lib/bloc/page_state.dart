@@ -127,9 +127,10 @@ class OnTransferPage extends PageState {
 
 class OnSendEvidence extends PageState {
   final idOrder;
+  final wallet;
   final RoomModel roomModel;
 
-  OnSendEvidence(this.idOrder, this.roomModel);
+  OnSendEvidence(this.idOrder, this.roomModel, this.wallet);
 
   @override
   List<Object> get props => [];

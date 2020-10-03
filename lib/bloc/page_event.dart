@@ -15,12 +15,11 @@ class GoToLoginPage extends PageEvent {
 }
 
 class GoToMainPage extends PageEvent {
-  
   @override
   List<Object> get props => [];
 }
+
 class GoToMainPageUser extends PageEvent {
-  
   @override
   List<Object> get props => [];
 }
@@ -65,25 +64,23 @@ class GoToMyBookingPage extends PageEvent {
 
   @override
   List<Object> get props => [pageEvent];
-
 }
+
 class GotoScanPage extends PageEvent {
   final PageEvent pageEvent;
 
-  GotoScanPage(this.pageEvent, );
+  GotoScanPage(
+    this.pageEvent,
+  );
 
   @override
   List<Object> get props => [pageEvent];
-
 }
+
 class GotoNewestPage extends PageEvent {
-
-
   @override
   List<Object> get props => [];
-
 }
-
 
 class GoToSearchRoomPage extends PageEvent {
   final typeRoom;
@@ -95,62 +92,75 @@ class GoToSearchRoomPage extends PageEvent {
 }
 
 class GotoDetailRoom extends PageEvent {
-final RoomModel roomModel;
+  final RoomModel roomModel;
 
   GotoDetailRoom(this.roomModel);
   @override
   List<Object> get props => [];
 }
+
 class GotoBookDetail extends PageEvent {
-final RoomModel roomModel;
+  final RoomModel roomModel;
 
   GotoBookDetail(this.roomModel);
 
   @override
   List<Object> get props => [];
 }
+
 class GotoTransferPage extends PageEvent {
-final  wallet;
-final  uid;
-final  selecetedDateFrom;
-final  selecetedDateTo;
-final idOrder;
-final totalNight;
-final room;
-final bool back ;
-final RoomModel roomModel;
+  final wallet;
+  final uid;
+  final selecetedDateFrom;
+  final selecetedDateTo;
+  final idOrder;
+  final totalNight;
+  final startEvent;
+  final room;
+  final bool back;
+  final RoomModel roomModel;
 
-  GotoTransferPage({this.totalNight, this.room, this. idOrder, this.uid, this.back, this.selecetedDateFrom, this.selecetedDateTo, this.roomModel, this.wallet});
+  GotoTransferPage(
+      {this.totalNight,
+      this.room,
+      this.idOrder,
+      this.startEvent,
+      this.uid,
+      this.back,
+      this.selecetedDateFrom,
+      this.selecetedDateTo,
+      this.roomModel,
+      this.wallet});
 
   @override
   List<Object> get props => [];
 }
+
 class GotoSendEvidence extends PageEvent {
-      final RoomModel room;
-final idOrder;
-  GotoSendEvidence( this.room, this.idOrder);
-
+  final RoomModel room;
+  final idOrder;
+  final wallet;
+  GotoSendEvidence(this.room, this.idOrder, this.wallet);
 
   @override
   List<Object> get props => [];
 }
+
 class GotoCreateRoom extends PageEvent {
-
   @override
   List<Object> get props => [];
 }
+
 class GotoNewest extends PageEvent {
-
   @override
   List<Object> get props => [];
 }
-class GotoBookingDetail extends PageEvent {
-    final BookModels book;
-      final PageEvent pageEvent;
 
+class GotoBookingDetail extends PageEvent {
+  final BookModels book;
+  final PageEvent pageEvent;
 
   GotoBookingDetail(this.book, this.pageEvent);
-
 
   @override
   List<Object> get props => [];

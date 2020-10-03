@@ -3,8 +3,9 @@ part of 'pages.dart';
 class SendEvidencePage extends StatelessWidget {
   final RoomModel room;
   final idOrder;
+  final wallet;
 
-  const SendEvidencePage({Key key, this.room, @required this.idOrder})
+  const SendEvidencePage({Key key, this.room, @required this.idOrder, this.wallet})
       : super(key: key);
 
   @override
@@ -14,7 +15,7 @@ class SendEvidencePage extends StatelessWidget {
         onWillPop: () async {
           context
               .bloc<PageBloc>()
-              .add(GotoTransferPage(roomModel: room, back: true));
+              .add(GotoTransferPage(roomModel: room, back: true, wallet: wallet));
           return;
         },
         child: Scaffold(
