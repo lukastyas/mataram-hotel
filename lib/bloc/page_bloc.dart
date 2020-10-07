@@ -92,9 +92,14 @@ class PageBloc extends Bloc<PageEvent, PageState> {
           event.idOrder, event.uid, event.wallet, event.roomModel);
     } else if (event is GotoSendEvidence) {
       yield OnSendEvidence(event.idOrder, event.room, event.wallet);
-    } else if (event is GotoCreateRoom) {
+    } 
+    else if (event is GotoCreateRoom) {
       yield OnCreateRoom();
-    } else if (event is GotoBookingDetail) {
+    }
+    else if (event is GotoEditRoom) {
+      yield OnEditRoom(event.room);
+    }
+     else if (event is GotoBookingDetail) {
       yield OnBookingDetail(event.book, event.pageEvent);
     } else if (event is GotoNewestPage) {
       var book = await BookService.getBook();

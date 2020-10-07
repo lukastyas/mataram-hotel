@@ -30,6 +30,14 @@ class SendCheckIn extends SendEvidenceEvent {
   @override
   List<Object> get props => [];
 }
+class Scan extends SendEvidenceEvent {
+  final idOrder;
+
+  Scan(this.idOrder,);
+
+  @override
+  List<Object> get props => [];
+}
 class SendCheckOut extends SendEvidenceEvent {
   final idOrder;
 

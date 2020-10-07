@@ -22,6 +22,13 @@ class RoomLoaded extends SearchRoomState {
           dataSearch: dataSearch,
         );
 }
+class Success extends SearchRoomState {
+  final DataSearch dataSearch;
+
+  Success({this.dataSearch, }): super(
+          dataSearch: dataSearch,
+        );
+}
 
 class DataSearch {
   DateTime selecetedDateFrom;

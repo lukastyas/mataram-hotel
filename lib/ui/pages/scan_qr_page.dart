@@ -13,18 +13,15 @@ class _ScanQRPageState extends State<ScanQRPage> {
     super.initState();
   }
 
-  Future<void> scanQR(test) async {
+  Future<void> scanQR() async {
     String barcodeScanRes;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           "#ff6666", "Cancel", true, ScanMode.QR);
       print(barcodeScanRes);
-      if (test == 1) {
-        context.bloc<SendEvidenceBloc>().add(SendCheckIn(barcodeScanRes));
-      } else if (test == 2) {
-        context.bloc<SendEvidenceBloc>().add(SendCheckOut(barcodeScanRes));
-      }
+             context.bloc<SendEvidenceBloc>().add(Scan(barcodeScanRes));
+
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
@@ -37,6 +34,15 @@ class _ScanQRPageState extends State<ScanQRPage> {
     setState(() {
       _scanBarcode = barcodeScanRes;
     });
+  }
+
+  checkIn(test){
+     if (test == 1) {
+        context.bloc<SendEvidenceBloc>().add(SendCheckIn(_scanBarcode));
+      } else if (test == 2) {
+        context.bloc<SendEvidenceBloc>().add(SendCheckOut(_scanBarcode));
+      }
+
   }
 
   @override
@@ -79,12 +85,20 @@ class _ScanQRPageState extends State<ScanQRPage> {
                       return Container();
                     }),
                   ),
+                    MataramButton(
+                          onPressed: () => scanQR(),
+                          title: Text(
+                            "Scan",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          color: 'edit',
+                        ),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         MataramButton(
-                          onPressed: () => scanQR(1),
+                          onPressed: () => checkIn(1),
                           title: Text(
                             "Check In",
                             style: TextStyle(color: Colors.white),
@@ -95,7 +109,7 @@ class _ScanQRPageState extends State<ScanQRPage> {
                           width: 50,
                         ),
                         MataramButton(
-                          onPressed: () => scanQR(2),
+                          onPressed: () => checkIn(2),
                           title: Text(
                             "Check Out",
                             style: TextStyle(color: Colors.white),

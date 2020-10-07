@@ -1,20 +1,27 @@
 part of 'pages.dart';
 
 class CreateRoom extends StatelessWidget {
-  CreateRoom({Key key}) : super(key: key);
-  final noController = TextEditingController();
-  final nameController = TextEditingController();
-  final priceController = TextEditingController();
-  final norController = TextEditingController();
-  final capacityController = TextEditingController();
-  final durationController = TextEditingController();
-  final descController = TextEditingController();
+  final RoomModel room;
+  final edit;
+
+  CreateRoom({Key key, this.room, this.edit}) : super(key: key);
+
+  // final _formKey = GlobalKey<FormState>();
   GlobalKey<FlutterSummernoteState> _keyEditorDesc = GlobalKey();
   GlobalKey<FlutterSummernoteState> _keyEditor = GlobalKey();
 
-  // final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    var noController =
+        TextEditingController(text: room?.noRoom.toString() ?? "");
+    var nameController = TextEditingController(text: room.roomName ?? "");
+    var priceController =
+        TextEditingController(text: room.price.toString() ?? "");
+    var norController =
+        TextEditingController(text: room.noFRoom.toString() ?? "");
+    var capacityController = TextEditingController(text: room.capacity ?? "");
+    var durationController = TextEditingController(text: room.duration ?? "");
+
     context.bloc<CreateRoomBloc>().add(LoadDataCreate());
     File a;
     return WillPopScope(
@@ -129,10 +136,8 @@ class CreateRoom extends StatelessWidget {
                         backgroundColor: Colors.red,
                         message: state.error,
                       )..show(context);
-                    }
-                    else  if(state is CreateRoomSuccess ){
-                              context.bloc<PageBloc>().add(GoToMainPage());
-
+                    } else if (state is CreateRoomSuccess) {
+                      context.bloc<PageBloc>().add(GoToMainPage());
                     }
                   },
                   child: BlocBuilder<CreateRoomBloc, CreateRoomState>(
@@ -162,7 +167,6 @@ class CreateRoom extends StatelessWidget {
                                 context
                                     .bloc<CreateRoomBloc>()
                                     .add(OnChangeDropdown());
-                                    
                               },
                               answers: state.createRoomModel.type.map((e) {
                                     return {
@@ -173,30 +177,55 @@ class CreateRoom extends StatelessWidget {
                                     };
                                   })?.toList() ??
                                   [],
-                              valueDropdown: state?.createRoomModel?.typeValue,
+                              valueDropdown: room.type == '0'
+                                  ? "0"
+                                  : room.type == "1"
+                                      ? "1"
+                                      : state?.createRoomModel?.typeValue,
                             ),
-                            state.createRoomModel.image == null
-                                ? Container()
-                                : Center(
+                            room.picture != null
+                                ? Center(
                                     child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                      ),
-                                      width: MediaQuery.of(context).size.width /
-                                          1.4,
-                                      height:
-                                          MediaQuery.of(context).size.height /
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                        ),
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                1.4,
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                3,
+                                        child: ClipRRect(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10.0)),
+                                            child:
+                                                Image.network(room.picture))))
+                                : (state.createRoomModel.image == null
+                                    ? Container()
+                                    : Center(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                          ),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              1.4,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
                                               3,
-                                      child: ClipRRect(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10.0)),
-                                          child: Image.file(state.createRoomModel.image ==
-                                                  null
-                                              ? ""
-                                              : state
-                                                  .createRoomModel.image)),
-                                    ),
-                                  ),
+                                          child: ClipRRect(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10.0)),
+                                              child: Image.file(
+                                                  state.createRoomModel.image ==
+                                                          null
+                                                      ? ""
+                                                      : state.createRoomModel
+                                                          .image)),
+                                        ),
+                                      )),
                             MataramTile(
                                 title: Text("Thumbnail"),
                                 subtitle: FlatButton(
@@ -240,10 +269,9 @@ class CreateRoom extends StatelessWidget {
                                                         .size
                                                         .height /
                                                     6,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    4,
+                                                width:
+                                                    MediaQuery.of(context).size.width /
+                                                        4,
                                                 padding:
                                                     const EdgeInsets.all(8.0),
                                                 decoration: BoxDecoration(
@@ -253,17 +281,21 @@ class CreateRoom extends StatelessWidget {
                                                   ),
                                                   color: Colors.white,
                                                 ),
-                                                child: state.createRoomModel
-                                                            .picture1 ==
-                                                        null
-                                                    ? Icon(Icons.add)
-                                                    : Image.file(state
-                                                                .createRoomModel
+                                                child: room.photos[0].url != null
+                                                    ? Image.network(
+                                                        room.photos[0].url)
+                                                    : (state.createRoomModel
                                                                 .picture1 ==
                                                             null
-                                                        ? ""
-                                                        : state.createRoomModel
-                                                            .picture1))),
+                                                        ? Icon(Icons.add)
+                                                        : Image.file(state
+                                                                    .createRoomModel
+                                                                    .picture1 ==
+                                                                null
+                                                            ? ""
+                                                            : state
+                                                                .createRoomModel
+                                                                .picture1)))),
                                         GestureDetector(
                                             onTap: () async {
                                               a = await getImage();
@@ -279,10 +311,9 @@ class CreateRoom extends StatelessWidget {
                                                         .size
                                                         .height /
                                                     6,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    4,
+                                                width:
+                                                    MediaQuery.of(context).size.width /
+                                                        4,
                                                 padding:
                                                     const EdgeInsets.all(8.0),
                                                 decoration: BoxDecoration(
@@ -292,17 +323,21 @@ class CreateRoom extends StatelessWidget {
                                                   ),
                                                   color: Colors.white,
                                                 ),
-                                                child: state.createRoomModel
-                                                            .picture2 ==
-                                                        null
-                                                    ? Icon(Icons.add)
-                                                    : Image.file(state
-                                                                .createRoomModel
+                                                child: room.photos[1].url != null
+                                                    ? Image.network(
+                                                        room.photos[1].url)
+                                                    : (state.createRoomModel
                                                                 .picture2 ==
                                                             null
-                                                        ? ""
-                                                        : state.createRoomModel
-                                                            .picture2))),
+                                                        ? Icon(Icons.add)
+                                                        : Image.file(state
+                                                                    .createRoomModel
+                                                                    .picture2 ==
+                                                                null
+                                                            ? ""
+                                                            : state
+                                                                .createRoomModel
+                                                                .picture2)))),
                                         GestureDetector(
                                             onTap: () async {
                                               a = await getImage();
@@ -318,10 +353,9 @@ class CreateRoom extends StatelessWidget {
                                                         .size
                                                         .height /
                                                     6,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    4,
+                                                width:
+                                                    MediaQuery.of(context).size.width /
+                                                        4,
                                                 padding:
                                                     const EdgeInsets.all(8.0),
                                                 decoration: BoxDecoration(
@@ -331,17 +365,21 @@ class CreateRoom extends StatelessWidget {
                                                   ),
                                                   color: Colors.white,
                                                 ),
-                                                child: state.createRoomModel
-                                                            .picture3 ==
-                                                        null
-                                                    ? Icon(Icons.add)
-                                                    : Image.file(state
-                                                                .createRoomModel
+                                                child: room.photos[2].url != null
+                                                    ? Image.network(
+                                                        room.photos[2].url)
+                                                    : (state.createRoomModel
                                                                 .picture3 ==
                                                             null
-                                                        ? ""
-                                                        : state.createRoomModel
-                                                            .picture3))),
+                                                        ? Icon(Icons.add)
+                                                        : Image.file(state
+                                                                    .createRoomModel
+                                                                    .picture3 ==
+                                                                null
+                                                            ? ""
+                                                            : state
+                                                                .createRoomModel
+                                                                .picture3)))),
                                       ],
                                     ),
                                     SizedBox(
@@ -366,10 +404,9 @@ class CreateRoom extends StatelessWidget {
                                                         .size
                                                         .height /
                                                     6,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    4,
+                                                width:
+                                                    MediaQuery.of(context).size.width /
+                                                        4,
                                                 padding:
                                                     const EdgeInsets.all(8.0),
                                                 decoration: BoxDecoration(
@@ -379,17 +416,21 @@ class CreateRoom extends StatelessWidget {
                                                   ),
                                                   color: Colors.white,
                                                 ),
-                                                child: state.createRoomModel
-                                                            .picture4 ==
-                                                        null
-                                                    ? Icon(Icons.add)
-                                                    : Image.file(state
-                                                                .createRoomModel
+                                                child: room.photos[3].url != null
+                                                    ? Image.network(
+                                                        room.photos[3].url)
+                                                    : (state.createRoomModel
                                                                 .picture4 ==
                                                             null
-                                                        ? ""
-                                                        : state.createRoomModel
-                                                            .picture4))),
+                                                        ? Icon(Icons.add)
+                                                        : Image.file(state
+                                                                    .createRoomModel
+                                                                    .picture4 ==
+                                                                null
+                                                            ? ""
+                                                            : state
+                                                                .createRoomModel
+                                                                .picture4)))),
                                         GestureDetector(
                                             onTap: () async {
                                               a = await getImage();
@@ -405,10 +446,9 @@ class CreateRoom extends StatelessWidget {
                                                         .size
                                                         .height /
                                                     6,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    4,
+                                                width:
+                                                    MediaQuery.of(context).size.width /
+                                                        4,
                                                 padding:
                                                     const EdgeInsets.all(8.0),
                                                 decoration: BoxDecoration(
@@ -418,17 +458,21 @@ class CreateRoom extends StatelessWidget {
                                                   ),
                                                   color: Colors.white,
                                                 ),
-                                                child: state.createRoomModel
-                                                            .picture5 ==
-                                                        null
-                                                    ? Icon(Icons.add)
-                                                    : Image.file(state
-                                                                .createRoomModel
+                                                child: room.photos[4].url != null
+                                                    ? Image.network(
+                                                        room.photos[4].url)
+                                                    : (state.createRoomModel
                                                                 .picture5 ==
                                                             null
-                                                        ? ""
-                                                        : state.createRoomModel
-                                                            .picture5))),
+                                                        ? Icon(Icons.add)
+                                                        : Image.file(state
+                                                                    .createRoomModel
+                                                                    .picture5 ==
+                                                                null
+                                                            ? ""
+                                                            : state
+                                                                .createRoomModel
+                                                                .picture5)))),
                                         GestureDetector(
                                             onTap: () async {
                                               a = await getImage();
@@ -444,10 +488,9 @@ class CreateRoom extends StatelessWidget {
                                                         .size
                                                         .height /
                                                     6,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    4,
+                                                width:
+                                                    MediaQuery.of(context).size.width /
+                                                        4,
                                                 padding:
                                                     const EdgeInsets.all(8.0),
                                                 decoration: BoxDecoration(
@@ -457,17 +500,22 @@ class CreateRoom extends StatelessWidget {
                                                   ),
                                                   color: Colors.white,
                                                 ),
-                                                child: state.createRoomModel
-                                                            .picture6 ==
-                                                        null
-                                                    ? Icon(Icons.add)
-                                                    : Image.asset(state
-                                                                .createRoomModel
+                                                child: room.photos[5].url != null
+                                                    ? Image.network(
+                                                        room.photos[5].url)
+                                                    : (state.createRoomModel
                                                                 .picture6 ==
                                                             null
-                                                        ? ""
-                                                        : state.createRoomModel
-                                                            .picture6.path))),
+                                                        ? Icon(Icons.add)
+                                                        : Image.asset(state
+                                                                    .createRoomModel
+                                                                    .picture6 ==
+                                                                null
+                                                            ? ""
+                                                            : state
+                                                                .createRoomModel
+                                                                .picture6
+                                                                .path)))),
                                       ],
                                     ),
                                   ],
@@ -515,8 +563,9 @@ class CreateRoom extends StatelessWidget {
 
                               child: FlutterSummernote(
                                 height: MediaQuery.of(context).size.height / 3,
-                                hint: "Your text here...",
+                                hint: room.description ?? "Your text here...",
                                 key: _keyEditorDesc,
+                                value: room.description ?? "",
                                 customToolbar: """
                                 [
                                   ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -548,36 +597,44 @@ class CreateRoom extends StatelessWidget {
                                     )),
                               ),
                             ),
-                         state.createRoomModel.typeValue == "0" ? Container() :    MataramTile(
-                              title: Text("Capacity"),
-                              subtitle: Container(
-                                child: TextField(
-                                    keyboardType: TextInputType.number,
-                                    controller: capacityController,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      labelText: "Capacity",
-                                      hintText: "Capacity",
-                                    )),
-                              ),
-                            ),
-                         state.createRoomModel.typeValue == "0" ? Container() :    MataramTile(
-                              title: Text("Duration"),
-                              subtitle: Container(
-                                child: TextField(
-                                    keyboardType: TextInputType.number,
-                                    controller: durationController,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      labelText: "Duration",
-                                      hintText: "Duration",
-                                    )),
-                              ),
-                            ),
+                            state.createRoomModel.typeValue == "0"
+                                ? Container()
+                                : MataramTile(
+                                    title: Text("Capacity"),
+                                    subtitle: Container(
+                                      child: TextField(
+                                          keyboardType: TextInputType.number,
+                                          controller: capacityController,
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            labelText: "Capacity",
+                                            hintText: "Capacity",
+                                          )),
+                                    ),
+                                  ),
+                            (room?.duration != null || room?.duration != "")
+                                ? (state.createRoomModel.typeValue == "0"
+                                    ? Container()
+                                    : MataramTile(
+                                        title: Text("Duration"),
+                                        subtitle: Container(
+                                          child: TextField(
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              controller: durationController,
+                                              decoration: InputDecoration(
+                                                border: OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                                labelText: "Duration",
+                                                hintText: "Duration",
+                                              )),
+                                        ),
+                                      ))
+                                : Container(),
                             MataramTile(
                               title: Text("Price"),
                               subtitle: Container(
@@ -630,8 +687,9 @@ class CreateRoom extends StatelessWidget {
 
                               child: FlutterSummernote(
                                 height: MediaQuery.of(context).size.height / 3,
-                                hint: "Your text here...",
+                                hint: room.facility ?? "Your text here...",
                                 key: _keyEditor,
+                                value: room.facility ?? "",
                                 customToolbar: """
                                 [
                                   ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -697,21 +755,22 @@ class CreateRoom extends StatelessWidget {
                                         .getText();
                                     state.createRoomModel.desc = b;
                                     context.bloc<CreateRoomBloc>().add(AddRoom(
-                                      duration: durationController.text??"",
-                                      capacity: capacityController.text??"",
-                                          price:
-                                              int.parse(priceController.text),
-                                          roomNamme: nameController.text,
-                                          noFRoom: int.parse(norController.text),
-                                          noRoom:int.parse( noController.text)
-                                          // description: descController.text,
+                                        id: room.id,
+                                        edit: edit ?? "",
+                                        duration: durationController.text ?? "",
+                                        capacity: capacityController.text ?? "",
+                                        price: int.parse(priceController.text),
+                                        roomNamme: nameController.text,
+                                        noFRoom: int.parse(norController.text),
+                                        noRoom: int.parse(noController.text),
+                                        // description: descController.text,
                                         ));
                                   }
 
                                   // return;
                                 },
                                 title: Text(
-                                  "Add",
+                                  edit == true ? 'Save' : "Add",
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 color: 'edit',

@@ -80,6 +80,14 @@ class OnScanPage extends PageState {
   @override
   List<Object> get props => [pageEvent];
 }
+class OnEditRoom extends PageState {
+  final RoomModel room;
+
+  OnEditRoom(this.room);
+
+  @override
+  List<Object> get props => [room];
+}
 
 class OnSearchRoomPage extends PageState {
   final typeRoom;

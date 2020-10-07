@@ -7,14 +7,17 @@ class LoadDataCreate extends CreateRoomEvent{}
 class OnChangeDropdown extends CreateRoomEvent{}
 class OnPickedImageCreate extends CreateRoomEvent{}
 class AddRoom extends CreateRoomEvent{
+  final id;
  final String description;
   final int price;
   final int noRoom;
   final int noFRoom;
   final String roomNamme;
   final String capacity;
+  final  edit;
+  final  type;
   final String duration;
 
 
-  AddRoom({this.noRoom, this.capacity,  this.duration, this.noFRoom, this.description, this.price, this.roomNamme});
+  AddRoom({this.id,this.type, this.noRoom,this.edit, this.capacity,  this.duration, this.noFRoom, this.description, this.price, this.roomNamme});
 }

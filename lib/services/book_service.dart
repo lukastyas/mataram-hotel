@@ -21,6 +21,7 @@ class BookService {
       'status': "1",
       'type':bookModel.type,
       'create_date':DateTime.now(),
+      'status_check_in':"0",
 
       // 'time_stamp': firebase.database.ServerValue.TIMESTAMP ,
 

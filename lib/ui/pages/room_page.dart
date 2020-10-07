@@ -109,22 +109,28 @@ class RoomPage extends StatelessWidget {
               onTap: () {
                 context.bloc<PageBloc>().add(GoToSearchRoomPage(0));
               },
-              child: Container(
-                width: MediaQuery.of(context).size.width / 2.7,
-                height: MediaQuery.of(context).size.height / 3.3,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 2.0,
+              child: Card(
+                elevation: 1,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 2.7,
+                  height: MediaQuery.of(context).size.height / 3.3,
+                  // decoration: BoxDecoration(
+                  //     border: Border.all(
+                  //       // color: Colors.black,
+                  //       width: 2.0,
+                  //     ),
+                  //     color: Colors.white,
+                  //     borderRadius: BorderRadius.all(Radius.circular(20))),
+                  // margin: EdgeInsets.fromLTRB(25, 10, 20, 12),
+                  child: Center(
+                    child: Text(
+                      "Hotel Room",
+                      style: blackTextFont.copyWith(
+                          fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                margin: EdgeInsets.fromLTRB(25, 10, 20, 12),
-                child: Center(
-                  child: Text(
-                    "Hotel Room",
-                    style: blackTextFont.copyWith(
-                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -133,22 +139,29 @@ class RoomPage extends StatelessWidget {
               onTap: () {
                 context.bloc<PageBloc>().add(GoToSearchRoomPage(1));
               },
-              child: Container(
-                width: MediaQuery.of(context).size.width / 2.7,
-                height: MediaQuery.of(context).size.height / 3.3,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 2.0,
+              child: Card(
+                elevation: 1,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+
+                              child: Container(
+                  width: MediaQuery.of(context).size.width / 2.7,
+                  height: MediaQuery.of(context).size.height / 3.3,
+                  // decoration: BoxDecoration(
+                  //     border: Border.all(
+                  //       color: Colors.black,
+                  //       width: 2.0,
+                  //     ),
+                  //     color: Colors.white,
+                  //     borderRadius: BorderRadius.all(Radius.circular(20))),
+                  // margin: EdgeInsets.fromLTRB(25, 10, 20, 12),
+                  child: Center(
+                    child: Text(
+                      "Meeting Room",
+                      style: blackTextFont.copyWith(
+                          fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                margin: EdgeInsets.fromLTRB(25, 10, 20, 12),
-                child: Center(
-                  child: Text(
-                    "Meeting Room",
-                    style: blackTextFont.copyWith(
-                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -190,7 +203,6 @@ class RoomPage extends StatelessWidget {
                           size: 16,
                         ),
                         'Mineral Water'),
-                   
                     ContentTile(
                         Icon(
                           Icons.hot_tub,
@@ -206,12 +218,12 @@ class RoomPage extends StatelessWidget {
                   ],
                 ))),
         BlocBuilder<SearchRoomBloc, SearchRoomState>(builder: (context, state) {
-          if(state is SearchRoomInitial){
-               return Center(
-          child: CircularProgressIndicator(
-        strokeWidth: 0.5,
-        backgroundColor: Colors.amber,
-      ));
+          if (state is SearchRoomInitial) {
+            return Center(
+                child: CircularProgressIndicator(
+              strokeWidth: 0.5,
+              backgroundColor: Colors.amber,
+            ));
           }
           return Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -230,83 +242,83 @@ class RoomPage extends StatelessWidget {
                   height: MediaQuery.of(context).size.height / 5,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: state.dataSearch.room.length,
+                      itemCount:3,
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {},
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                padding: const EdgeInsets.all(8.0),
-                                width: MediaQuery.of(context).size.width / 1.3,
-                                height: MediaQuery.of(context).size.height / 6,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.black,
-                                    width: 2.0,
-                                  ),
-                                  color: Colors.white,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Container(
-                                      width:
-                                          MediaQuery.of(context).size.width / 3,
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              4,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: (state
-                                                          .dataSearch
-                                                          .room[index]
-                                                          .picture ==
-                                                      ""
-                                                  ? AssetImage(
-                                                      "assets/user_pic.png")
-                                                  : NetworkImage(state
-                                                      .dataSearch
-                                                      .room[index]
-                                                      .picture)),
-                                              fit: BoxFit.cover)),
-                                    ),
-                                    Container(
-                                        padding: EdgeInsets.only(
-                                            left: 8.0, right: 8.0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            RatingStars(
-                                              voteAverage: double.parse((state
-                                                              .dataSearch
-                                                              .room[index]
-                                                              .rate ==
-                                                          "null" ||
-                                                      state
-                                                              .dataSearch
-                                                              .room[index]
-                                                              .rate ==
-                                                          null)
-                                                  ? "5.0"
-                                                  : state.dataSearch.room[index]
-                                                      .rate),
-                                              color: Colors.amber,
-                                            ),
-                                            Text(state.dataSearch.room[index]
-                                                .roomName),
-                                            Text(state.dataSearch.room[index]
-                                                .roomName),
-                                            Text(
-                                                "Rp. ${state.dataSearch.room[index].price.toString()} / Night"),
-                                          ],
-                                        )),
-                                  ],
-                                )),
+                          child: Card(
+                            elevation: 1,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                                                      child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                  padding: const EdgeInsets.all(8.0),
+                                  width: MediaQuery.of(context).size.width / 1.3,
+                                  height: MediaQuery.of(context).size.height / 6,
+                                 
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width / 3,
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                4,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: (state
+                                                            .dataSearch
+                                                            .room[index]
+                                                            .picture ==
+                                                        ""
+                                                    ? AssetImage(
+                                                        "assets/user_pic.png")
+                                                    : NetworkImage(state
+                                                        .dataSearch
+                                                        .room[index]
+                                                        .picture)),
+                                                fit: BoxFit.cover)),
+                                      ),
+                                      Container(
+                                          padding: EdgeInsets.only(
+                                              left: 8.0, right: 8.0),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              RatingStars(
+                                                voteAverage: double.parse((state
+                                                                .dataSearch
+                                                                .room[index]
+                                                                .rate ==
+                                                            "null" ||
+                                                        state
+                                                                .dataSearch
+                                                                .room[index]
+                                                                .rate ==
+                                                            null)
+                                                    ? "5.0"
+                                                    : state.dataSearch.room[index]
+                                                        .rate),
+                                                color: Colors.amber,
+                                              ),
+                                              Text(state.dataSearch.room[index]
+                                                  .roomName),
+                                              Text(state.dataSearch.room[index]
+                                                  .roomName),
+                                              Text(
+                                                  "Rp. ${state.dataSearch.room[index].price.toString()} / Night"),
+                                            ],
+                                          )),
+                                    ],
+                                  )),
+                            ),
                           ),
                         );
                       })),
@@ -318,7 +330,7 @@ class RoomPage extends StatelessWidget {
             subtitle: Container(
                 // padding: EdgeInsets.all(2.0),
                 width: MediaQuery.of(context).size.width / 1.2,
-                height: MediaQuery.of(context).size.height / 7,
+                // height: MediaQuery.of(context).size.height / 7,
                 decoration: BoxDecoration(
                   color: Colors.white,
                 ),

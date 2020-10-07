@@ -37,9 +37,15 @@ class Wrapper extends StatelessWidget {
                                     : (pageState is OnSearchRoomPage)
                                         ? SearchRoom(
                                             typeRoom: pageState.typeRoom)
-                                        : (pageState is OnRoomDetailPage)
+                                        : 
+                                        (pageState is OnRoomDetailPage)
                                             ? RoomDetail(
                                                 room: pageState.roomModel,
+                                              ):
+                                        (pageState is OnEditRoom)
+                                            ? CreateRoom(
+                                                room: pageState.room,
+                                                edit: true,
                                               )
                                             : (pageState is OnBookDetailPage)
                                                 ? BookDetail(firebaseUser.uid,

@@ -98,12 +98,12 @@ class CreateRoomBloc extends Bloc<CreateRoomEvent, CreateRoomState> {
 //       }).toList();
 
       RoomModel dataRoom = RoomModel(
-          id: v4crypto,
+          id: event.id ?? v4crypto,
           price: event.price,
           description: data.desc,
           roomName: event.roomNamme,
           photos: photoss,
-          type: data.typeValue,
+          type:event.type?? data.typeValue,
           data: data.facility,
           capacity: event.capacity,
           duration: event.duration,
@@ -112,10 +112,12 @@ class CreateRoomBloc extends Bloc<CreateRoomEvent, CreateRoomState> {
           picture: thumbnail);
 
 // // // print()
-
-      var datas = CreateRoomService.createRoom(dataRoom);
-      print("a");
-      print(datas);
+      var datas;
+      if (event.edit) {
+        datas = CreateRoomService.updateRoom(dataRoom);
+      } else {
+        datas = CreateRoomService.createRoom(dataRoom);
+      }
       yield CreateRoomSuccess(createRoomModel: data.copyWith(data));
       // if (data.typeValue == null) {
       //   yield Error(data.copyWith(data), 'Room Type is Empty');

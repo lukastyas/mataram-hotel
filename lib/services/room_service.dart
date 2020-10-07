@@ -10,4 +10,8 @@ class RoomServices {
         snapshot.documents.map((e) => RoomModel.fromJson(e.data, e.documentID)).toList();
     return room;
   }
+  static Future<void> deletedRoom({id}) async {
+    await _roomCollection.document(id).delete();
+  
+  }
 }

@@ -17,3 +17,10 @@ class OnChangeDate extends SearchRoomEvent {
   @override
   List<Object> get props => [];
 }
+class DeletedRoom extends SearchRoomEvent {
+  final idOrder;
+
+  DeletedRoom(this.idOrder);
+  @override
+  List<Object> get props => [];
+}

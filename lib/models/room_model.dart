@@ -60,6 +60,7 @@ class RoomModel extends Equatable {
         facility: json["facilities"],
         type: json["type"],
         noFRoom: json["no_of_room"],
+        noRoom: json["no_room"],
         roomName: json["roomName"],
         data:json["facilities"],
         photos: List<Photo>.from(json["photos"].map((x) => Photo.fromJson(x))),

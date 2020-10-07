@@ -151,14 +151,14 @@ class SearchRoom extends StatelessWidget {
                         "0"; // if (state is RoomLoaded) {
                     _controllerRooms.text = "0"; // if (state is RoomLoaded) {
                     if (state is SearchRoomInitial) {
-                        return Center(
-          child: CircularProgressIndicator(
-        strokeWidth: 0.5,
-        backgroundColor: Colors.amber,
-      ));
+                      return Center(
+                          child: CircularProgressIndicator(
+                        strokeWidth: 0.5,
+                        backgroundColor: Colors.amber,
+                      ));
                     }
-print("WAH");
-print(typeRoom);
+                    print("WAH");
+                    print(typeRoom);
                     if (typeRoom == 0) {
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -586,136 +586,144 @@ print(typeRoom);
                                   scrollDirection: Axis.horizontal,
                                   itemCount: state.dataSearch.room.length,
                                   itemBuilder: (context, index) {
-                                    return   state.dataSearch .room[index].noFRoom <= 0 ?  Container(
+                                    return state.dataSearch.room[index]
+                                                .noFRoom <=
+                                            0
+                                        ? Container()
+                                        : GestureDetector(
+                                            onTap: () {
+                                              if (state.dataSearch
+                                                      .selecetedDateFrom ==
+                                                  null) {
+                                                Flushbar(
+                                                  duration: Duration(
+                                                      milliseconds: 1500),
+                                                  flushbarPosition:
+                                                      FlushbarPosition.BOTTOM,
+                                                  backgroundColor: Colors.red,
+                                                  message:
+                                                      "Please Insert your Chekck-in",
+                                                )..show(context);
+                                              } else if (state.dataSearch
+                                                      .selecetedDateTo ==
+                                                  null) {
+                                                Flushbar(
+                                                  duration: Duration(
+                                                      milliseconds: 1500),
+                                                  flushbarPosition:
+                                                      FlushbarPosition.BOTTOM,
+                                                  backgroundColor: Colors.red,
+                                                  message:
+                                                      "Please Insert your Chekck-out",
+                                                )..show(context);
+                                              } else {
+                                                context.bloc<PageBloc>().add(
+                                                    GotoDetailRoom(state
+                                                        .dataSearch
+                                                        .room[index]));
 
-                                    ): GestureDetector(
-                                      onTap: () {
-                                        if (state
-                                                .dataSearch.selecetedDateFrom ==
-                                            null) {
-                                          Flushbar(
-                                            duration:
-                                                Duration(milliseconds: 1500),
-                                            flushbarPosition:
-                                                FlushbarPosition.BOTTOM,
-                                            backgroundColor: Colors.red,
-                                            message:
-                                                "Please Insert your Chekck-in",
-                                          )..show(context);
-                                        } else if (state
-                                                .dataSearch.selecetedDateTo ==
-                                            null) {
-                                          Flushbar(
-                                            duration:
-                                                Duration(milliseconds: 1500),
-                                            flushbarPosition:
-                                                FlushbarPosition.BOTTOM,
-                                            backgroundColor: Colors.red,
-                                            message:
-                                                "Please Insert your Chekck-out",
-                                          )..show(context);
-                                        } else {
-                                          context.bloc<PageBloc>().add(
-                                              GotoDetailRoom(state
-                                                  .dataSearch.room[index]));
-
-                                          return;
-                                        }
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                            padding: const EdgeInsets.all(8.0),
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                1.3,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                6,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: Colors.black,
-                                                width: 2.0,
-                                              ),
-                                              color: Colors.white,
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      3,
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height /
-                                                      4,
-                                                  decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                          image: (state
-                                                                      .dataSearch
-                                                                      .room[
-                                                                          index]
-                                                                      .picture ==
-                                                                  ""
-                                                              ? AssetImage(
-                                                                  "assets/user_pic.png")
-                                                              : NetworkImage(state
-                                                                  .dataSearch
-                                                                  .room[index]
-                                                                  .picture)),
-                                                          fit: BoxFit.cover)),
-                                                ),
-                                                Container(
-                                                    padding: EdgeInsets.only(
-                                                        left: 8.0, right: 8.0),
-                                                    child: Column(
+                                                return;
+                                              }
+                                            },
+                                            child: Card(
+                                               elevation: 1,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                                                                          child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Container(
+                                                    padding:
+                                                        const EdgeInsets.all(8.0),
+                                                    width: MediaQuery.of(context)
+                                                            .size
+                                                            .width /
+                                                        1.3,
+                                                    height: MediaQuery.of(context)
+                                                            .size
+                                                            .height /
+                                                        6,
+                                                  
+                                                    child: Row(
                                                       mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
+                                                          MainAxisAlignment.start,
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: <Widget>[
-                                                        RatingStars(
-                                                          voteAverage: double.parse((state
+                                                        Container(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              3,
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height /
+                                                              4,
+                                                          decoration: BoxDecoration(
+                                                              image: DecorationImage(
+                                                                  image: (state
+                                                                              .dataSearch
+                                                                              .room[
+                                                                                  index]
+                                                                              .picture ==
+                                                                          ""
+                                                                      ? AssetImage(
+                                                                          "assets/user_pic.png")
+                                                                      : NetworkImage(state
                                                                           .dataSearch
                                                                           .room[
                                                                               index]
-                                                                          .rate ==
-                                                                      "null" ||
-                                                                  state
-                                                                          .dataSearch
-                                                                          .room[
-                                                                              index]
-                                                                          .rate ==
-                                                                      null)
-                                                              ? "7.0"
-                                                              : state
-                                                                  .dataSearch
-                                                                  .room[index]
-                                                                  .rate),
-                                                          color: Colors.amber,
+                                                                          .picture)),
+                                                                  fit: BoxFit
+                                                                      .cover)),
                                                         ),
-                                                        Text(state
-                                                            .dataSearch
-                                                            .room[index]
-                                                            .roomName),
-                                                        Text("No of room : ${state.dataSearch .room[index].noFRoom}"),
-                                                        Text(
-                                                            "Rp. ${state.dataSearch.room[index].price.toString()} / Night"),
+                                                        Container(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    left: 8.0,
+                                                                    right: 8.0),
+                                                            child: Column(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: <Widget>[
+                                                                RatingStars(
+                                                                  voteAverage: double.parse((state.dataSearch.room[index].rate ==
+                                                                              "null" ||
+                                                                          state.dataSearch.room[index].rate ==
+                                                                              null)
+                                                                      ? "7.0"
+                                                                      : state
+                                                                          .dataSearch
+                                                                          .room[
+                                                                              index]
+                                                                          .rate),
+                                                                  color: Colors
+                                                                      .amber,
+                                                                ),
+                                                                Text(state
+                                                                    .dataSearch
+                                                                    .room[index]
+                                                                    .roomName),
+                                                                Text(
+                                                                    "No of room : ${state.dataSearch.room[index].noFRoom}"),
+                                                                Text(
+                                                                    "Rp. ${state.dataSearch.room[index].price.toString()} / Night"),
+                                                              ],
+                                                            )),
                                                       ],
                                                     )),
-                                              ],
-                                            )),
-                                      ),
-                                    );
+                                              ),
+                                            ),
+                                          );
                                   })),
                         ],
                       );
@@ -802,7 +810,7 @@ print(typeRoom);
                                         GestureDetector(
                                           onTap: () async {
                                             var picked =
-                                              await  DatePicker.showTimePicker(
+                                                await DatePicker.showTimePicker(
                                                     context,
                                                     showTitleActions: true,
                                                     onChanged: (date) {
@@ -826,9 +834,8 @@ print(typeRoom);
                                           child: Text(
                                             state?.dataSearch?.timeOfDay == null
                                                 ? "Choose your start event"
-                                                :  dateFormatHour.format(state
-                                                    .dataSearch
-                                                    .timeOfDay),
+                                                : dateFormatHour.format(
+                                                    state.dataSearch.timeOfDay),
                                             style: blackTextFont.copyWith(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.bold),
@@ -893,102 +900,106 @@ print(typeRoom);
                                           return;
                                         }
                                       },
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(3.0),
-                                        child: Container(
-                                            padding: const EdgeInsets.all(8.0),
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            height: MediaQuery.of(context)
-                                                .size
-                                                .height,
-                                            decoration: BoxDecoration(
-                                              // color:Colors.amber,
-                                              border: Border.all(
-                                                color: Colors.black,
-                                                width: 2.0,
-                                              ),
-                                            ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Container(
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height /
-                                                      4.5,
-                                                  decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                          image: (state
-                                                                      .dataSearch
-                                                                      .room[
-                                                                          index]
-                                                                      .picture ==
-                                                                  ""
-                                                              ? AssetImage(
-                                                                  "assets/user_pic.png")
-                                                              : NetworkImage(state
-                                                                  .dataSearch
-                                                                  .room[index]
-                                                                  .picture)),
-                                                          fit: BoxFit.cover)),
-                                                ),
-                                                Container(
-                                                    padding: EdgeInsets.only(
-                                                        top: 8.0,
-                                                        left: 8.0,
-                                                        right: 8.0),
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: <Widget>[
-                                                        state
-                                                                    .dataSearch
-                                                                    .room[index]
-                                                                    .rate ==
-                                                                null
-                                                            ? Container()
-                                                            : RatingStars(
-                                                                voteAverage: double.parse(state
-                                                                            .dataSearch
-                                                                            .room[
-                                                                                index]
-                                                                            .rate ==
-                                                                        "null"
-                                                                    ? "7.0"
-                                                                    : state
+                                      child: Card(
+                                        elevation: 1,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(3.0),
+                                          child: Container(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              height: MediaQuery.of(context)
+                                                  .size
+                                                  .height,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height /
+                                                            4.5,
+                                                    decoration: BoxDecoration(
+                                                        image: DecorationImage(
+                                                            image: (state
                                                                         .dataSearch
                                                                         .room[
                                                                             index]
-                                                                        .rate),
-                                                                color: Colors
-                                                                    .amber,
-                                                              ),
-                                                        Text(state
-                                                            .dataSearch
-                                                            .room[index]
-                                                            .roomName),
-                                                        Text(
-                                                            "Rp. ${state.dataSearch.room[index].price.toString()} / Pax"),
-                                                        Text(
-                                                            "Capacity : Min ${state.dataSearch.room[index].capacity}"),
-                                                        Text(
-                                                            "Duration : ${state.dataSearch.room[index].duration} Hours"),
-                                                      ],
-                                                    )),
-                                              ],
-                                            )),
+                                                                        .picture ==
+                                                                    ""
+                                                                ? AssetImage(
+                                                                    "assets/user_pic.png")
+                                                                : NetworkImage(state
+                                                                    .dataSearch
+                                                                    .room[index]
+                                                                    .picture)),
+                                                            fit: BoxFit.cover)),
+                                                  ),
+                                                  Container(
+                                                      padding: EdgeInsets.only(
+                                                          top: 8.0,
+                                                          left: 8.0,
+                                                          right: 8.0),
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: <Widget>[
+                                                          state
+                                                                      .dataSearch
+                                                                      .room[
+                                                                          index]
+                                                                      .rate ==
+                                                                  null
+                                                              ? Container()
+                                                              : RatingStars(
+                                                                  voteAverage: double.parse(state
+                                                                              .dataSearch
+                                                                              .room[
+                                                                                  index]
+                                                                              .rate ==
+                                                                          "null"
+                                                                      ? "7.0"
+                                                                      : state
+                                                                          .dataSearch
+                                                                          .room[
+                                                                              index]
+                                                                          .rate),
+                                                                  color: Colors
+                                                                      .amber,
+                                                                ),
+                                                          Text(state
+                                                              .dataSearch
+                                                              .room[index]
+                                                              .roomName),
+                                                          Text(
+                                                              "Rp. ${state.dataSearch.room[index].price.toString()} / Pax"),
+                                                          Text(
+                                                              "Capacity : Min ${state.dataSearch.room[index].capacity}"),
+                                                          Text(
+                                                              "Duration : ${state.dataSearch.room[index].duration} Hours"),
+                                                        ],
+                                                      )),
+                                                ],
+                                              )),
+                                        ),
                                       ),
                                     );
                                   })),

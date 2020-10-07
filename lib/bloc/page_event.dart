@@ -150,6 +150,13 @@ class GotoCreateRoom extends PageEvent {
   @override
   List<Object> get props => [];
 }
+class GotoEditRoom extends PageEvent {
+  final RoomModel room ;
+
+  GotoEditRoom(this.room);
+  @override
+  List<Object> get props => [];
+}
 
 class GotoNewest extends PageEvent {
   @override

@@ -32,15 +32,22 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
       SendEvidence data = state.sendEvidence;
 
       yield OnSendEvidencePage(sendEvidence: data.copyWith(data));
-    } else if (event is SendCheckIn) {
+    } 
+    else if (event is SendCheckIn) {
       DateTime time = DateTime.now();
       print("book[0].roomName");
       print(event.idOrder);
       List<BookModels> book = await BookService.getBook();
       String statusCheckin;
-      book.forEach((element) {
+      book.map((element) {
+              print("book[0].statuscheckIn");
+
+        print(element.statuscheckIn);
+        if(event.idOrder == element.idOrder){
         statusCheckin = element.statuscheckIn;
-      });
+
+        }
+      }).toList();
       print("statusCheckin");
       print(statusCheckin);
       if (statusCheckin == "0" || statusCheckin == null) {
@@ -48,19 +55,46 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
           idOrder: event.idOrder,
           checkIn: time.toString(),
         ));
-        yield ScanResult(statuCheckin: statusCheckin);
+        yield Errors(message: "Success");
       } else if (statusCheckin == "1") {
         yield Errors(message: 'This Room has been check-in');
       } else if (statusCheckin == "2") {
         yield Errors(message: 'This Room has been check-out');
       }
-    } else if (event is SendCheckOut) {
+    } 
+    else if (event is Scan) {
+      print("book[0].roomName");
+      print(event.idOrder);
+      List<BookModels> book = await BookService.getBook();
+      String statusCheckin;
+      book.map((element) {
+              print("book[0].statuscheckIn");
+
+        print(element.statuscheckIn);
+        if(event.idOrder == element.idOrder){
+        statusCheckin = element.statuscheckIn;
+
+        }
+      }).toList();
+      print("statusCheckin");
+      print(statusCheckin);
+    
+        yield ScanResult(statuCheckin: statusCheckin);
+    
+    } 
+    else if (event is SendCheckOut) {
       DateTime time = DateTime.now();
       List<BookModels> book = await BookService.getBook();
       String statusCheckin;
-      book.forEach((element) {
+      book.map((element) {
+              print("book[0].statuscheckIn");
+
+        print(element.statuscheckIn);
+        if(event.idOrder == element.idOrder){
         statusCheckin = element.statuscheckIn;
-      });
+
+        }
+      }).toList();
       if (statusCheckin == "1") {
         await BookService.checkOut(BookModels(
           idOrder: event.idOrder,
