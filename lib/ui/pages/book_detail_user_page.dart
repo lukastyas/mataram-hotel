@@ -70,15 +70,17 @@ class _BookDetailUserPageState extends State<BookDetailUserPage> {
                     Text(
                         dateFormat.format(DateTime.parse(widget.book.checkIn))),
                     Text(' - '),
-                    Text(dateFormat
-                        .format(DateTime.parse(widget.book.checkOut))),
+                    widget.book.type == "1"
+                                  ? Text(widget.book.checkOut.toString())
+                                  : Text(dateFormat.format(
+                                      DateTime.parse(widget.book.checkOut)))
                   ],
                 ),
                 Row(
                   children: <Widget>[
                     Text("${widget.book.room} Room"),
-                    Text(' - '),
-                    Text("${widget.book.totalNight} Nights"),
+                    widget.book.type == "1" ?Container():  Text(' - '),
+                widget.book.type == "1" ?Container():  Text("${widget.book.totalNight} Nights"),
                   ],
                 ),
                 Container(

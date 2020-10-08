@@ -234,7 +234,7 @@ class RoomPageAdmin extends StatelessWidget {
                                                                         .room[
                                                                             index]
                                                                         .type ==
-                                                                    "1"
+                                                                    "0"
                                                                 ? "Room Name"
                                                                 : "Meeting Room Name",
                                                             style: TextStyle(

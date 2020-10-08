@@ -16,28 +16,28 @@ class Newest extends StatelessWidget {
         dateFormatHour = new DateFormat("hh:mm");
 
         if (state is OnNewestPage) {
-          final difference = DateTime.now()
-              .difference(DateTime.parse(state.book[0].checkOut))
-              .inDays;
-          print("difference");
-          print(difference);
-          print(DateTime.parse(state.book[0].checkOut));
-          var a;
-          List<DateTime> b = [];
-          for (int x = 0; x <= difference; x++) {
-            a = DateTime.parse(state.book[0].checkOut).add(Duration(days: x));
-            b.add(
-                DateTime.parse(state.book[0].checkOut).add(Duration(days: x)));
-          }
-          b.map((e) {
-            print("1111");
-            print(dateFormat.format(e));
-            print(dateFormat.format(DateTime.now()));
-            if (dateFormat.format(e) == dateFormat.format(DateTime.now())) {
-              print("e");
-              print(e);
-            }
-          }).toList();
+          // final difference = DateTime.now()
+          //     .difference(DateTime.parse(state?.book[0]?.checkOut))
+          //     .inDays;
+          // print("difference");
+          // print(difference);
+          // print(DateTime.parse(state.book[0].checkOut));
+          // var a;
+          // List<DateTime> b = [];
+          // for (int x = 0; x <= difference; x++) {
+          //   a = DateTime.parse(state.book[0].checkOut).add(Duration(days: x));
+          //   b.add(
+          //       DateTime.parse(state.book[0].checkOut).add(Duration(days: x)));
+          // }
+          // b.map((e) {
+          //   print("1111");
+          //   print(dateFormat.format(e));
+          //   print(dateFormat.format(DateTime.now()));
+          //   if (dateFormat.format(e) == dateFormat.format(DateTime.now())) {
+          //     print("e");
+          //     print(e);
+          //   }
+          // }).toList();
           return Container(
             height: MediaQuery.of(context).size.height / 1.1,
             padding: EdgeInsets.only(top: 100),

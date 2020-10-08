@@ -107,7 +107,7 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
         yield Errors(message: 'Please Check Your ticket');
       }
     } else if (event is SendApproval) {
-      // yield OnSuccess();
+      yield SendEvidenceInitial();
       print("a.fcmToken");
       print("b");
       await BookService.approve(

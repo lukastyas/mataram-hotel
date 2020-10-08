@@ -242,7 +242,7 @@ class RoomPage extends StatelessWidget {
                   height: MediaQuery.of(context).size.height / 5,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount:3,
+                      itemCount:state.dataSearch.room.length <  3 ?state.dataSearch.room.length : 3,
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {},

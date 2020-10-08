@@ -42,12 +42,7 @@ class Wrapper extends StatelessWidget {
                                             ? RoomDetail(
                                                 room: pageState.roomModel,
                                               ):
-                                        (pageState is OnEditRoom)
-                                            ? CreateRoom(
-                                                room: pageState.room,
-                                                edit: true,
-                                              )
-                                            : (pageState is OnBookDetailPage)
+                                      (pageState is OnBookDetailPage)
                                                 ? BookDetail(firebaseUser.uid,
                                                     pageState.roomModel)
                                                 : (pageState is OnTransferPage)
@@ -75,6 +70,13 @@ class Wrapper extends StatelessWidget {
                                                                 pageEvent:
                                                                     pageState
                                                                         .pageEvent,
+                                                              )
+                                                        : (pageState
+                                                                is OnEditRoom)
+                                                            ? EditProfile(
+                                                                room: pageState
+                                                                    .room,
+                                                                    edit : true
                                                               )
                                                             : (pageState
                                                                     is OnScanPage)

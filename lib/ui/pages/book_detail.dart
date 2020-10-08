@@ -34,7 +34,7 @@ class BookDetail extends StatelessWidget {
           print(room.duration);
 
           if (room.type == "1") {
-            difference = state.dataSearch.timeOfDay.add(Duration(hours: int.parse(room.duration)));
+            difference = state.dataSearch.timeOfDay.add(Duration(hours: int.parse(room.duration??"")));
                 
           } else {
             difference = state.dataSearch.selecetedDateTo

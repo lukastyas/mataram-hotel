@@ -45,7 +45,7 @@ class CreateRoomBloc extends Bloc<CreateRoomEvent, CreateRoomState> {
       yield CreateRoomInitial(createRoomModel: data.copyWith(data));
 
       print("====data.price====");
-      print(data.facility);
+      print(event.picture);
       print(data.image);
       print(data.picture1);
       print(data.picture2);
@@ -62,13 +62,13 @@ class CreateRoomBloc extends Bloc<CreateRoomEvent, CreateRoomState> {
       String picture4;
       String picture5;
       String picture6;
-      thumbnail = data.image == null ? "" : await uploadImage(data.image);
-      picture1 = data.picture1 == null ? "" : await uploadImage(data.picture1);
-      picture2 = data.picture2 == null ? "" : await uploadImage(data.picture2);
-      picture3 = data.picture3 == null ? "" : await uploadImage(data.picture3);
-      picture4 = data.picture4 == null ? "" : await uploadImage(data.picture4);
-      picture5 = data.picture5 == null ? "" : await uploadImage(data.picture5);
-      picture6 = data.picture6 == null ? "" : await uploadImage(data.picture6);
+      thumbnail = event.picture?? ( data.image == null ? "" : await uploadImage(event.picture??data.image));
+      picture1 = event.photo1??(data.picture1 == null ? "" : await uploadImage(event.photo1??data.picture1));
+      picture2 =event.photo2?? (data.picture2 == null ? "" : await uploadImage(event.photo2??data.picture2));
+      picture3 = event.photo3??(data.picture3 == null ? "" : await uploadImage(event.photo3??data.picture3));
+      picture4 = event.photo4??(data.picture4 == null ? "" : await uploadImage(event.photo4??data.picture4));
+      picture5 = event.photo5??(data.picture5 == null ? "" : await uploadImage(event.photo5??data.picture5));
+      picture6 =event.photo6?? (data.picture6 == null ? "" : await uploadImage(event.photo6??data.picture6));
 
       var picture = [
         picture1,
