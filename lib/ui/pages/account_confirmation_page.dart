@@ -113,8 +113,6 @@ class _AccountConfirmationPageState extends State<AccountConfirmationPage> {
                                         widget.registrationData.name,
                                         widget.registrationData.phoneNumber);
 
-                                print(result.message);
-                                print(result.user);
                                 // if (result.user == null) {
                                 //   setState(() {
                                 //     isSigningUp = false;

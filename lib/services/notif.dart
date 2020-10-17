@@ -1,5 +1,5 @@
 part of 'services.dart';
-
+ //* Config notif diterima user
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 

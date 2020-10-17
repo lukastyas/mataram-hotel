@@ -47,10 +47,7 @@ class Newest extends StatelessWidget {
                   // final difference = DateTime.now()
                   //     .difference(DateTime.parse(state.book[index].checkIn))
                   //     .inDays;
-                  print("AKAKA");
-
-                  print(state.book[index].statuscheckIn);
-
+                
                   if (firebaseUser.uid == state.book[index].idUser &&
                       state.book[index].status.toString() == "2") {
                     return GestureDetector(

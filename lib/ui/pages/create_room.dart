@@ -26,7 +26,7 @@ class CreateRoom extends StatelessWidget {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                Container(
+                Container( 
                   decoration: BoxDecoration(
                       color: accentColor1,
                       borderRadius: BorderRadius.only(
@@ -142,10 +142,7 @@ class CreateRoom extends StatelessWidget {
                         backgroundColor: Colors.amber,
                       ));
                     }
-                    print("state");
-                    print(state);
-
-                    return Padding(
+                              return Padding(
                       padding: const EdgeInsets.all(18.0),
                       child: Form(
                         // key: _formKey,
@@ -153,9 +150,8 @@ class CreateRoom extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            MataramDropdown(
+                            MataramDropdown( //*Dropdown Jenis room
                               onChangedDropDown: (val) {
-                                print(" value ku");
                                 state.createRoomModel.typeValue = val;
                                 context
                                     .bloc<CreateRoomBloc>()
@@ -174,7 +170,7 @@ class CreateRoom extends StatelessWidget {
                             ),
                             state.createRoomModel.image == null
                                 ? Container()
-                                : Center(
+                                : Center( //*Upload image
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: Colors.white,
@@ -197,7 +193,7 @@ class CreateRoom extends StatelessWidget {
                                                   .createRoomModel.image.path)),
                                     ),
                                   ),
-                            MataramTile(
+                            MataramTile(  //*Upload Thumbnail
                                 title: Text("Thumbnail"),
                                 subtitle: FlatButton(
                                     onPressed: () async {
@@ -213,7 +209,7 @@ class CreateRoom extends StatelessWidget {
                                       child: Icon(Icons.image),
                                     ))),
                             Text("Picture"),
-                            Container(
+                            Container(  //*Upload image room
                                 margin: EdgeInsets.fromLTRB(25, 10, 20, 12),
                                 height:
                                     MediaQuery.of(context).size.height / 2.3,
@@ -472,7 +468,7 @@ class CreateRoom extends StatelessWidget {
                                     ),
                                   ],
                                 )),
-                            MataramTile(
+                            MataramTile( 
                               title: Text("No Room"),
                               subtitle: Container(
                                 child: TextField(
@@ -627,7 +623,7 @@ class CreateRoom extends StatelessWidget {
                                   // print("${int.parse(priceController.value.text)}");
                                   // print("${nameController.text}");
 
-                                  if (nameController.text.isEmpty) {
+                                  if (nameController.text.isEmpty) { //*Kondisi ketika nama ruangan kosong
                                     Flushbar(
                                       duration: Duration(milliseconds: 1500),
                                       flushbarPosition: FlushbarPosition.BOTTOM,

@@ -10,7 +10,7 @@ class Network {
       const IosNotificationSettings(
           sound: true, badge: true, alert: true, provisional: false),
     );
-print(tokenTo);
+ //* Service untuk mengirim notifikas ke pada customer
     await http.post(
       'https://fcm.googleapis.com/fcm/send',
       headers: <String, String>{

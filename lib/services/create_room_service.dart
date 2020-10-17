@@ -3,7 +3,7 @@ part of 'services.dart';
 class CreateRoomService{
     static CollectionReference _userCollection =
       Firestore.instance.collection('hotelRoom');
-
+//* Service untuk membuat ruangan
         static Future<void> createRoom(RoomModel room) async {
     _userCollection.document(room.id).setData({
       'id_room': room.id,
@@ -21,6 +21,9 @@ class CreateRoomService{
       'no_of_room': room.noFRoom ,
     });
   }
+
+  //* Service untuk Edit atau update ruangan
+
         static Future<void> updateRoom(RoomModel room) async {
     _userCollection.document(room.id).updateData({
       'id_room': room.id,

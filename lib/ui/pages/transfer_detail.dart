@@ -31,11 +31,10 @@ class _TransferPageState extends State<TransferPage>
     _controller.dispose();
     super.dispose();
   }
+//* Halaman untuk melihat biaya yang harus di transfer
 
   @override
   Widget build(BuildContext context) {
-    print(widget.room.price);
-    print(widget.room.data);
               final formatCurrency =
               new NumberFormat.simpleCurrency(locale: 'id_ID');
 
@@ -67,7 +66,7 @@ class _TransferPageState extends State<TransferPage>
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text("${formatCurrency.format(widget.wallet)}"),
+                          child: Text("${formatCurrency.format(widget.wallet)}"), //*Jumlah yang harus dibayarkan
                         ),
                         Container(
                             width: MediaQuery.of(context).size.width / 1.3,
@@ -97,7 +96,7 @@ class _TransferPageState extends State<TransferPage>
                                 animation: StepTween(
                                   begin: 60 * 60,
                                   end: 0,
-                                ).animate(_controller),
+                                ).animate(_controller), //* Fungsi hitung mundur
                               ),
                             ],
                           ),
@@ -111,7 +110,7 @@ class _TransferPageState extends State<TransferPage>
                 margin: EdgeInsets.only(top: 200),
                 child: MataramButton(
                   onPressed: () {
-                    context.bloc<PageBloc>().add(GotoSendEvidence(
+                    context.bloc<PageBloc>().add(GotoSendEvidence( //* Menuju halaman bukti transfer 
                           widget.room,
                           widget.idOrder,
                           widget.wallet,

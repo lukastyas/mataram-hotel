@@ -6,6 +6,7 @@ class BookService {
   static CollectionReference roomCollection =
       Firestore.instance.collection("hotelRoom");
 
+//* Service Membuat booking
   static Future<void> createRoom(BookModels bookModel) async {
     await _bookCollection.document(bookModel.idOrder).setData({
       'id_order': bookModel.idOrder,
@@ -31,11 +32,16 @@ class BookService {
     // print(snapshot);
   }
 
+
+//* Service  mengurangi jumlah ruangan ketik sudah di booking
+
  static Future<void> updateNofRoom(BookModels user) async {
     roomCollection.document(user.idRoom).updateData({
       'no_of_room': user.noofRoom,
     });
   }
+
+//* Service mengirim bukti transfer
 
   static Future<void> updateUser(BookModels user) async {
     _bookCollection.document(user.idOrder).updateData({
@@ -43,20 +49,23 @@ class BookService {
     });
   }
 
+//* Service Rate
+
   static Future<void> updateRate(RoomModel user, idRoom) async {
-    print(user.rate);
-    print(user.review);
-    print(idRoom);
     roomCollection
         .document(idRoom)
         .updateData({'rate': user.rate, "review": user.review});
   }
+
+//* Service Approve bukti transfer, approve oleh admin
 
   static Future<void> approve(BookModels user) async {
     _bookCollection.document(user.idOrder).updateData({
       'status': user.status,
     });
   }
+
+//* Service Checkin
 
   static Future<void> checkIn(BookModels user) async {
     _bookCollection
@@ -69,6 +78,8 @@ class BookService {
         .document(user.idOrder)
         .updateData({'check_out': user.checkOut, 'status_check_in': "2"});
   }
+
+//* Service Melihat seleuruh booking
 
   static Future<List<BookModels>> getBook() async {
     QuerySnapshot snapshot = await _bookCollection.getDocuments();
