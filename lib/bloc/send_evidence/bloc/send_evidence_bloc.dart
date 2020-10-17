@@ -32,20 +32,18 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
       SendEvidence data = state.sendEvidence;
 
       yield OnSendEvidencePage(sendEvidence: data.copyWith(data));
-    } 
-    else if (event is SendCheckIn) {
+    } else if (event is SendCheckIn) {
       DateTime time = DateTime.now();
       print("book[0].roomName");
       print(event.idOrder);
       List<BookModels> book = await BookService.getBook();
       String statusCheckin;
       book.map((element) {
-              print("book[0].statuscheckIn");
+        print("book[0].statuscheckIn");
 
         print(element.statuscheckIn);
-        if(event.idOrder == element.idOrder){
-        statusCheckin = element.statuscheckIn;
-
+        if (event.idOrder == element.idOrder) {
+          statusCheckin = element.statuscheckIn;
         }
       }).toList();
       print("statusCheckin");
@@ -61,38 +59,33 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
       } else if (statusCheckin == "2") {
         yield Errors(message: 'This Room has been check-out');
       }
-    } 
-    else if (event is Scan) {
+    } else if (event is Scan) {
       print("book[0].roomName");
       print(event.idOrder);
       List<BookModels> book = await BookService.getBook();
       String statusCheckin;
       book.map((element) {
-              print("book[0].statuscheckIn");
+        print("book[0].statuscheckIn");
 
         print(element.statuscheckIn);
-        if(event.idOrder == element.idOrder){
-        statusCheckin = element.statuscheckIn;
-
+        if (event.idOrder == element.idOrder) {
+          statusCheckin = element.statuscheckIn;
         }
       }).toList();
       print("statusCheckin");
       print(statusCheckin);
-    
-        yield ScanResult(statuCheckin: statusCheckin);
-    
-    } 
-    else if (event is SendCheckOut) {
+
+      yield ScanResult(statuCheckin: statusCheckin);
+    } else if (event is SendCheckOut) {
       DateTime time = DateTime.now();
       List<BookModels> book = await BookService.getBook();
       String statusCheckin;
       book.map((element) {
-              print("book[0].statuscheckIn");
+        print("book[0].statuscheckIn");
 
         print(element.statuscheckIn);
-        if(event.idOrder == element.idOrder){
-        statusCheckin = element.statuscheckIn;
-
+        if (event.idOrder == element.idOrder) {
+          statusCheckin = element.statuscheckIn;
         }
       }).toList();
       if (statusCheckin == "1") {
@@ -100,7 +93,8 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
           idOrder: event.idOrder,
           checkOut: time.toString(),
         ));
-        yield ScanResult(statuCheckin: statusCheckin);
+         yield Errors(message: "Success");
+        // yield ScanResult(statuCheckin: statusCheckin);
       } else if (statusCheckin == "2") {
         yield Errors(message: 'This Room has been check-out');
       } else {
@@ -114,7 +108,9 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
           BookModels(idOrder: event.idOrder, status: event.status));
       var a = await UserServices.getUser(event.idUser);
       print(a.fcmToken);
-      await Network.sendAndRetrieveMessage(a.fcmToken);
+    await Network.sendAndRetrieveMessage(a.fcmToken);
+ print("a.fcmToken");
+
 
       yield OnSuccess();
     } else if (event is SendReview) {
@@ -126,6 +122,8 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
           event.idRoom);
 
       yield OnSuccess();
+    } else if (event is OnSendEvidenceEvent) {
+      yield OnSendEvidenceState();
     }
   }
 

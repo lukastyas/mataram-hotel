@@ -52,8 +52,6 @@ class SearchRoom extends StatelessWidget {
                                         UpdateData(profileImage: downloadURL));
                                   });
                                 }
-                                print("INI");
-                                print(userState.user.name);
                                 return Row(
                                   children: [
                                     GestureDetector(
@@ -142,8 +140,6 @@ class SearchRoom extends StatelessWidget {
                 ),
                 BlocBuilder<SearchRoomBloc, SearchRoomState>(
                   builder: (context, state) {
-                    print("stateaaaa");
-                    print(typeRoom);
                     dateFormat = new DateFormat("d MMMM yyyy");
                     dateFormatHour = new DateFormat("hh:mm");
                     _controller.text = "0"; // if (state is RoomLoaded) {
@@ -157,9 +153,7 @@ class SearchRoom extends StatelessWidget {
                         backgroundColor: Colors.amber,
                       ));
                     }
-                    print("WAH");
-                    print(typeRoom);
-                    if (typeRoom == 0) {
+                    if (typeRoom == 0) { //* Kondisi typeRoom Jika 0 bearti memilih hotel room jika 1 adalah meeeting room
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -581,18 +575,25 @@ class SearchRoom extends StatelessWidget {
                           ),
                           Container(
                               margin: EdgeInsets.fromLTRB(25, 10, 20, 12),
-                              height: MediaQuery.of(context).size.height / 5,
-                              child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
+                              height: MediaQuery.of(context).size.height / 3,
+                              child:   Container(
+                              margin: EdgeInsets.fromLTRB(10, 10, 10, 12),
+                              child: GridView.builder(
+                               
+                                  gridDelegate:
+                                      new SliverGridDelegateWithFixedCrossAxisCount(
+                                          childAspectRatio: .7,
+                                          crossAxisCount: 2),
+                                  // scrollDirection: Axis.horizontal,
                                   itemCount: state.dataSearch.room.length,
                                   itemBuilder: (context, index) {
                                     return state.dataSearch.room[index]
                                                 .noFRoom <=
                                             0
-                                        ? Container()
-                                        : GestureDetector(
-                                            onTap: () {
-                                              if (state.dataSearch
+                                        ? Container(): GestureDetector(
+                                      onTap: () {
+                                        //* Validasi apabila ingin melanjutkan ke halaman booking
+                                         if (state.dataSearch
                                                       .selecetedDateFrom ==
                                                   null) {
                                                 Flushbar(
@@ -624,36 +625,31 @@ class SearchRoom extends StatelessWidget {
 
                                                 return;
                                               }
-                                            },
-                                            child: Card(
-                                               elevation: 1,
+                                      },
+                                      child: Card(
+                                        elevation: 1,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(8.0),
                                         ),
-                                                                                          child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Container(
-                                                    padding:
-                                                        const EdgeInsets.all(8.0),
-                                                    width: MediaQuery.of(context)
-                                                            .size
-                                                            .width /
-                                                        1.3,
-                                                    height: MediaQuery.of(context)
-                                                            .size
-                                                            .height /
-                                                        6,
-                                                  
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.start,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: <Widget>[
-                                                        Container(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(3.0),
+                                          child: Container(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              height: MediaQuery.of(context)
+                                                  .size
+                                                  .height,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Container(
                                                           width: MediaQuery.of(
                                                                       context)
                                                                   .size
@@ -663,7 +659,7 @@ class SearchRoom extends StatelessWidget {
                                                                       context)
                                                                   .size
                                                                   .height /
-                                                              4,
+                                                              6,
                                                           decoration: BoxDecoration(
                                                               image: DecorationImage(
                                                                   image: (state
@@ -719,12 +715,16 @@ class SearchRoom extends StatelessWidget {
                                                                     "Rp. ${state.dataSearch.room[index].price.toString()} / Night"),
                                                               ],
                                                             )),
-                                                      ],
-                                                    )),
-                                              ),
-                                            ),
-                                          );
+                                                ],
+                                              )),
+                                        ),
+                                      ),
+                                    );
                                   })),
+                              
+                              
+                     
+                                  ),
                         ],
                       );
                     } else {
@@ -868,7 +868,8 @@ class SearchRoom extends StatelessWidget {
                                   itemCount: state.dataSearch.room.length,
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
-                                      onTap: () {
+                                      onTap: () {                                         //* Validasi apabila ingin melanjutkan ke halaman booking
+
                                         if (state
                                                 .dataSearch.selecetedDateFrom ==
                                             null) {

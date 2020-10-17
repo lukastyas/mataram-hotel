@@ -28,6 +28,9 @@ class ScanResult extends SendEvidenceState{
   final String statuCheckin;
   ScanResult({this.statuCheckin});
 }
+class OnSendEvidenceState extends SendEvidenceState{
+ 
+}
 class Errors extends SendEvidenceState{
   final String message;
   Errors({this.message});

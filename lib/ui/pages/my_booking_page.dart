@@ -69,6 +69,9 @@ class _MyBookingPageState extends State<MyBookingPage> {
               child: ListView.builder(
                   itemCount: widget.bookModels.length,
                   itemBuilder: (context, index) {
+
+//* Halaman my booking diberi kondisi dimana user id harus sama dengan user id booking dan ini hanya untuk role costumer  
+//* Custommer role 0 dan admin role 1
                     if (firebaseUser.uid == widget.bookModels[index].idUser &&
                         widget.role == 0 &&
                         widget.bookModels[index].status.toString() == "1") {
@@ -159,7 +162,8 @@ class _MyBookingPageState extends State<MyBookingPage> {
                                           ),
                                           Row(
                                             children: <Widget>[
-                                              Text("Status"),
+                                              Text("Status"), //* Status Booking jika status adalah 1 maka booking masih dalam status Processing
+                                              //* Jika 2 Sukses
                                               Text(' : '),
                                               Text(
                                                   widget.bookModels[index]
@@ -198,7 +202,6 @@ class _MyBookingPageState extends State<MyBookingPage> {
                     } else if (widget.role == 1) {
                       return GestureDetector(
                         onTap: () {
-                          print("INI KUY");
                           widget.role == 1
                               ? context.bloc<PageBloc>().add(GotoBookingDetail(
                                   widget.bookModels[index], widget.pageEvent))

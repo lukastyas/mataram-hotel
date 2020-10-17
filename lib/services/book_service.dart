@@ -74,7 +74,9 @@ class BookService {
     QuerySnapshot snapshot = await _bookCollection.getDocuments();
 
     List<BookModels> room = snapshot.documents
-        .map((e) => BookModels(
+        .map((e) {
+        
+        return  BookModels(
             thumbnail: e.data['thumbnail'],
             room: e.data['room'],
             totalNight: e.data['total_night'],
@@ -89,7 +91,10 @@ class BookService {
             price: e.data['price'],
             status: e.data['status'],
             statuscheckIn: e.data['status_check_in'],
-            evidence: e.data['evidence']))
+            evidence: e.data['evidence']);
+
+            }
+            )
         .toList();
     return room;
   }
