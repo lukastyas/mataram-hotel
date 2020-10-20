@@ -153,7 +153,8 @@ class SearchRoom extends StatelessWidget {
                         backgroundColor: Colors.amber,
                       ));
                     }
-                    if (typeRoom == 0) { //* Kondisi typeRoom Jika 0 bearti memilih hotel room jika 1 adalah meeeting room
+                    if (typeRoom == 0) {
+                      //* Kondisi typeRoom Jika 0 bearti memilih hotel room jika 1 adalah meeeting room
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -574,157 +575,159 @@ class SearchRoom extends StatelessWidget {
                             ),
                           ),
                           Container(
-                              margin: EdgeInsets.fromLTRB(25, 10, 20, 12),
-                              height: MediaQuery.of(context).size.height / 3,
-                              child:   Container(
-                              margin: EdgeInsets.fromLTRB(10, 10, 10, 12),
-                              child: GridView.builder(
-                               
-                                  gridDelegate:
-                                      new SliverGridDelegateWithFixedCrossAxisCount(
-                                          childAspectRatio: .7,
-                                          crossAxisCount: 2),
-                                  // scrollDirection: Axis.horizontal,
-                                  itemCount: state.dataSearch.room.length,
-                                  itemBuilder: (context, index) {
-                                    return state.dataSearch.room[index]
-                                                .noFRoom <=
-                                            0
-                                        ? Container(): GestureDetector(
-                                      onTap: () {
-                                        //* Validasi apabila ingin melanjutkan ke halaman booking
-                                         if (state.dataSearch
-                                                      .selecetedDateFrom ==
-                                                  null) {
-                                                Flushbar(
-                                                  duration: Duration(
-                                                      milliseconds: 1500),
-                                                  flushbarPosition:
-                                                      FlushbarPosition.BOTTOM,
-                                                  backgroundColor: Colors.red,
-                                                  message:
-                                                      "Please Insert your Chekck-in",
-                                                )..show(context);
-                                              } else if (state.dataSearch
-                                                      .selecetedDateTo ==
-                                                  null) {
-                                                Flushbar(
-                                                  duration: Duration(
-                                                      milliseconds: 1500),
-                                                  flushbarPosition:
-                                                      FlushbarPosition.BOTTOM,
-                                                  backgroundColor: Colors.red,
-                                                  message:
-                                                      "Please Insert your Chekck-out",
-                                                )..show(context);
-                                              } else {
-                                                context.bloc<PageBloc>().add(
-                                                    GotoDetailRoom(state
-                                                        .dataSearch
-                                                        .room[index]));
+                            margin: EdgeInsets.fromLTRB(25, 10, 20, 12),
+                            height: MediaQuery.of(context).size.height / 3,
+                            child: Container(
+                                margin: EdgeInsets.fromLTRB(10, 10, 10, 12),
+                                child: GridView.builder(
+                                    gridDelegate:
+                                        new SliverGridDelegateWithFixedCrossAxisCount(
+                                            childAspectRatio: .7,
+                                            crossAxisCount: 2),
+                                    // scrollDirection: Axis.horizontal,
+                                    itemCount: state.dataSearch.room.length,
+                                    itemBuilder: (context, index) {
+                                      return state.dataSearch.room[index]
+                                                  .noFRoom <=
+                                              0
+                                          ? Container()
+                                          : GestureDetector(
+                                              onTap: () {
+                                                //* Validasi apabila ingin melanjutkan ke halaman booking
+                                                if (state.dataSearch
+                                                        .selecetedDateFrom ==
+                                                    null) {
+                                                  Flushbar(
+                                                    duration: Duration(
+                                                        milliseconds: 1500),
+                                                    flushbarPosition:
+                                                        FlushbarPosition.BOTTOM,
+                                                    backgroundColor: Colors.red,
+                                                    message:
+                                                        "Please Insert your Chekck-in",
+                                                  )..show(context);
+                                                } else if (state.dataSearch
+                                                        .selecetedDateTo ==
+                                                    null) {
+                                                  Flushbar(
+                                                    duration: Duration(
+                                                        milliseconds: 1500),
+                                                    flushbarPosition:
+                                                        FlushbarPosition.BOTTOM,
+                                                    backgroundColor: Colors.red,
+                                                    message:
+                                                        "Please Insert your Chekck-out",
+                                                  )..show(context);
+                                                } else {
+                                                  context.bloc<PageBloc>().add(
+                                                      GotoDetailRoom(state
+                                                          .dataSearch
+                                                          .room[index]));
 
-                                                return;
-                                              }
-                                      },
-                                      child: Card(
-                                        elevation: 1,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(3.0),
-                                          child: Container(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              height: MediaQuery.of(context)
-                                                  .size
-                                                  .height,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  Container(
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width /
-                                                              3,
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height /
-                                                              6,
-                                                          decoration: BoxDecoration(
-                                                              image: DecorationImage(
-                                                                  image: (state
-                                                                              .dataSearch
-                                                                              .room[
-                                                                                  index]
-                                                                              .picture ==
-                                                                          ""
-                                                                      ? AssetImage(
-                                                                          "assets/user_pic.png")
-                                                                      : NetworkImage(state
-                                                                          .dataSearch
-                                                                          .room[
-                                                                              index]
-                                                                          .picture)),
-                                                                  fit: BoxFit
-                                                                      .cover)),
-                                                        ),
-                                                        Container(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    left: 8.0,
-                                                                    right: 8.0),
-                                                            child: Column(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: <Widget>[
-                                                                RatingStars(
-                                                                  voteAverage: double.parse((state.dataSearch.room[index].rate ==
-                                                                              "null" ||
-                                                                          state.dataSearch.room[index].rate ==
-                                                                              null)
-                                                                      ? "7.0"
-                                                                      : state
-                                                                          .dataSearch
-                                                                          .room[
-                                                                              index]
-                                                                          .rate),
-                                                                  color: Colors
-                                                                      .amber,
-                                                                ),
-                                                                Text(state
-                                                                    .dataSearch
-                                                                    .room[index]
-                                                                    .roomName),
-                                                                Text(
-                                                                    "No of room : ${state.dataSearch.room[index].noFRoom}"),
-                                                                Text(
-                                                                    "Rp. ${state.dataSearch.room[index].price.toString()} / Night"),
-                                                              ],
-                                                            )),
-                                                ],
-                                              )),
-                                        ),
-                                      ),
-                                    );
-                                  })),
-                              
-                              
-                     
-                                  ),
+                                                  return;
+                                                }
+                                              },
+                                              child: Card(
+                                                elevation: 1,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(3.0),
+                                                  child: Container(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .width,
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .height,
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: <Widget>[
+                                                          Container(
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width /
+                                                                3,
+                                                            height: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height /
+                                                                6,
+                                                            decoration: BoxDecoration(
+                                                                image: DecorationImage(
+                                                                    image: (state.dataSearch.room[index].picture ==
+                                                                            ""
+                                                                        ? AssetImage(
+                                                                            "assets/user_pic.png")
+                                                                        : NetworkImage(state
+                                                                            .dataSearch
+                                                                            .room[
+                                                                                index]
+                                                                            .picture)),
+                                                                    fit: BoxFit
+                                                                        .cover)),
+                                                          ),
+                                                          Container(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      left: 8.0,
+                                                                      right:
+                                                                          8.0),
+                                                              child: Column(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .start,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: <
+                                                                    Widget>[
+                                                                  RatingStars(
+                                                                    voteAverage: double.parse((state.dataSearch.room[index].rate ==
+                                                                                "null" ||
+                                                                            state.dataSearch.room[index].rate ==
+                                                                                null)
+                                                                        ? "7.0"
+                                                                        : state
+                                                                            .dataSearch
+                                                                            .room[index]
+                                                                            .rate),
+                                                                    color: Colors
+                                                                        .amber,
+                                                                  ),
+                                                                  Text(state
+                                                                      .dataSearch
+                                                                      .room[
+                                                                          index]
+                                                                      .roomName),
+                                                                  Text(
+                                                                      "No of room : ${state.dataSearch.room[index].noFRoom}"),
+                                                                  Text(
+                                                                      "Rp. ${state.dataSearch.room[index].price.toString()} / Night"),
+                                                                ],
+                                                              )),
+                                                        ],
+                                                      )),
+                                                ),
+                                              ),
+                                            );
+                                    })),
+                          ),
                         ],
                       );
                     } else {
@@ -868,7 +871,8 @@ class SearchRoom extends StatelessWidget {
                                   itemCount: state.dataSearch.room.length,
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
-                                      onTap: () {                                         //* Validasi apabila ingin melanjutkan ke halaman booking
+                                      onTap: () {
+                                        //* Validasi apabila ingin melanjutkan ke halaman booking
 
                                         if (state
                                                 .dataSearch.selecetedDateFrom ==

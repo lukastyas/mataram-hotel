@@ -144,8 +144,7 @@ class RoomPage extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-
-                              child: Container(
+                child: Container(
                   width: MediaQuery.of(context).size.width / 2.7,
                   height: MediaQuery.of(context).size.height / 3.3,
                   // decoration: BoxDecoration(
@@ -242,81 +241,88 @@ class RoomPage extends StatelessWidget {
                   height: MediaQuery.of(context).size.height / 5,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount:state.dataSearch.room.length <  3 ?state.dataSearch.room.length : 3,
+                      itemCount: state.dataSearch.room.length < 3
+                          ? state.dataSearch.room.length
+                          : 3,
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {},
                           child: Card(
                             elevation: 1,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                                                      child: Padding(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
                                   padding: const EdgeInsets.all(8.0),
-                                  width: MediaQuery.of(context).size.width / 1.3,
-                                  height: MediaQuery.of(context).size.height / 6,
-                                 
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width / 3,
-                                        height:
-                                            MediaQuery.of(context).size.height /
-                                                4,
-                                        decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                image: (state
-                                                            .dataSearch
-                                                            .room[index]
-                                                            .picture ==
-                                                        ""
-                                                    ? AssetImage(
-                                                        "assets/user_pic.png")
-                                                    : NetworkImage(state
-                                                        .dataSearch
-                                                        .room[index]
-                                                        .picture)),
-                                                fit: BoxFit.cover)),
-                                      ),
-                                      Container(
-                                          padding: EdgeInsets.only(
-                                              left: 8.0, right: 8.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              RatingStars(
-                                                voteAverage: double.parse((state
-                                                                .dataSearch
-                                                                .room[index]
-                                                                .rate ==
-                                                            "null" ||
-                                                        state
-                                                                .dataSearch
-                                                                .room[index]
-                                                                .rate ==
-                                                            null)
-                                                    ? "5.0"
-                                                    : state.dataSearch.room[index]
-                                                        .rate),
-                                                color: Colors.amber,
-                                              ),
-                                              Text(state.dataSearch.room[index]
-                                                  .roomName),
-                                              Text(state.dataSearch.room[index]
-                                                  .roomName),
-                                              Text(
-                                                  "Rp. ${state.dataSearch.room[index].price.toString()} / Night"),
-                                            ],
-                                          )),
-                                    ],
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.3,
+                                  height:
+                                      MediaQuery.of(context).size.height / 6,
+                                  child: SizedBox(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Container(
+                                          width:
+                                              MediaQuery.of(context).size.width /
+                                                  3,
+                                          height:
+                                              MediaQuery.of(context).size.height /
+                                                  4,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: (state
+                                                              .dataSearch
+                                                              .room[index]
+                                                              .picture ==
+                                                          ""
+                                                      ? AssetImage(
+                                                          "assets/user_pic.png")
+                                                      : NetworkImage(state
+                                                          .dataSearch
+                                                          .room[index]
+                                                          .picture)),
+                                                  fit: BoxFit.cover)),
+                                        ),
+                                        Container(
+                                            padding: EdgeInsets.only(
+                                                left: 8.0, right: 8.0),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                RatingStars(
+                                                  voteAverage: double.parse((state
+                                                                  .dataSearch
+                                                                  .room[index]
+                                                                  .rate ==
+                                                              "null" ||
+                                                          state
+                                                                  .dataSearch
+                                                                  .room[index]
+                                                                  .rate ==
+                                                              null)
+                                                      ? "5.0"
+                                                      : state.dataSearch
+                                                          .room[index].rate),
+                                                  color: Colors.amber,
+                                                ),
+                                                Text(state.dataSearch.room[index]
+                                                    .roomName),
+                                                Text(state.dataSearch.room[index]
+                                                    .roomName),
+                                                Text(
+                                                    "Rp. ${state.dataSearch.room[index].price.toString()} / Night"),
+                                              ],
+                                            )),
+                                      ],
+                                    ),
                                   )),
                             ),
                           ),
@@ -338,6 +344,9 @@ class RoomPage extends StatelessWidget {
                   "Terletak di Yogyakarta dan berselang 500 meter dari Jalan Malioboro, Hotel Mataram 2 menawarkan kamar ber-AC dengan akses Wi-Fi gratis dan teras bergaya Jawa dengan pemandangan taman. Hotel juga menyediakan tempat parkir pribadi gratis di areanya.",
                   textAlign: TextAlign.justify,
                 ))),
+        SizedBox(
+          height: 100,
+        )
       ],
     );
   }
