@@ -27,9 +27,6 @@ class _MyBookingPageState extends State<MyBookingPage> {
   void initState() {
     super.initState();
     dateFormat = new DateFormat("d MMMM yyyy");
-    print("firebaseUser.uid");
-    print(widget.bookModels[0].type);
-    print(widget.roomModels[0].roomName);
   }
 
   @override
@@ -56,26 +53,30 @@ class _MyBookingPageState extends State<MyBookingPage> {
                   onTap: () {
                     context.bloc<PageBloc>().add(widget.pageEvent);
                   },
-                  // child: Icon(
-                  //   Icons.arrow_back,
-                  //   color: Colors.black,
-                  // ),
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                  ),
                 ),
               ),
             ),
             Container(
               padding: const EdgeInsets.all(8.0),
-              height: MediaQuery.of(context).size.height,
               child: ListView.builder(
                   itemCount: widget.bookModels.length,
-                  // ignore: missing_return
                   itemBuilder: (context, index) {
 //* Halaman my booking diberi kondisi dimana user id harus sama dengan user id booking dan ini hanya untuk role costumer
 //* Custommer role 0 dan admin role 1
+                    print("FUCK");
+                    // print(firebaseUser.uid);
+                    // print(widget.bookModels.length);
+                    print(index);
+                    // print(widget.role);
+                    // print(widget.bookModels[index].status);
 
                     if (firebaseUser.uid == widget.bookModels[index].idUser &&
-                        widget.role == 0 &&
-                        widget.bookModels[index].status.toString() == "1") {
+                        widget.role != 1 &&
+                        (widget.bookModels[index].status.toString() != "2")) {
                       return GestureDetector(
                           onTap: () {
                             // Navigator.push(
@@ -314,6 +315,7 @@ class _MyBookingPageState extends State<MyBookingPage> {
                         ),
                       );
                     }
+                    return Center(child: Container());
                   }),
             )
           ],

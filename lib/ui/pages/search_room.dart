@@ -720,7 +720,7 @@ class SearchRoom extends StatelessWidget {
                                                                   Text(
                                                                       "Rp. ${state.dataSearch.room[index].price.toString()} / Night"),
                                                                 ],
-                                                              )),
+                                                              )), SizedBox(height: 20,),
                                                         ],
                                                       )),
                                                 ),

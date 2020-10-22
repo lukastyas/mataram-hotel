@@ -7,8 +7,8 @@ class Oldest extends StatelessWidget {
   Widget build(BuildContext context) {
     context.bloc<PageBloc>().add(GotoNewestPage());
     DateFormat dateFormat;
-    FirebaseUser firebaseUser = Provider.of<FirebaseUser>(context);
     DateFormat dateFormatHour;
+    FirebaseUser firebaseUser = Provider.of<FirebaseUser>(context);
 
     return BlocBuilder<PageBloc, PageState>(
       builder: (context, state) {
