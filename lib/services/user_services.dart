@@ -8,7 +8,7 @@ class UserServices {
     _userCollection.document(user.id).setData({
       'email': user.email,
       'name': user.name,
-      'role': user.role,
+      'role': user.role??0,
       'phoneNumber': user.phoneNumber,
       'profilePicture': user.profilePicture ?? "",
       'fcm_token': token

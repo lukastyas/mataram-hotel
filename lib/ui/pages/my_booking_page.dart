@@ -27,9 +27,6 @@ class _MyBookingPageState extends State<MyBookingPage> {
   void initState() {
     super.initState();
     dateFormat = new DateFormat("d MMMM yyyy");
-    print("irebaseUser.uid");
-    print(widget.bookModels[0].type);
-    print(widget.roomModels[0].roomName);
   }
 
   @override
@@ -65,16 +62,25 @@ class _MyBookingPageState extends State<MyBookingPage> {
             ),
             Container(
               padding: const EdgeInsets.all(8.0),
-              height: MediaQuery.of(context).size.height,
               child: ListView.builder(
                   itemCount: widget.bookModels.length,
                   itemBuilder: (context, index) {
-
-//* Halaman my booking diberi kondisi dimana user id harus sama dengan user id booking dan ini hanya untuk role costumer  
+//* Halaman my booking diberi kondisi dimana user id harus sama dengan user id booking dan ini hanya untuk role costumer
 //* Custommer role 0 dan admin role 1
+                     // print(firebaseUser.uid);
+                    // print(widget.bookModels.length);
+                    print(index);
+                    // print(widget.role);
+                    // print(widget.bookModels[index].status);
+
                     if (firebaseUser.uid == widget.bookModels[index].idUser &&
-                        widget.role == 0 &&
-                        widget.bookModels[index].status.toString() == "1") {
+                        widget.role != 1 &&
+                        (widget.bookModels[index].status.toString() != "2")) {
+                          print("walah");
+                          print(firebaseUser.uid);
+                          print(widget.bookModels[index].idUser);
+                          print(widget.role);
+                          print(widget.bookModels[index].idOrder);
                       return GestureDetector(
                           onTap: () {
                             // Navigator.push(
@@ -93,7 +99,7 @@ class _MyBookingPageState extends State<MyBookingPage> {
                                   ),
                                   child: Container(
                                     margin: const EdgeInsets.all(18.0),
-                                   
+
                                     // height: MediaQuery.of(context).size.height / 4,
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
@@ -162,7 +168,8 @@ class _MyBookingPageState extends State<MyBookingPage> {
                                           ),
                                           Row(
                                             children: <Widget>[
-                                              Text("Status"), //* Status Booking jika status adalah 1 maka booking masih dalam status Processing
+                                              Text(
+                                                  "Status"), //* Status Booking jika status adalah 1 maka booking masih dalam status Processing
                                               //* Jika 2 Sukses
                                               Text(' : '),
                                               Text(
@@ -210,24 +217,25 @@ class _MyBookingPageState extends State<MyBookingPage> {
                         },
                         child: Card(
                           elevation: 1,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                                                  child: Container(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Container(
                             height: MediaQuery.of(context).size.height / 2.6,
                             margin: const EdgeInsets.all(18.0),
-                            
+
                             // height: MediaQuery.of(context).size.height / 4,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Container(
                                     width: MediaQuery.of(context).size.width,
-                                    height:
-                                        MediaQuery.of(context).size.height / 6.5,
+                                    height: MediaQuery.of(context).size.height /
+                                        6.5,
                                     decoration: BoxDecoration(
                                         image: DecorationImage(
                                             image: (widget.bookModels[index]
@@ -251,8 +259,8 @@ class _MyBookingPageState extends State<MyBookingPage> {
                                     // width: MediaQuery.of(context).size.width / 2,
                                     child: Text(
                                       "ID User : ${widget.bookModels[index].idUser.toString()}",
-                                      style:
-                                          TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                   Row(
@@ -311,6 +319,8 @@ class _MyBookingPageState extends State<MyBookingPage> {
                         ),
                       );
                     }
+                    return Center(
+                        child: Container());
                   }),
             )
           ],

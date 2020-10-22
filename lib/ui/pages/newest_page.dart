@@ -53,7 +53,7 @@ class Newest extends StatelessWidget {
                       print("before");
                       print(before);
                   if (firebaseUser.uid == state.book[index].idUser && 
-                      state.book[index].status.toString() == "1" && before == true ) {
+                      state.book[index].status.toString() == "2" && before == true ) {
                     return GestureDetector(
                         onTap: () {
                           Navigator.push(
