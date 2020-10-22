@@ -67,7 +67,12 @@ class _MyBookingPageState extends State<MyBookingPage> {
                   itemBuilder: (context, index) {
 //* Halaman my booking diberi kondisi dimana user id harus sama dengan user id booking dan ini hanya untuk role costumer
 //* Custommer role 0 dan admin role 1
+<<<<<<< HEAD
                      // print(firebaseUser.uid);
+=======
+                    print("FUCK");
+                    // print(firebaseUser.uid);
+>>>>>>> 8c1c503ae8abfa5afa32fc9593eb32d7421d5b2a
                     // print(widget.bookModels.length);
                     print(index);
                     // print(widget.role);
@@ -76,11 +81,14 @@ class _MyBookingPageState extends State<MyBookingPage> {
                     if (firebaseUser.uid == widget.bookModels[index].idUser &&
                         widget.role != 1 &&
                         (widget.bookModels[index].status.toString() != "2")) {
+<<<<<<< HEAD
                           print("walah");
                           print(firebaseUser.uid);
                           print(widget.bookModels[index].idUser);
                           print(widget.role);
                           print(widget.bookModels[index].idOrder);
+=======
+>>>>>>> 8c1c503ae8abfa5afa32fc9593eb32d7421d5b2a
                       return GestureDetector(
                           onTap: () {
                             // Navigator.push(
@@ -319,8 +327,12 @@ class _MyBookingPageState extends State<MyBookingPage> {
                         ),
                       );
                     }
+<<<<<<< HEAD
                     return Center(
                         child: Container());
+=======
+                    return Center(child: Container());
+>>>>>>> 8c1c503ae8abfa5afa32fc9593eb32d7421d5b2a
                   }),
             )
           ],

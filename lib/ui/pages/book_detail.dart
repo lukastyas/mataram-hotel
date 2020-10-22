@@ -13,7 +13,7 @@ class BookDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateFormat dateFormat;
-        DateFormat dateFormatHour;
+    DateFormat dateFormatHour;
 
     print("room.type");
     print(room.noFRoom);
@@ -25,7 +25,7 @@ class BookDetail extends StatelessWidget {
       child: BlocBuilder<SearchRoomBloc, SearchRoomState>(
         builder: (context, state) {
           dateFormat = new DateFormat("d MMMM yyyy");
-                    dateFormatHour = new DateFormat("HH:mm");
+          dateFormatHour = new DateFormat("HH:mm");
           var price = room.price;
           var difference;
           var totalRoom;
@@ -34,8 +34,8 @@ class BookDetail extends StatelessWidget {
           print(room.duration);
 
           if (room.type == "1") {
-            difference = state.dataSearch.timeOfDay.add(Duration(hours: int.parse(room.duration??"")));
-                
+            difference = state.dataSearch.timeOfDay
+                .add(Duration(hours: int.parse(room.duration ?? "")));
           } else {
             difference = state.dataSearch.selecetedDateTo
                 .difference(state.dataSearch.selecetedDateFrom)
@@ -116,17 +116,23 @@ class BookDetail extends StatelessWidget {
                           state.dataSearch.selecetedDateFrom,
                         )),
                       ),
-                    room.type == "1" ?   MataramTile(
-                        title: Text('Start Event'),
-                        subtitle: Text(
-                          dateFormatHour.format(state.dataSearch.timeOfDay),
-                        ),
-                      ):Container(),
-  MataramTile(
-                              title: Text(room.type == "1" ? "End Event" :  'CheckOut'),
-                              subtitle: Text(room.type == "1" ? dateFormatHour.format(difference) : dateFormat.format(
-                                state.dataSearch.selecetedDateTo,
-                              ))),
+                      room.type == "1"
+                          ? MataramTile(
+                              title: Text('Start Event'),
+                              subtitle: Text(
+                                dateFormatHour
+                                    .format(state.dataSearch.timeOfDay),
+                              ),
+                            )
+                          : Container(),
+                      MataramTile(
+                          title:
+                              Text(room.type == "1" ? "End Event" : 'CheckOut'),
+                          subtitle: Text(room.type == "1"
+                              ? dateFormatHour.format(difference)
+                              : dateFormat.format(
+                                  state.dataSearch.selecetedDateTo,
+                                ))),
                       room.type == "1"
                           ? Container()
                           : MataramTile(
@@ -170,18 +176,20 @@ class BookDetail extends StatelessWidget {
                             context.bloc<PageBloc>().add(GotoTransferPage(
                                 idOrder: v4crypto,
                                 uid: uid,
-                                totalNight:room.type == "1" ?"": difference,
+                                totalNight: room.type == "1" ? "" : difference,
                                 room: state.dataSearch.rooms,
                                 back: false,
-                                startEvent:
-                                
-                                room.type == "1" ?   dateFormatHour.format( state.dataSearch.timeOfDay): null,
+                                startEvent: room.type == "1"
+                                    ? dateFormatHour
+                                        .format(state.dataSearch.timeOfDay)
+                                    : null,
                                 wallet:
                                     room.type == "1" ? room.price : totalRoom,
                                 selecetedDateFrom:
                                     state.dataSearch.selecetedDateFrom,
-                                selecetedDateTo:
-                                  room.type == "1" ? dateFormatHour.format(difference): state.dataSearch.selecetedDateTo,
+                                selecetedDateTo: room.type == "1"
+                                    ? dateFormatHour.format(difference)
+                                    : state.dataSearch.selecetedDateTo,
                                 roomModel: room));
                             return;
                           },

@@ -5,7 +5,8 @@ class SendEvidencePage extends StatelessWidget {
   final idOrder;
   final wallet;
 
-  const SendEvidencePage({Key key, this.room, @required this.idOrder, this.wallet})
+  const SendEvidencePage(
+      {Key key, this.room, @required this.idOrder, this.wallet})
       : super(key: key);
 
   @override
@@ -13,15 +14,13 @@ class SendEvidencePage extends StatelessWidget {
     File a;
     return WillPopScope(
         onWillPop: () async {
-          context
-              .bloc<PageBloc>()
-              .add(GotoTransferPage(roomModel: room, back: true, wallet: wallet));
+          context.bloc<PageBloc>().add(
+              GotoTransferPage(roomModel: room, back: true, wallet: wallet));
           return;
         },
         child: Scaffold(
             body: BlocListener<SendEvidenceBloc, SendEvidenceState>(
           listener: (context, state) {
-            
             if (state is OnSuccess) {
               Flushbar(
                 duration: Duration(milliseconds: 1500),
@@ -29,17 +28,14 @@ class SendEvidencePage extends StatelessWidget {
                 backgroundColor: Colors.green,
                 message: 'Success',
               )..show(context);
-              context
-                  .bloc<PageBloc>()
-                  .add(GotoNewest());
-      
+              context.bloc<PageBloc>().add(GotoNewest());
             }
           },
           child: BlocBuilder<SendEvidenceBloc, SendEvidenceState>(
               builder: (context, state) {
             print("ini state");
             print(state);
-           
+
             return Padding(
               padding: const EdgeInsets.only(top: 100.0),
               child: Column(
@@ -58,10 +54,7 @@ class SendEvidencePage extends StatelessWidget {
                           : ClipRRect(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10.0)),
-                              child:
-                                  Image.file(
-                                    
-                                    state.sendEvidence.image)),
+                              child: Image.file(state.sendEvidence.image)),
                     ),
                   ),
                   Row(
