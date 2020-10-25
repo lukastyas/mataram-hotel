@@ -114,27 +114,40 @@ class RoomPage extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                child: Container(
-                  width: MediaQuery.of(context).size.width / 2.7,
-                  height: MediaQuery.of(context).size.height / 3.3,
-                  // decoration: BoxDecoration(
-                  //     border: Border.all(
-                  //       // color: Colors.black,
-                  //       width: 2.0,
-                  //     ),
-                  //     color: Colors.white,
-                  //     borderRadius: BorderRadius.all(Radius.circular(20))),
-                  // margin: EdgeInsets.fromLTRB(25, 10, 20, 12),
-                  child: Center(
-                    child: Text(
-                      "Hotel Room",
-                      style: blackTextFont.copyWith(
-                          fontSize: 18, fontWeight: FontWeight.bold),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      width: MediaQuery.of(context).size.width / 2.7,
+                      height: MediaQuery.of(context).size.height / 3.3,
+                      // decoration: BoxDecoration(
+                      //     border: Border.all(
+                      //       // color: Colors.black,
+                      //       width: 2.0,
+                      //     ),
+                      //     color: Colors.white,
+                      //     borderRadius: BorderRadius.all(Radius.circular(20))),
+                      // margin: EdgeInsets.fromLTRB(25, 10, 20, 12),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        image: DecorationImage(
+                          image: AssetImage("assets/htl.jpg"),
+                          fit: BoxFit.cover,
+                          alignment: Alignment.bottomCenter
+                        ),
+                      ),
+                        alignment: Alignment.bottomCenter,
+                        child: Text(
+                          "Hotel Room",
+                          style: whiteTextFont.copyWith(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
                     ),
-                  ),
+                  ],
                 ),
               ),
-            ),
+            ),//SizedBox
             GestureDetector(
               onTap: () {
                 context.bloc<PageBloc>().add(GoToSearchRoomPage(1));
@@ -144,24 +157,37 @@ class RoomPage extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                child: Container(
-                  width: MediaQuery.of(context).size.width / 2.7,
-                  height: MediaQuery.of(context).size.height / 3.3,
-                  // decoration: BoxDecoration(
-                  //     border: Border.all(
-                  //       color: Colors.black,
-                  //       width: 2.0,
-                  //     ),
-                  //     color: Colors.white,
-                  //     borderRadius: BorderRadius.all(Radius.circular(20))),
-                  // margin: EdgeInsets.fromLTRB(25, 10, 20, 12),
-                  child: Center(
-                    child: Text(
-                      "Meeting Room",
-                      style: blackTextFont.copyWith(
-                          fontSize: 18, fontWeight: FontWeight.bold),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      width: MediaQuery.of(context).size.width / 2.7,
+                      height: MediaQuery.of(context).size.height / 3.3,
+                      // decoration: BoxDecoration(
+                      //     border: Border.all(
+                      //       // color: Colors.black,
+                      //       width: 2.0,
+                      //     ),
+                      //     color: Colors.white,
+                      //     borderRadius: BorderRadius.all(Radius.circular(20))),
+                      // margin: EdgeInsets.fromLTRB(25, 10, 20, 12),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        image: DecorationImage(
+                            image: AssetImage("assets/mtr.jpg"),
+                            fit: BoxFit.cover,
+                            alignment: Alignment.bottomCenter
+                        ),
+                      ),
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        "Meeting Room",
+                        style: whiteTextFont.copyWith(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ),
