@@ -618,6 +618,20 @@ class SearchRoom extends StatelessWidget {
                                                     message:
                                                         "Please Insert your Chekck-out",
                                                   )..show(context);
+                                                } else if (state
+                                                        .dataSearch
+                                                        .selecetedDateFrom
+                                                        .day ==
+                                                    DateTime.now().day) {
+                                                  Flushbar(
+                                                    duration: Duration(
+                                                        milliseconds: 1500),
+                                                    flushbarPosition:
+                                                        FlushbarPosition.BOTTOM,
+                                                    backgroundColor: Colors.red,
+                                                    message:
+                                                        "Please Check your Chekck-in, start event max < 1 days",
+                                                  )..show(context);
                                                 } else {
                                                   context.bloc<PageBloc>().add(
                                                       GotoDetailRoom(state
@@ -720,7 +734,10 @@ class SearchRoom extends StatelessWidget {
                                                                   Text(
                                                                       "Rp. ${state.dataSearch.room[index].price.toString()} / Night"),
                                                                 ],
-                                                              )), SizedBox(height: 20,),
+                                                              )),
+                                                          SizedBox(
+                                                            height: 20,
+                                                          ),
                                                         ],
                                                       )),
                                                 ),
@@ -870,6 +887,22 @@ class SearchRoom extends StatelessWidget {
                                   // scrollDirection: Axis.horizontal,
                                   itemCount: state.dataSearch.room.length,
                                   itemBuilder: (context, index) {
+                                    List<DateTime> days = [];
+
+                                    state.dataSearch.book.map((e) {
+                                      var a = DateTime.parse(
+                                          state.dataSearch.book[2].checkIn);
+                                      var diff =
+                                          DateTime.now().difference(a).inDays;
+                                      print(diff);
+
+                                      days.add(a.add(Duration(days: diff)));
+                                    }).toList();
+                                    print("au ah");
+                                    days
+                                        .map((e) => print("eddede $e"))
+                                        .toList();
+
                                     return GestureDetector(
                                       onTap: () {
                                         //* Validasi apabila ingin melanjutkan ke halaman booking
@@ -896,6 +929,18 @@ class SearchRoom extends StatelessWidget {
                                             backgroundColor: Colors.red,
                                             message:
                                                 "Please Insert your Start Event",
+                                          )..show(context);
+                                        } else if (state.dataSearch
+                                                .selecetedDateFrom.day ==
+                                            DateTime.now().day) {
+                                          Flushbar(
+                                            duration:
+                                                Duration(milliseconds: 1500),
+                                            flushbarPosition:
+                                                FlushbarPosition.BOTTOM,
+                                            backgroundColor: Colors.red,
+                                            message:
+                                                "Please Check your Start Event, start event max < 1 days",
                                           )..show(context);
                                         } else {
                                           context.bloc<PageBloc>().add(

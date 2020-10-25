@@ -169,8 +169,6 @@ class _BookingDetailState extends State<BookingDetail> {
                 ),
               );
             }
-            print("======state=====");
-            print(state);
           },
         )),
       ),

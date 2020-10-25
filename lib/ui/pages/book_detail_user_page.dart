@@ -15,20 +15,20 @@ class _BookDetailUserPageState extends State<BookDetailUserPage> {
   void initState() {
     super.initState();
     dateFormat = new DateFormat("d MMMM yyyy");
- WidgetsBinding.instance.addPostFrameCallback((_) async {
-   if (widget.book.statuscheckIn == "2") {
-      await showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => new AlertDialog(
-              title: new Text("Please Rate Us"),
-              content: ReviewPage(
-                        book: widget.book,
-                      ),
+//  WidgetsBinding.instance.addPostFrameCallback((_) async {
+//    if (widget.book.statuscheckIn == "2") {
+//       await showDialog<String>(
+//         context: context,
+//         builder: (BuildContext context) => new AlertDialog(
+//               title: new Text("Please Rate Us"),
+//               content: ReviewPage(
+//                         book: widget.book,
+//                       ),
              
-            ),
-      );
-   }
-    });
+//             ),
+//       );
+//    }
+//     });
  
   }
 
