@@ -188,9 +188,9 @@ class SearchRoom extends StatelessWidget {
                                             final DateTime picked =
                                                 await showDatePicker(
                                                     context: context,
-                                                    initialDate: DateTime.now(),
+                                                    initialDate: DateTime.now().add(Duration(days: 1)),
                                                     firstDate:
-                                                        DateTime(2015, 8),
+                                                        DateTime.now(),
                                                     lastDate:
                                                         DateTime(2040, 1));
 
@@ -782,9 +782,9 @@ class SearchRoom extends StatelessWidget {
                                             final DateTime picked =
                                                 await showDatePicker(
                                                     context: context,
-                                                    initialDate: DateTime.now(),
+                                                    initialDate: DateTime.now().add(Duration(days: 1)),
                                                     firstDate:
-                                                        DateTime(2015, 8),
+                                                        DateTime.now(),
                                                     lastDate:
                                                         DateTime(2040, 1));
 

@@ -154,27 +154,27 @@ class _ProfilePageState extends State<ProfilePage> {
                             MediaQuery.of(context).size.width -
                                 2 * defaultMargin),
                       ),
-                      Row(
-                        children: <Widget>[
-                          SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: Image.asset("assets/rate.png")),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            "Rate Application",
-                            style: blackTextFont.copyWith(fontSize: 16),
-                          )
-                        ],
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 10, bottom: 16),
-                        child: generateDashedDivider(
-                            MediaQuery.of(context).size.width -
-                                2 * defaultMargin),
-                      ),
+                      // Row(
+                      //   children: <Widget>[
+                      //     SizedBox(
+                      //         width: 24,
+                      //         height: 24,
+                      //         child: Image.asset("assets/rate.png")),
+                      //     SizedBox(
+                      //       width: 10,
+                      //     ),
+                      //     Text(
+                      //       "Rate Application",
+                      //       style: blackTextFont.copyWith(fontSize: 16),
+                      //     )
+                      //   ],
+                      // ),
+                      // Container(
+                      //   margin: EdgeInsets.only(top: 10, bottom: 16),
+                      //   child: generateDashedDivider(
+                      //       MediaQuery.of(context).size.width -
+                      //           2 * defaultMargin),
+                      // ),
                       GestureDetector(
                         onTap: () async {
                           await AuthServices.signOut();
