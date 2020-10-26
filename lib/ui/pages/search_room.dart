@@ -594,6 +594,7 @@ class SearchRoom extends StatelessWidget {
                                           : GestureDetector(
                                               onTap: () {
                                                 //* Validasi apabila ingin melanjutkan ke halaman booking
+
                                                 if (state.dataSearch
                                                         .selecetedDateFrom ==
                                                     null) {
@@ -898,7 +899,6 @@ class SearchRoom extends StatelessWidget {
 
                                       days.add(a.add(Duration(days: diff)));
                                     }).toList();
-                                    print("au ah");
                                     days
                                         .map((e) => print("eddede $e"))
                                         .toList();
@@ -906,8 +906,9 @@ class SearchRoom extends StatelessWidget {
                                     return GestureDetector(
                                       onTap: () {
                                         //* Validasi apabila ingin melanjutkan ke halaman booking
-
-                                        if (state
+                                        
+                                        state.dataSearch.book.map((e) {
+                                          if (state
                                                 .dataSearch.selecetedDateFrom ==
                                             null) {
                                           Flushbar(
@@ -942,13 +943,31 @@ class SearchRoom extends StatelessWidget {
                                             message:
                                                 "Please Check your Start Event, start event max < 1 days",
                                           )..show(context);
-                                        } else {
+                                        }else if (e.type == "1") {
+                                            print(e.type);
+                                            if (e.statuscheckIn != "2") {
+                                              Flushbar(
+                                                duration: Duration(
+                                                    milliseconds: 1500),
+                                                flushbarPosition:
+                                                    FlushbarPosition.BOTTOM,
+                                                backgroundColor: Colors.red,
+                                                message:
+                                                    "Meeting Room Has Been booking",
+                                              )..show(context);
+                                            } else {
                                           context.bloc<PageBloc>().add(
                                               GotoDetailRoom(state
                                                   .dataSearch.room[index]));
 
                                           return;
                                         }
+                                               
+                                          }
+                                         
+                                          
+                                        }).toList();
+                                     
                                       },
                                       child: Card(
                                         elevation: 1,

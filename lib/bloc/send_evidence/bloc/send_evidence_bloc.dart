@@ -38,14 +38,21 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
       print(event.idOrder);
       List<BookModels> book = await BookService.getBook();
       String statusCheckin;
-      book.map((element) {
+
+      book.map((element) async*{
         print("book[0].statuscheckIn");
 
         print(element.statuscheckIn);
         if (event.idOrder == element.idOrder) {
-          statusCheckin = element.statuscheckIn;
+          if(DateTime.parse(element.checkIn).day == DateTime.now().day){
+          yield Errors(message: "Today isn't Check-in's Day");
+          } else{
+                      statusCheckin = element.statuscheckIn;
+
+          }
         }
       }).toList();
+
       print("statusCheckin");
       print(statusCheckin);
       if (statusCheckin == "0" || statusCheckin == null) {
