@@ -21,13 +21,18 @@ class SearchRoomBloc extends Bloc<SearchRoomEvent, SearchRoomState> {
   ) async* {
     if (event is LoadRoom) {
       yield SearchRoomInitial(dataSearch: DataSearch());
+       var books = await BookService.getBook();
+
       var room = await RoomServices.getRoom();
-       List<BookModels> book = await BookService.getBook();
      
       List<RoomModel> roomModel = [];
-      print("event.typeRoom");
+      
+                                          String statusCheckin;
+      String type;
+      print("event.typeRsssssssssssssoom");
       print(event.typeRoom);
 
+   
       // if (event.admin == false) {
       //   room.forEach((element) {
       //     if (element.type == event.typeRoom.toString()) {
@@ -35,6 +40,16 @@ class SearchRoomBloc extends Bloc<SearchRoomEvent, SearchRoomState> {
       //     }
       //   });
       // } else {
+        // book.map((e) => print("e.checkIn ${e.checkIn}")).toList();
+books.map((e){
+   print("akakaka");
+                                      print(e.statuscheckIn);
+                                      print(e.statuscheckIn);
+                                      statusCheckin =e.statuscheckIn;
+                                      type =e.type;
+
+}).toList();
+
 
       room.map((element) {
         print("element.typesss");
@@ -58,7 +73,7 @@ class SearchRoomBloc extends Bloc<SearchRoomEvent, SearchRoomState> {
       }).toList();
       // }
 
-      yield RoomLoaded(dataSearch: DataSearch(room: roomModel, book: book));
+      yield RoomLoaded(dataSearch: DataSearch(room: roomModel,book: books , statusCheckin: statusCheckin, type: type));
     } else if (event is OnChangeDate) {
       DataSearch data = state.dataSearch;
       print("data.selecetedDateFrom");

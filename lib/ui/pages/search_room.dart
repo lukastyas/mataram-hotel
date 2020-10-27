@@ -888,26 +888,14 @@ class SearchRoom extends StatelessWidget {
                                   // scrollDirection: Axis.horizontal,
                                   itemCount: state.dataSearch.room.length,
                                   itemBuilder: (context, index) {
-                                    List<DateTime> days = [];
+                                    
 
-                                    state.dataSearch.book.map((e) {
-                                      var a = DateTime.parse(
-                                          state.dataSearch.book[2].checkIn);
-                                      var diff =
-                                          DateTime.now().difference(a).inDays;
-                                      print(diff);
-
-                                      days.add(a.add(Duration(days: diff)));
-                                    }).toList();
-                                    days
-                                        .map((e) => print("eddede $e"))
-                                        .toList();
+                                   
 
                                     return GestureDetector(
                                       onTap: () {
                                         //* Validasi apabila ingin melanjutkan ke halaman booking
-                                        
-                                        state.dataSearch.book.map((e) {
+                                
                                           if (state
                                                 .dataSearch.selecetedDateFrom ==
                                             null) {
@@ -943,9 +931,19 @@ class SearchRoom extends StatelessWidget {
                                             message:
                                                 "Please Check your Start Event, start event max < 1 days",
                                           )..show(context);
-                                        }else if (e.type == "1") {
-                                            print(e.type);
-                                            if (e.statuscheckIn != "2") {
+                                        }else if (state.dataSearch.book.length == 0) {
+
+                                          context.bloc<PageBloc>().add(
+                                              GotoDetailRoom(state
+                                                  .dataSearch.room[index]));
+
+                                          return;
+                                        
+                                      
+                     
+                                        } else if (state.dataSearch.book.length !=0){
+                     if (state.dataSearch.type == "1") {
+                                             if (state.dataSearch.statusCheckin != "2") {
                                               Flushbar(
                                                 duration: Duration(
                                                     milliseconds: 1500),
@@ -961,12 +959,10 @@ class SearchRoom extends StatelessWidget {
                                                   .dataSearch.room[index]));
 
                                           return;
+                                        }                                        }
                                         }
-                                               
-                                          }
-                                         
-                                          
-                                        }).toList();
+                                       
+                                        
                                      
                                       },
                                       child: Card(
