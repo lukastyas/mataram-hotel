@@ -38,33 +38,37 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
       print(event.idOrder);
       List<BookModels> book = await BookService.getBook();
       String statusCheckin;
+      String checkInDate;
 
-      book.map((element) async*{
-        print("book[0].statuscheckIn");
+      book.map((element) {
+         if (event.idOrder == element.idOrder) {
+        
+          // if(DateTime.parse(element.checkIn).day == DateTime.now().day){
+          // } else{
+          statusCheckin = element.statuscheckIn;
+          checkInDate = element.checkIn; //* Get tanggal check in
 
-        print(element.statuscheckIn);
-        if (event.idOrder == element.idOrder) {
-          if(DateTime.parse(element.checkIn).day == DateTime.now().day){
-          yield Errors(message: "Today isn't Check-in's Day");
-          } else{
-                      statusCheckin = element.statuscheckIn;
-
-          }
+          // }
         }
       }).toList();
 
       print("statusCheckin");
       print(statusCheckin);
-      if (statusCheckin == "0" || statusCheckin == null) {
-        await BookService.checkIn(BookModels(
-          idOrder: event.idOrder,
-          checkIn: time.toString(),
-        ));
-        yield Errors(message: "Success");
-      } else if (statusCheckin == "1") {
-        yield Errors(message: 'This Room has been check-in');
-      } else if (statusCheckin == "2") {
-        yield Errors(message: 'This Room has been check-out');
+      print(DateTime.parse(checkInDate).day == DateTime.now().day);
+      if (DateTime.parse(checkInDate).day == DateTime.now().day) { //* Kondisi jika  tgl cek in sama dengan tgal hari ini 
+        if (statusCheckin == "0" || statusCheckin == null) {
+          await BookService.checkIn(BookModels(
+            idOrder: event.idOrder,
+            checkIn: time.toString(),
+          ));
+          yield Errors(message: "Success");
+        } else if (statusCheckin == "1") {
+          yield Errors(message: 'This Room has been check-in');
+        } else if (statusCheckin == "2") {
+          yield Errors(message: 'This Room has been check-out');
+        }
+      } else if (DateTime.parse(checkInDate).day != DateTime.now().day) { //* Kondisi jika  tgl cek in tidak sama dengan tgal hari ini 
+        yield Errors(message: "Today isn't Check-in's Day");
       }
     } else if (event is Scan) {
       print("book[0].roomName");
@@ -100,7 +104,7 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
           idOrder: event.idOrder,
           checkOut: time.toString(),
         ));
-         yield Errors(message: "Success");
+        yield Errors(message: "Success");
         // yield ScanResult(statuCheckin: statusCheckin);
       } else if (statusCheckin == "2") {
         yield Errors(message: 'This Room has been check-out');
@@ -115,9 +119,8 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
           BookModels(idOrder: event.idOrder, status: event.status));
       var a = await UserServices.getUser(event.idUser);
       print(a.fcmToken);
-    await Network.sendAndRetrieveMessage(a.fcmToken);
- print("a.fcmToken");
-
+      await Network.sendAndRetrieveMessage(a.fcmToken);
+      print("a.fcmToken");
 
       yield OnSuccess();
     } else if (event is SendReview) {
