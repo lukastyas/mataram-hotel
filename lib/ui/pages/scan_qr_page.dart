@@ -38,7 +38,7 @@ class _ScanQRPageState extends State<ScanQRPage> {
 
   checkIn(test){
      if (test == 1) {
-        context.bloc<SendEvidenceBloc>().add(SendCheckIn("433e0b30-4654-47ae-8ba1-3daae7201b1c"));
+        context.bloc<SendEvidenceBloc>().add(SendCheckIn(_scanBarcode));
       } else if (test == 2) {
         context.bloc<SendEvidenceBloc>().add(SendCheckOut(_scanBarcode));
       }
