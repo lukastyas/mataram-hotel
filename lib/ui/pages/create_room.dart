@@ -6,6 +6,8 @@ class CreateRoom extends StatelessWidget {
   final nameController = TextEditingController();
   final priceController = TextEditingController();
   final norController = TextEditingController();
+  final capacityController = TextEditingController();
+  final durationController = TextEditingController();
   final descController = TextEditingController();
   GlobalKey<FlutterSummernoteState> _keyEditorDesc = GlobalKey();
   GlobalKey<FlutterSummernoteState> _keyEditor = GlobalKey();
@@ -26,7 +28,7 @@ class CreateRoom extends StatelessWidget {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                Container( 
+                Container(
                   decoration: BoxDecoration(
                       color: accentColor1,
                       borderRadius: BorderRadius.only(
@@ -142,7 +144,10 @@ class CreateRoom extends StatelessWidget {
                         backgroundColor: Colors.amber,
                       ));
                     }
-                              return Padding(
+                    print("state");
+                    print(state);
+
+                    return Padding(
                       padding: const EdgeInsets.all(18.0),
                       child: Form(
                         // key: _formKey,
@@ -150,12 +155,14 @@ class CreateRoom extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            MataramDropdown( //*Dropdown Jenis room
+                            MataramDropdown(
                               onChangedDropDown: (val) {
+                                print(" value ku");
                                 state.createRoomModel.typeValue = val;
                                 context
                                     .bloc<CreateRoomBloc>()
                                     .add(OnChangeDropdown());
+                                    
                               },
                               answers: state.createRoomModel.type.map((e) {
                                     return {
@@ -170,7 +177,7 @@ class CreateRoom extends StatelessWidget {
                             ),
                             state.createRoomModel.image == null
                                 ? Container()
-                                : Center( //*Upload image
+                                : Center(
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: Colors.white,
@@ -183,17 +190,14 @@ class CreateRoom extends StatelessWidget {
                                       child: ClipRRect(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10.0)),
-                                          child: Image.asset(state
-                                                      ?.createRoomModel
-                                                      ?.image
-                                                      ?.path ==
+                                          child: Image.file(state.createRoomModel.image ==
                                                   null
                                               ? ""
                                               : state
-                                                  .createRoomModel.image.path)),
+                                                  .createRoomModel.image)),
                                     ),
                                   ),
-                            MataramTile(  //*Upload Thumbnail
+                            MataramTile(
                                 title: Text("Thumbnail"),
                                 subtitle: FlatButton(
                                     onPressed: () async {
@@ -209,7 +213,7 @@ class CreateRoom extends StatelessWidget {
                                       child: Icon(Icons.image),
                                     ))),
                             Text("Picture"),
-                            Container(  //*Upload image room
+                            Container(
                                 margin: EdgeInsets.fromLTRB(25, 10, 20, 12),
                                 height:
                                     MediaQuery.of(context).size.height / 2.3,
@@ -253,13 +257,13 @@ class CreateRoom extends StatelessWidget {
                                                             .picture1 ==
                                                         null
                                                     ? Icon(Icons.add)
-                                                    : Image.asset(state
+                                                    : Image.file(state
                                                                 .createRoomModel
                                                                 .picture1 ==
                                                             null
                                                         ? ""
                                                         : state.createRoomModel
-                                                            .picture1.path))),
+                                                            .picture1))),
                                         GestureDetector(
                                             onTap: () async {
                                               a = await getImage();
@@ -292,13 +296,13 @@ class CreateRoom extends StatelessWidget {
                                                             .picture2 ==
                                                         null
                                                     ? Icon(Icons.add)
-                                                    : Image.asset(state
+                                                    : Image.file(state
                                                                 .createRoomModel
                                                                 .picture2 ==
                                                             null
                                                         ? ""
                                                         : state.createRoomModel
-                                                            .picture2.path))),
+                                                            .picture2))),
                                         GestureDetector(
                                             onTap: () async {
                                               a = await getImage();
@@ -331,13 +335,13 @@ class CreateRoom extends StatelessWidget {
                                                             .picture3 ==
                                                         null
                                                     ? Icon(Icons.add)
-                                                    : Image.asset(state
+                                                    : Image.file(state
                                                                 .createRoomModel
                                                                 .picture3 ==
                                                             null
                                                         ? ""
                                                         : state.createRoomModel
-                                                            .picture3.path))),
+                                                            .picture3))),
                                       ],
                                     ),
                                     SizedBox(
@@ -379,13 +383,13 @@ class CreateRoom extends StatelessWidget {
                                                             .picture4 ==
                                                         null
                                                     ? Icon(Icons.add)
-                                                    : Image.asset(state
+                                                    : Image.file(state
                                                                 .createRoomModel
                                                                 .picture4 ==
                                                             null
                                                         ? ""
                                                         : state.createRoomModel
-                                                            .picture4.path))),
+                                                            .picture4))),
                                         GestureDetector(
                                             onTap: () async {
                                               a = await getImage();
@@ -418,13 +422,13 @@ class CreateRoom extends StatelessWidget {
                                                             .picture5 ==
                                                         null
                                                     ? Icon(Icons.add)
-                                                    : Image.asset(state
+                                                    : Image.file(state
                                                                 .createRoomModel
                                                                 .picture5 ==
                                                             null
                                                         ? ""
                                                         : state.createRoomModel
-                                                            .picture5.path))),
+                                                            .picture5))),
                                         GestureDetector(
                                             onTap: () async {
                                               a = await getImage();
@@ -468,7 +472,7 @@ class CreateRoom extends StatelessWidget {
                                     ),
                                   ],
                                 )),
-                            MataramTile( 
+                            MataramTile(
                               title: Text("No Room"),
                               subtitle: Container(
                                 child: TextField(
@@ -541,6 +545,36 @@ class CreateRoom extends StatelessWidget {
                                               BorderRadius.circular(10)),
                                       labelText: "Number Of Room",
                                       hintText: "Number Of Room",
+                                    )),
+                              ),
+                            ),
+                         state.createRoomModel.typeValue == "0" ? Container() :    MataramTile(
+                              title: Text("Capacity"),
+                              subtitle: Container(
+                                child: TextField(
+                                    keyboardType: TextInputType.number,
+                                    controller: capacityController,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      labelText: "Capacity",
+                                      hintText: "Capacity",
+                                    )),
+                              ),
+                            ),
+                         state.createRoomModel.typeValue == "0" ? Container() :    MataramTile(
+                              title: Text("Duration"),
+                              subtitle: Container(
+                                child: TextField(
+                                    keyboardType: TextInputType.number,
+                                    controller: durationController,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      labelText: "Duration",
+                                      hintText: "Duration",
                                     )),
                               ),
                             ),
@@ -623,7 +657,7 @@ class CreateRoom extends StatelessWidget {
                                   // print("${int.parse(priceController.value.text)}");
                                   // print("${nameController.text}");
 
-                                  if (nameController.text.isEmpty) { //*Kondisi ketika nama ruangan kosong
+                                  if (nameController.text.isEmpty) {
                                     Flushbar(
                                       duration: Duration(milliseconds: 1500),
                                       flushbarPosition: FlushbarPosition.BOTTOM,
@@ -663,7 +697,8 @@ class CreateRoom extends StatelessWidget {
                                         .getText();
                                     state.createRoomModel.desc = b;
                                     context.bloc<CreateRoomBloc>().add(AddRoom(
-                                          edit: false,
+                                      duration: durationController.text??"",
+                                      capacity: capacityController.text??"",
                                           price:
                                               int.parse(priceController.text),
                                           roomNamme: nameController.text,
