@@ -891,7 +891,7 @@ class SearchRoom extends StatelessWidget {
                                     return GestureDetector(
                                       onTap: () {
                                         //* Validasi apabila ingin melanjutkan ke halaman booking
-
+print(state.dataSearch.book.length);
                                         if (state
                                                 .dataSearch.selecetedDateFrom ==
                                             null) {
@@ -958,8 +958,18 @@ class SearchRoom extends StatelessWidget {
 
                                               return;
                                             }
-                                          }
-                                        }
+                                          }else {
+                                              context.bloc<PageBloc>().add(
+                                                  GotoDetailRoom(state
+                                                      .dataSearch.room[index]));
+
+                                              return;
+                                            }
+                                        } else if(state.dataSearch.book.length == 0){
+ context.bloc<PageBloc>().add(
+                                                  GotoDetailRoom(state
+                                                      .dataSearch.room[index]));
+                                                }
                                       },
                                       child: Card(
                                         elevation: 1,
