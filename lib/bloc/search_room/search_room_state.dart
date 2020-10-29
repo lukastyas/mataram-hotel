@@ -39,12 +39,16 @@ class DataSearch {
   int adult;
   int children;
   int rooms;
+  String statusCheckin;
+  String type;
 
   DataSearch(
       {this.adult = 1,
       this.children = 0,
       this.rooms = 1,
       this.room,
+      this.statusCheckin,
+      this.type,
       this.book,
       this.timeOfDay,
       this.selecetedDateFrom,
@@ -54,6 +58,8 @@ class DataSearch {
       room: data.room ?? this.room,
       selecetedDateFrom: data.selecetedDateFrom ?? this.selecetedDateFrom,
       book: data.book ?? this.book,
+      type: data.type ?? this.type,
+      statusCheckin: data.statusCheckin ?? this.statusCheckin,
       timeOfDay: data.timeOfDay ?? this.timeOfDay,
       selecetedDateTo: data.selecetedDateTo ?? this.selecetedDateTo,
       adult: data.adult ?? this.adult,

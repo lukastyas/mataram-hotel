@@ -876,7 +876,7 @@ class SearchRoom extends StatelessWidget {
                               style: blackTextFont.copyWith(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
-                          ),
+                          ),SizedBox(height: 5),
                           Container(
                               margin: EdgeInsets.fromLTRB(10, 10, 10, 12),
                               height: MediaQuery.of(context).size.height / 1.5,
@@ -888,65 +888,60 @@ class SearchRoom extends StatelessWidget {
                                   // scrollDirection: Axis.horizontal,
                                   itemCount: state.dataSearch.room.length,
                                   itemBuilder: (context, index) {
-                                    List<DateTime> days = [];
-
-                                    state.dataSearch.book.map((e) {
-                                      var a = DateTime.parse(
-                                          state.dataSearch.book[2].checkIn);
-                                      var diff =
-                                          DateTime.now().difference(a).inDays;
-                                      print(diff);
-
-                                      days.add(a.add(Duration(days: diff)));
-                                    }).toList();
-                                    days
-                                        .map((e) => print("eddede $e"))
-                                        .toList();
-
                                     return GestureDetector(
                                       onTap: () {
                                         //* Validasi apabila ingin melanjutkan ke halaman booking
 
-                                        state.dataSearch.book.map((e) {
-                                          if (state.dataSearch
-                                                  .selecetedDateFrom ==
-                                              null) {
-                                            Flushbar(
-                                              duration:
-                                                  Duration(milliseconds: 1500),
-                                              flushbarPosition:
-                                                  FlushbarPosition.BOTTOM,
-                                              backgroundColor: Colors.red,
-                                              message:
-                                                  "Please Insert your Event Date",
-                                            )..show(context);
-                                          } else if (state
-                                                  .dataSearch.timeOfDay ==
-                                              null) {
-                                            Flushbar(
-                                              duration:
-                                                  Duration(milliseconds: 1500),
-                                              flushbarPosition:
-                                                  FlushbarPosition.BOTTOM,
-                                              backgroundColor: Colors.red,
-                                              message:
-                                                  "Please Insert your Start Event",
-                                            )..show(context);
-                                          } else if (state.dataSearch
-                                                  .selecetedDateFrom.day ==
-                                              DateTime.now().day) {
-                                            Flushbar(
-                                              duration:
-                                                  Duration(milliseconds: 1500),
-                                              flushbarPosition:
-                                                  FlushbarPosition.BOTTOM,
-                                              backgroundColor: Colors.red,
-                                              message:
-                                                  "Please Check your Start Event, start event max < 1 days",
-                                            )..show(context);
-                                          } else if (e.type == "1") {
-                                            print(e.type);
-                                            if (e.statuscheckIn != "2") {
+                                        if (state
+                                                .dataSearch.selecetedDateFrom ==
+                                            null) {
+                                          Flushbar(
+                                            duration:
+                                                Duration(milliseconds: 1500),
+                                            flushbarPosition:
+                                                FlushbarPosition.BOTTOM,
+                                            backgroundColor: Colors.red,
+                                            message:
+                                                "Please Insert your Event Date",
+                                          )..show(context);
+                                        } else if (state.dataSearch.timeOfDay ==
+                                            null) {
+                                          Flushbar(
+                                            duration:
+                                                Duration(milliseconds: 1500),
+                                            flushbarPosition:
+                                                FlushbarPosition.BOTTOM,
+                                            backgroundColor: Colors.red,
+                                            message:
+                                                "Please Insert your Start Event",
+                                          )..show(context);
+                                        } else if (state.dataSearch
+                                                .selecetedDateFrom.day ==
+                                            DateTime.now().day) {
+                                          Flushbar(
+                                            duration:
+                                                Duration(milliseconds: 1500),
+                                            flushbarPosition:
+                                                FlushbarPosition.BOTTOM,
+                                            backgroundColor: Colors.red,
+                                            message:
+                                                "Please Check your Start Event, start event max < 1 days",
+                                          )..show(context);
+                                        } else if (state
+                                                .dataSearch.book.length ==
+                                            0) {
+                                          context.bloc<PageBloc>().add(
+                                              GotoDetailRoom(state
+                                                  .dataSearch.room[index]));
+
+                                          return;
+                                        } else if (state
+                                                .dataSearch.book.length !=
+                                            0) {
+                                          if (state.dataSearch.type == "1") {
+                                            if (state
+                                                    .dataSearch.statusCheckin !=
+                                                "2") {
                                               Flushbar(
                                                 duration: Duration(
                                                     milliseconds: 1500),
@@ -964,7 +959,7 @@ class SearchRoom extends StatelessWidget {
                                               return;
                                             }
                                           }
-                                        }).toList();
+                                        }
                                       },
                                       child: Card(
                                         elevation: 1,
@@ -1062,7 +1057,7 @@ class SearchRoom extends StatelessWidget {
                                                           Text(
                                                               "Duration : ${state.dataSearch.room[index].duration} Hours"),
                                                         ],
-                                                      )),
+                                                      )),SizedBox(height: 300,)
                                                 ],
                                               )),
                                         ),
@@ -1073,10 +1068,10 @@ class SearchRoom extends StatelessWidget {
                       );
                     }
                   },
-                )
+                ),
               ],
             ),
           ),
-        ));
+        ),);
   }
 }
