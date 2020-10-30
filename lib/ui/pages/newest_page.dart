@@ -49,12 +49,13 @@ class Newest extends StatelessWidget {
                   //     .inDays;
                 
                    final before = DateTime.now().isBefore(DateTime.parse(state.book[index].checkIn));
+                   final beforeCheckout = DateTime.now().isBefore(DateTime.parse(state.book[index].checkOut));
                    final now = DateTime.parse(state.book[index].checkIn);
 
                       print("before");
                       print(before);
                   if (firebaseUser.uid == state.book[index].idUser && 
-                      state.book[index].status.toString() == "2" || before == true || now.day == DateTime.now().day) {
+                      state.book[index].status.toString() == "2"  && beforeCheckout == true|| now.day == DateTime.now().day) {
                     return GestureDetector(
                         onTap: () {
                           Navigator.push(

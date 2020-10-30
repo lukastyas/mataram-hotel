@@ -701,6 +701,7 @@ class CreateRoom extends StatelessWidget {
                                       capacity: capacityController.text??"",
                                           price:
                                               int.parse(priceController.text),
+                                              edit: false,
                                           roomNamme: nameController.text,
                                           noFRoom: int.parse(norController.text),
                                           noRoom:int.parse( noController.text)
