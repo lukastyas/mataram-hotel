@@ -18,12 +18,14 @@ class BookModels {
   final double rate;
   final String review;
   final int noofRoom;
+  final int roomBook;
   final String startEvent;
 
   BookModels({this.totalNight, this.room, 
       this.idOrder,
       this.review,
       this.type,
+      this.roomBook,
       this.status,
       this.rate,
       this.statuscheckIn,
@@ -49,6 +51,7 @@ class BookModels {
         roomName: json['roomName'],
         checkOut: json["check_out"],
         type: json["type"],
+        roomBook: json["room_book"],
         idOrder: json["id_order"],
         idUser: json["id_user"],
         idRoom: json["id_room"],

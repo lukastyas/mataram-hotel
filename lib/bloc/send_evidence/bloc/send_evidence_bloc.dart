@@ -41,8 +41,7 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
       String checkInDate;
 
       book.map((element) {
-         if (event.idOrder == element.idOrder) {
-        
+        if (event.idOrder == element.idOrder) {
           // if(DateTime.parse(element.checkIn).day == DateTime.now().day){
           // } else{
           statusCheckin = element.statuscheckIn;
@@ -55,7 +54,8 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
       print("statusCheckin");
       print(statusCheckin);
       print(DateTime.parse(checkInDate).day == DateTime.now().day);
-      if (DateTime.parse(checkInDate).day == DateTime.now().day) { //* Kondisi jika  tgl cek in sama dengan tgal hari ini 
+      if (DateTime.parse(checkInDate).day == DateTime.now().day) {
+        //* Kondisi jika  tgl cek in sama dengan tgal hari ini
         if (statusCheckin == "0" || statusCheckin == null) {
           await BookService.checkIn(BookModels(
             idOrder: event.idOrder,
@@ -67,7 +67,8 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
         } else if (statusCheckin == "2") {
           yield Errors(message: 'This Room has been check-out');
         }
-      } else if (DateTime.parse(checkInDate).day != DateTime.now().day) { //* Kondisi jika  tgl cek in tidak sama dengan tgal hari ini 
+      } else if (DateTime.parse(checkInDate).day != DateTime.now().day) {
+        //* Kondisi jika  tgl cek in tidak sama dengan tgal hari ini
         yield Errors(message: "Today isn't Check-in's Day");
       }
     } else if (event is Scan) {
@@ -91,19 +92,35 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
       DateTime time = DateTime.now();
       List<BookModels> book = await BookService.getBook();
       String statusCheckin;
+      String idRoom;
+      int roomBook;
+
       book.map((element) {
         print("book[0].statuscheckIn");
 
         print(element.statuscheckIn);
         if (event.idOrder == element.idOrder) {
           statusCheckin = element.statuscheckIn;
+          idRoom = element.idRoom;
         }
       }).toList();
+
+      var room = await RoomServices.getRoom();
+      room.map((e) {
+        if (idRoom == e.id) {
+          print(e.id);
+
+          roomBook = e.roomBook;
+        }
+      }).toList();
+
       if (statusCheckin == "1") {
         await BookService.checkOut(BookModels(
           idOrder: event.idOrder,
+          // idRoom: event.,
           checkOut: time.toString(),
         ));
+        await CreateRoomService.updateRoomBook(idRoom, roomBook - 1);
         yield Errors(message: "Success");
         // yield ScanResult(statuCheckin: statusCheckin);
       } else if (statusCheckin == "2") {

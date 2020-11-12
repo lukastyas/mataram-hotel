@@ -44,7 +44,7 @@ class Wrapper extends StatelessWidget {
                                               ):
                                       (pageState is OnBookDetailPage)
                                                 ? BookDetail(firebaseUser.uid,
-                                                    pageState.roomModel)
+                                                    pageState.roomModel, user:pageState.user)
                                                 : (pageState is OnTransferPage)
                                                     ? TransferPage(
                                                         pageState.idOrder,

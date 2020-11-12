@@ -101,8 +101,9 @@ class GotoDetailRoom extends PageEvent {
 
 class GotoBookDetail extends PageEvent {
   final RoomModel roomModel;
+final FirebaseUser firebaseUser ;
 
-  GotoBookDetail(this.roomModel);
+  GotoBookDetail(this.roomModel, this.firebaseUser);
 
   @override
   List<Object> get props => [];

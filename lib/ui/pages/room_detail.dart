@@ -6,39 +6,7 @@ class RoomDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<FacilitiesModel> facilities = [
-      FacilitiesModel(
-        id: 1,
-        title: 'Free Wifi',
-        icon: Icon(Icons.wifi),
-      ),
-      FacilitiesModel(
-        id: 2,
-        title: 'Satelite Television',
-        icon: Icon(Icons.wifi),
-      ),
-      FacilitiesModel(
-        id: 3,
-        title: 'Mineral Water',
-        icon: Icon(Icons.wifi),
-      ),
-      FacilitiesModel(
-        id: 4,
-        title: 'Clean Linen',
-        icon: Icon(Icons.wifi),
-      ),
-      FacilitiesModel(
-        id: 5,
-        title: 'Clean Washroom',
-        icon: Icon(Icons.wifi),
-      ),
-      FacilitiesModel(
-        id: 6,
-        title: 'Toiletries',
-        icon: Icon(Icons.wifi),
-      ),
-    ];
-
+      FirebaseUser firebaseUser = Provider.of<FirebaseUser>(context);
 
     // List<FacilitiesModel> listIcon = List();
     // room.data.forEach((el) {
@@ -161,7 +129,7 @@ class RoomDetail extends StatelessWidget {
                 ),
                 MataramButton(
                   onPressed: () {
-                    context.bloc<PageBloc>().add(GotoBookDetail(room));
+                    context.bloc<PageBloc>().add(GotoBookDetail(room, firebaseUser));
                     return;
                   },
                   title: Text(

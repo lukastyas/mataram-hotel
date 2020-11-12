@@ -3,20 +3,22 @@ part of 'pages.dart';
 class BookDetail extends StatelessWidget {
   final RoomModel room;
   final uid;
+  final User user ;
 
   const BookDetail(
     this.uid,
     this.room, {
-    Key key,
+    Key key, this.user,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     DateFormat dateFormat;
     DateFormat dateFormatHour;
+    FirebaseUser firebaseUser = Provider.of<FirebaseUser>(context);
 
     print("room.type");
-    print(room.noFRoom);
+    print(room.roomName);
     return WillPopScope(
       onWillPop: () async {
         context.bloc<PageBloc>().add(GotoDetailRoom(room));
@@ -103,9 +105,9 @@ class BookDetail extends StatelessWidget {
                             MediaQuery.of(context).size.width / 1.2),
                       ),
                       MataramTile(
-                        title: Text('Order ID'),
+                        title: Text('Name'),
                         subtitle: Text(
-                          v4crypto,
+                          user.name,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),

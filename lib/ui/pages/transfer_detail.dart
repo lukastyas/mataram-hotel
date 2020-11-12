@@ -37,10 +37,11 @@ class _TransferPageState extends State<TransferPage>
   Widget build(BuildContext context) {
               final formatCurrency =
               new NumberFormat.simpleCurrency(locale: 'id_ID');
+    FirebaseUser firebaseUser = Provider.of<FirebaseUser>(context);
 
     return WillPopScope(
       onWillPop: () async {
-        context.bloc<PageBloc>().add(GotoBookDetail(widget.room));
+        context.bloc<PageBloc>().add(GotoBookDetail(widget.room, firebaseUser));
         return;
       },
       child: Scaffold(

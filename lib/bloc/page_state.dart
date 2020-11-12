@@ -74,6 +74,7 @@ class OnMyBookingPage extends PageState {
 }
 class OnScanPage extends PageState {
   final PageEvent pageEvent;
+  
 
   OnScanPage(this.pageEvent);
 
@@ -109,8 +110,9 @@ class OnRoomDetailPage extends PageState {
 class OnBookDetailPage extends PageState {
   final RoomModel roomModel;
   final List<BookModels> bookModels;
+  final   User user;
 
-  OnBookDetailPage(this.roomModel, this.bookModels);
+  OnBookDetailPage(this.roomModel, this.bookModels, this.user);
 
   @override
   List<Object> get props => [];

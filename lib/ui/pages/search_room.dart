@@ -161,166 +161,188 @@ class SearchRoom extends StatelessWidget {
                         children: <Widget>[
                           Container(
                             width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 2.0,
-                                ),
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
+                            
                             margin: EdgeInsets.fromLTRB(25, 10, 20, 12),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 20.0, bottom: 20.0),
-                              child: Center(
-                                child: Column(
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Icon(Icons.date_range),
-                                        GestureDetector(
-                                          onTap: () async {
-                                            final DateTime picked =
-                                                await showDatePicker(
-                                                    context: context,
-                                                    initialDate: DateTime.now()
-                                                        .add(Duration(days: 1)),
-                                                    firstDate: DateTime.now(),
-                                                    lastDate:
-                                                        DateTime(2040, 1));
-
-                                            if (picked != null &&
-                                                picked != selectedDate) {
-                                              state.dataSearch
-                                                  .selecetedDateFrom = picked;
-
-                                              context
-                                                  .bloc<SearchRoomBloc>()
-                                                  .add(OnChangeDate());
-                                            }
-                                          },
-                                          child: Text(
-                                            state?.dataSearch
-                                                        ?.selecetedDateFrom ==
-                                                    null
-                                                ? "Check-In"
-                                                : dateFormat.format(state
-                                                    .dataSearch
-                                                    .selecetedDateFrom),
-                                            style: blackTextFont.copyWith(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                        SizedBox(width: 10),
-                                        Icon(Icons.date_range),
-                                        GestureDetector(
-                                          onTap: () async {
-                                            final DateTime picked =
-                                                await showDatePicker(
-                                                    context: context,
-                                                    initialDate: state
-                                                        .dataSearch
-                                                        .selecetedDateFrom
-                                                        .add(Duration(days: 1)),
-                                                    firstDate: DateTime.now(),
-                                                    lastDate: state.dataSearch
-                                                        .selecetedDateFrom
-                                                        .add(Duration(
-                                                            days: 30)));
-
-                                            if (picked != null &&
-                                                picked != selectedDate) {
-                                              state.dataSearch.selecetedDateTo =
-                                                  picked;
-
-                                              context
-                                                  .bloc<SearchRoomBloc>()
-                                                  .add(OnChangeDate());
-                                            }
-                                          },
-                                          child: Text(
-                                            state?.dataSearch
-                                                        ?.selecetedDateTo ==
-                                                    null
-                                                ? "Checkout"
-                                                : dateFormat.format(state
-                                                    .dataSearch
-                                                    .selecetedDateTo),
-                                            style: blackTextFont.copyWith(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 15.0, bottom: 8.0),
-                                      child: Row(
+                            child: Card(
+                                                          child: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 20.0, bottom: 20.0),
+                                child: Center(
+                                  child: Column(
+                                    children: <Widget>[
+                                      Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: <Widget>[
-                                          Text("Adult(s)"),
-                                          Container(
-                                            width: 40.0,
-                                            // height: 0.0,
-                                            foregroundDecoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                              border: Border.all(
-                                                color: Colors.blueGrey,
-                                                width: 2.0,
-                                              ),
+                                          Icon(Icons.date_range),
+                                          GestureDetector(
+                                            onTap: () async {
+                                              final DateTime picked =
+                                                  await showDatePicker(
+                                                      context: context,
+                                                      initialDate: DateTime.now()
+                                                          .add(Duration(days: 1)),
+                                                      firstDate: DateTime.now(),
+                                                      lastDate:
+                                                          DateTime(2040, 1));
+
+                                              if (picked != null &&
+                                                  picked != selectedDate) {
+                                                state.dataSearch
+                                                    .selecetedDateFrom = picked;
+
+                                                context
+                                                    .bloc<SearchRoomBloc>()
+                                                    .add(OnChangeDate());
+                                              }
+                                            },
+                                            child: Text(
+                                              state?.dataSearch
+                                                          ?.selecetedDateFrom ==
+                                                      null
+                                                  ? "Check-In"
+                                                  : dateFormat.format(state
+                                                      .dataSearch
+                                                      .selecetedDateFrom),
+                                              style: blackTextFont.copyWith(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold),
                                             ),
-                                            child: Row(
-                                              children: <Widget>[
-                                                Expanded(
-                                                  child: Center(
-                                                    child: Text(state
-                                                        .dataSearch.adult
-                                                        .toString()),
-                                                  ),
+                                          ),
+                                          SizedBox(width: 10),
+                                          Icon(Icons.date_range),
+                                          GestureDetector(
+                                            onTap: () async {
+                                              final DateTime picked =
+                                                  await showDatePicker(
+                                                      context: context,
+                                                      initialDate: state
+                                                          .dataSearch
+                                                          .selecetedDateFrom
+                                                          .add(Duration(days: 1)),
+                                                      firstDate: DateTime.now(),
+                                                      lastDate: state.dataSearch
+                                                          .selecetedDateFrom
+                                                          .add(Duration(
+                                                              days: 30)));
+
+                                              if (picked != null &&
+                                                  picked != selectedDate) {
+                                                state.dataSearch.selecetedDateTo =
+                                                    picked;
+
+                                                context
+                                                    .bloc<SearchRoomBloc>()
+                                                    .add(OnChangeDate());
+                                              }
+                                            },
+                                            child: Text(
+                                              state?.dataSearch
+                                                          ?.selecetedDateTo ==
+                                                      null
+                                                  ? "Checkout"
+                                                  : dateFormat.format(state
+                                                      .dataSearch
+                                                      .selecetedDateTo),
+                                              style: blackTextFont.copyWith(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 15.0, bottom: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                            Text("Adult(s)"),
+                                            Container(
+                                              width: 40.0,
+                                              // height: 0.0,
+                                              foregroundDecoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                                border: Border.all(
+                                                  color: Colors.blueGrey,
+                                                  width: 2.0,
                                                 ),
-                                                Container(
-                                                  // height: 30.0,
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: <Widget>[
-                                                      Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          border: Border(
-                                                            bottom: BorderSide(
-                                                              width: 0.5,
+                                              ),
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Expanded(
+                                                    child: Center(
+                                                      child: Text(state
+                                                          .dataSearch.adult
+                                                          .toString()),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    // height: 30.0,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: <Widget>[
+                                                        Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            border: Border(
+                                                              bottom: BorderSide(
+                                                                width: 0.5,
+                                                              ),
                                                             ),
                                                           ),
+                                                          child: InkWell(
+                                                            child: Icon(
+                                                              Icons.arrow_drop_up,
+                                                              size: 20.0,
+                                                            ),
+                                                            onTap: () {
+                                                              int currentValue =
+                                                                  state.dataSearch
+                                                                      .adult;
+                                                              currentValue++;
+                                                              state.dataSearch
+                                                                      .adult =
+                                                                  (currentValue);
+
+                                                              context
+                                                                  .bloc<
+                                                                      SearchRoomBloc>()
+                                                                  .add(
+                                                                      OnChangeDate());
+                                                            },
+                                                          ),
                                                         ),
-                                                        child: InkWell(
+                                                        InkWell(
                                                           child: Icon(
-                                                            Icons.arrow_drop_up,
+                                                            Icons.arrow_drop_down,
                                                             size: 20.0,
                                                           ),
                                                           onTap: () {
                                                             int currentValue =
                                                                 state.dataSearch
                                                                     .adult;
-                                                            currentValue++;
+                                                            currentValue--;
                                                             state.dataSearch
                                                                     .adult =
                                                                 (currentValue);
+                                                            if (state.dataSearch
+                                                                    .adult <=
+                                                                0) {
+                                                              state.dataSearch
+                                                                  .adult = 0;
+                                                            }
 
                                                             context
                                                                 .bloc<
@@ -329,94 +351,94 @@ class SearchRoom extends StatelessWidget {
                                                                     OnChangeDate());
                                                           },
                                                         ),
-                                                      ),
-                                                      InkWell(
-                                                        child: Icon(
-                                                          Icons.arrow_drop_down,
-                                                          size: 20.0,
-                                                        ),
-                                                        onTap: () {
-                                                          int currentValue =
-                                                              state.dataSearch
-                                                                  .adult;
-                                                          currentValue--;
-                                                          state.dataSearch
-                                                                  .adult =
-                                                              (currentValue);
-                                                          if (state.dataSearch
-                                                                  .adult <=
-                                                              0) {
-                                                            state.dataSearch
-                                                                .adult = 0;
-                                                          }
-
-                                                          context
-                                                              .bloc<
-                                                                  SearchRoomBloc>()
-                                                              .add(
-                                                                  OnChangeDate());
-                                                        },
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(width: 10),
-                                          Text("Children"),
-                                          Container(
-                                            width: 40.0,
-                                            // height: 30.0,
-                                            foregroundDecoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                              border: Border.all(
-                                                color: Colors.blueGrey,
-                                                width: 2.0,
+                                                ],
                                               ),
                                             ),
-                                            child: Row(
-                                              children: <Widget>[
-                                                Expanded(
-                                                  child: Center(
-                                                    child: Text(state
-                                                        .dataSearch.children
-                                                        .toString()),
-                                                  ),
+                                            SizedBox(width: 10),
+                                            Text("Children"),
+                                            Container(
+                                              width: 40.0,
+                                              // height: 30.0,
+                                              foregroundDecoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                                border: Border.all(
+                                                  color: Colors.blueGrey,
+                                                  width: 2.0,
                                                 ),
-                                                Container(
-                                                  // height: 30.0,
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: <Widget>[
-                                                      Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          border: Border(
-                                                            bottom: BorderSide(
-                                                              width: 0.5,
+                                              ),
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Expanded(
+                                                    child: Center(
+                                                      child: Text(state
+                                                          .dataSearch.children
+                                                          .toString()),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    // height: 30.0,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: <Widget>[
+                                                        Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            border: Border(
+                                                              bottom: BorderSide(
+                                                                width: 0.5,
+                                                              ),
                                                             ),
                                                           ),
+                                                          child: InkWell(
+                                                            child: Icon(
+                                                              Icons.arrow_drop_up,
+                                                              size: 20.0,
+                                                            ),
+                                                            onTap: () {
+                                                              int currentValue =
+                                                                  state.dataSearch
+                                                                      .children;
+                                                              currentValue++;
+                                                              state.dataSearch
+                                                                      .children =
+                                                                  (currentValue);
+
+                                                              context
+                                                                  .bloc<
+                                                                      SearchRoomBloc>()
+                                                                  .add(
+                                                                      OnChangeDate());
+                                                            },
+                                                          ),
                                                         ),
-                                                        child: InkWell(
+                                                        InkWell(
                                                           child: Icon(
-                                                            Icons.arrow_drop_up,
+                                                            Icons.arrow_drop_down,
                                                             size: 20.0,
                                                           ),
                                                           onTap: () {
                                                             int currentValue =
                                                                 state.dataSearch
                                                                     .children;
-                                                            currentValue++;
+                                                            currentValue--;
                                                             state.dataSearch
                                                                     .children =
                                                                 (currentValue);
+                                                            if (state.dataSearch
+                                                                    .children <=
+                                                                0) {
+                                                              state.dataSearch
+                                                                  .children = 0;
+                                                            }
 
                                                             context
                                                                 .bloc<
@@ -425,95 +447,95 @@ class SearchRoom extends StatelessWidget {
                                                                     OnChangeDate());
                                                           },
                                                         ),
-                                                      ),
-                                                      InkWell(
-                                                        child: Icon(
-                                                          Icons.arrow_drop_down,
-                                                          size: 20.0,
-                                                        ),
-                                                        onTap: () {
-                                                          int currentValue =
-                                                              state.dataSearch
-                                                                  .children;
-                                                          currentValue--;
-                                                          state.dataSearch
-                                                                  .children =
-                                                              (currentValue);
-                                                          if (state.dataSearch
-                                                                  .children <=
-                                                              0) {
-                                                            state.dataSearch
-                                                                .children = 0;
-                                                          }
-
-                                                          context
-                                                              .bloc<
-                                                                  SearchRoomBloc>()
-                                                              .add(
-                                                                  OnChangeDate());
-                                                        },
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(width: 10),
-                                          Text("Rooms"),
-                                          SizedBox(width: 5),
-                                          Container(
-                                            width: 40.0,
-                                            // height: 30.0,
-                                            foregroundDecoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                              border: Border.all(
-                                                color: Colors.blueGrey,
-                                                width: 2.0,
+                                                ],
                                               ),
                                             ),
-                                            child: Row(
-                                              children: <Widget>[
-                                                Expanded(
-                                                  child: Center(
-                                                    child: Text(state
-                                                        .dataSearch.rooms
-                                                        .toString()),
-                                                  ),
+                                            SizedBox(width: 10),
+                                            Text("Rooms"),
+                                            SizedBox(width: 5),
+                                            Container(
+                                              width: 40.0,
+                                              // height: 30.0,
+                                              foregroundDecoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                                border: Border.all(
+                                                  color: Colors.blueGrey,
+                                                  width: 2.0,
                                                 ),
-                                                Container(
-                                                  // height: 30.0,
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: <Widget>[
-                                                      Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          border: Border(
-                                                            bottom: BorderSide(
-                                                              width: 0.5,
+                                              ),
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Expanded(
+                                                    child: Center(
+                                                      child: Text(state
+                                                          .dataSearch.rooms
+                                                          .toString()),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    // height: 30.0,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: <Widget>[
+                                                        Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            border: Border(
+                                                              bottom: BorderSide(
+                                                                width: 0.5,
+                                                              ),
                                                             ),
                                                           ),
+                                                          child: InkWell(
+                                                            child: Icon(
+                                                              Icons.arrow_drop_up,
+                                                              size: 20.0,
+                                                            ),
+                                                            onTap: () {
+                                                              int currentValue =
+                                                                  state.dataSearch
+                                                                      .rooms;
+                                                              currentValue++;
+                                                              state.dataSearch
+                                                                      .rooms =
+                                                                  (currentValue);
+
+                                                              context
+                                                                  .bloc<
+                                                                      SearchRoomBloc>()
+                                                                  .add(
+                                                                      OnChangeDate());
+                                                            },
+                                                          ),
                                                         ),
-                                                        child: InkWell(
+                                                        InkWell(
                                                           child: Icon(
-                                                            Icons.arrow_drop_up,
+                                                            Icons.arrow_drop_down,
                                                             size: 20.0,
                                                           ),
                                                           onTap: () {
                                                             int currentValue =
                                                                 state.dataSearch
                                                                     .rooms;
-                                                            currentValue++;
+                                                            currentValue--;
                                                             state.dataSearch
                                                                     .rooms =
                                                                 (currentValue);
+                                                            if (state.dataSearch
+                                                                    .rooms <=
+                                                                0) {
+                                                              state.dataSearch
+                                                                  .rooms = 0;
+                                                            }
 
                                                             context
                                                                 .bloc<
@@ -522,46 +544,19 @@ class SearchRoom extends StatelessWidget {
                                                                     OnChangeDate());
                                                           },
                                                         ),
-                                                      ),
-                                                      InkWell(
-                                                        child: Icon(
-                                                          Icons.arrow_drop_down,
-                                                          size: 20.0,
-                                                        ),
-                                                        onTap: () {
-                                                          int currentValue =
-                                                              state.dataSearch
-                                                                  .rooms;
-                                                          currentValue--;
-                                                          state.dataSearch
-                                                                  .rooms =
-                                                              (currentValue);
-                                                          if (state.dataSearch
-                                                                  .rooms <=
-                                                              0) {
-                                                            state.dataSearch
-                                                                .rooms = 0;
-                                                          }
-
-                                                          context
-                                                              .bloc<
-                                                                  SearchRoomBloc>()
-                                                              .add(
-                                                                  OnChangeDate());
-                                                        },
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                        "* Your Children age Min 12 years old"),
-                                  ],
+                                      Text(
+                                          "* Your Children age Min 12 years old"),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -588,8 +583,9 @@ class SearchRoom extends StatelessWidget {
                                     itemCount: state.dataSearch.room.length,
                                     itemBuilder: (context, index) {
                                       return state.dataSearch.room[index]
-                                                  .noFRoom <=
-                                              0
+                                                  .roomBook ==
+                                              state.dataSearch.room[index]
+                                                  .noFRoom
                                           ? Container()
                                           : GestureDetector(
                                               onTap: () {
@@ -756,115 +752,114 @@ class SearchRoom extends StatelessWidget {
                           Container(
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 2.0,
-                                ),
+                               
                                 color: Colors.white,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(20))),
                             margin: EdgeInsets.fromLTRB(25, 10, 20, 12),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 20.0, bottom: 20.0),
-                              child: Center(
-                                child: Column(
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Icon(Icons.date_range),
-                                        GestureDetector(
-                                          onTap: () async {
-                                            final DateTime picked =
-                                                await showDatePicker(
-                                                    context: context,
-                                                    initialDate: DateTime.now()
-                                                        .add(Duration(days: 1)),
-                                                    firstDate: DateTime.now(),
-                                                    lastDate:
-                                                        DateTime(2040, 1));
+                            child: Card(
+                                                          child: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 20.0, bottom: 20.0),
+                                child: Center(
+                                  child: Column(
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Icon(Icons.date_range),
+                                          GestureDetector(
+                                            onTap: () async {
+                                              final DateTime picked =
+                                                  await showDatePicker(
+                                                      context: context,
+                                                      initialDate: DateTime.now()
+                                                          .add(Duration(days: 1)),
+                                                      firstDate: DateTime.now(),
+                                                      lastDate:
+                                                          DateTime(2040, 1));
 
-                                            if (picked != null &&
-                                                picked != selectedDate) {
-                                              state.dataSearch
-                                                  .selecetedDateFrom = picked;
+                                              if (picked != null &&
+                                                  picked != selectedDate) {
+                                                state.dataSearch
+                                                    .selecetedDateFrom = picked;
+
+                                                context
+                                                    .bloc<SearchRoomBloc>()
+                                                    .add(OnChangeDate());
+                                              }
+                                            },
+                                            child: Text(
+                                              state?.dataSearch
+                                                          ?.selecetedDateFrom ==
+                                                      null
+                                                  ? "Event Date"
+                                                  : dateFormat.format(state
+                                                      .dataSearch
+                                                      .selecetedDateFrom),
+                                              style: blackTextFont.copyWith(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 20.0,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text(
+                                            "Start Event : ",
+                                            style: blackTextFont.copyWith(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () async {
+                                              var picked =
+                                                  await DatePicker.showTimePicker(
+                                                      context,
+                                                      showTitleActions: true,
+                                                      onChanged: (date) {
+                                                print(
+                                                    'change $date in time zone ' +
+                                                        date.timeZoneOffset
+                                                            .inHours
+                                                            .toString());
+                                              }, onConfirm: (date) {
+                                                print('confirm $date');
+                                              }, currentTime: DateTime.now());
+
+                                              print("ini");
+                                              print(picked);
+                                              state.dataSearch.timeOfDay = picked;
 
                                               context
                                                   .bloc<SearchRoomBloc>()
                                                   .add(OnChangeDate());
-                                            }
-                                          },
-                                          child: Text(
-                                            state?.dataSearch
-                                                        ?.selecetedDateFrom ==
-                                                    null
-                                                ? "Event Date"
-                                                : dateFormat.format(state
-                                                    .dataSearch
-                                                    .selecetedDateFrom),
-                                            style: blackTextFont.copyWith(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
+                                            },
+                                            child: Text(
+                                              state?.dataSearch?.timeOfDay == null
+                                                  ? "Choose your start event"
+                                                  : dateFormatHour.format(
+                                                      state.dataSearch.timeOfDay),
+                                              style: blackTextFont.copyWith(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 20.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          "Start Event : ",
-                                          style: blackTextFont.copyWith(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () async {
-                                            var picked =
-                                                await DatePicker.showTimePicker(
-                                                    context,
-                                                    showTitleActions: true,
-                                                    onChanged: (date) {
-                                              print(
-                                                  'change $date in time zone ' +
-                                                      date.timeZoneOffset
-                                                          .inHours
-                                                          .toString());
-                                            }, onConfirm: (date) {
-                                              print('confirm $date');
-                                            }, currentTime: DateTime.now());
-
-                                            print("ini");
-                                            print(picked);
-                                            state.dataSearch.timeOfDay = picked;
-
-                                            context
-                                                .bloc<SearchRoomBloc>()
-                                                .add(OnChangeDate());
-                                          },
-                                          child: Text(
-                                            state?.dataSearch?.timeOfDay == null
-                                                ? "Choose your start event"
-                                                : dateFormatHour.format(
-                                                    state.dataSearch.timeOfDay),
-                                            style: blackTextFont.copyWith(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

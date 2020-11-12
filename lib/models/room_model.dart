@@ -7,6 +7,7 @@ class RoomModel extends Equatable {
   final String picture;
   final int price;
   final String roomName;
+  final int roomBook;
   final String type;
   final String rate;
   final int noFRoom;
@@ -20,6 +21,7 @@ class RoomModel extends Equatable {
   RoomModel({this.noFRoom, this.noRoom, 
      this.review,
         this.id,
+        this.roomBook,
         this.type,
         this.photos,
         this.facility,
@@ -45,12 +47,13 @@ class RoomModel extends Equatable {
           type: type ?? this.type,
           price: price ?? this.price,
           rate: rate ?? this.rate,
+          roomBook: roomBook ?? this.roomBook,
           roomName: roomName ?? this.roomName,
           data: data ?? this.data,
           photos: photos ?? this.photos);
 
   factory RoomModel.fromJson(Map<String, dynamic> json, b) => RoomModel(
-        id: b,
+        id: b??json["id_room"],
         description: json["description"],
         picture: json["picture"],
         price: json["price"],
@@ -59,6 +62,7 @@ class RoomModel extends Equatable {
         duration: json["duration"],
         facility: json["facilities"],
         type: json["type"],
+        roomBook: json["room_book"],
         noFRoom: json["no_of_room"],
         noRoom: json["no_room"],
         roomName: json["roomName"],

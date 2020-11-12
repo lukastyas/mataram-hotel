@@ -21,18 +21,17 @@ class SearchRoomBloc extends Bloc<SearchRoomEvent, SearchRoomState> {
   ) async* {
     if (event is LoadRoom) {
       yield SearchRoomInitial(dataSearch: DataSearch());
-       var books = await BookService.getBook();
+      var books = await BookService.getBook();
 
       var room = await RoomServices.getRoom();
-     
+
       List<RoomModel> roomModel = [];
-      
-                                          String statusCheckin;
+
+      String statusCheckin;
       String type;
       print("event.typeRsssssssssssssoom");
       print(event.typeRoom);
 
-   
       // if (event.admin == false) {
       //   room.forEach((element) {
       //     if (element.type == event.typeRoom.toString()) {
@@ -40,16 +39,11 @@ class SearchRoomBloc extends Bloc<SearchRoomEvent, SearchRoomState> {
       //     }
       //   });
       // } else {
-        // book.map((e) => print("e.checkIn ${e.checkIn}")).toList();
-books.map((e){
-   print("akakaka");
-                                      print(e.statuscheckIn);
-                                      print(e.statuscheckIn);
-                                      statusCheckin =e.statuscheckIn;
-                                      type =e.type;
-
-}).toList();
-
+      // book.map((e) => print("e.checkIn ${e.checkIn}")).toList();
+      books.map((e) {
+        statusCheckin = e.statuscheckIn;
+        type = e.type;
+      }).toList();
 
       room.map((element) {
         print("element.typesss");
@@ -73,7 +67,12 @@ books.map((e){
       }).toList();
       // }
 
-      yield RoomLoaded(dataSearch: DataSearch(room: roomModel,book: books , statusCheckin: statusCheckin, type: type));
+      yield RoomLoaded(
+          dataSearch: DataSearch(
+              room: roomModel,
+              book: books,
+              statusCheckin: statusCheckin,
+              type: type));
     } else if (event is OnChangeDate) {
       DataSearch data = state.dataSearch;
       print("data.selecetedDateFrom");
@@ -88,10 +87,9 @@ books.map((e){
 
       print(event.idOrder);
       await RoomServices.deletedRoom(id: event.idOrder);
-          var room = await RoomServices.getRoom();
+      var room = await RoomServices.getRoom();
       List<RoomModel> roomModel = [];
       print("event.typeRoom");
-     
 
       // if (event.admin == false) {
       //   room.forEach((element) {
@@ -103,12 +101,11 @@ books.map((e){
 
       room.map((element) {
         print("element.typesss");
-         roomModel.add(element);
+        roomModel.add(element);
       }).toList();
       // }
 
       yield RoomLoaded(dataSearch: DataSearch(room: roomModel));
-
     }
   }
 }

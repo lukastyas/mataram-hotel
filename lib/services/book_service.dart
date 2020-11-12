@@ -37,7 +37,7 @@ class BookService {
 
  static Future<void> updateNofRoom(BookModels user) async {
     roomCollection.document(user.idRoom).updateData({
-      'no_of_room': user.noofRoom,
+      'room_book': user.roomBook,
     });
   }
 
@@ -74,6 +74,10 @@ class BookService {
   }
 
   static Future<void> checkOut(BookModels user) async {
+     roomCollection.document(user.idRoom).updateData({
+      'room_book': user.roomBook,
+    });
+    
     _bookCollection
         .document(user.idOrder)
         .updateData({'check_out': user.checkOut, 'status_check_in': "2"});

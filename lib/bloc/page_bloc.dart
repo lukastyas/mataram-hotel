@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mataram2/models/models.dart';
 import 'package:mataram2/services/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 part 'page_event.dart';
 part 'page_state.dart';
@@ -59,8 +60,10 @@ class PageBloc extends Bloc<PageEvent, PageState> {
       // book.forEach((element) {
       //   bookModels.add(element);
       // });
+         User user = await UserServices.getUser(event.firebaseUser.uid);
 
-      yield OnBookDetailPage(event.roomModel, bookModels);
+
+      yield OnBookDetailPage(event.roomModel, bookModels, user);
     } else if (event is GotoTransferPage) {
       print("event.roomModel.roomName");
       print(event.roomModel.id);
@@ -85,7 +88,8 @@ class PageBloc extends Bloc<PageEvent, PageState> {
             price: event.wallet));
 
         await BookService.updateNofRoom(BookModels(
-            idRoom: event.roomModel.id, noofRoom: event.roomModel.noFRoom - 1));
+          
+            idRoom: event.roomModel.id, roomBook: event.roomModel.roomBook + 1));
       }
 
       yield OnTransferPage(

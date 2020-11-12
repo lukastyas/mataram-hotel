@@ -105,6 +105,7 @@ class CreateRoomBloc extends Bloc<CreateRoomEvent, CreateRoomState> {
           photos: photoss,
           type:event.type?? data.typeValue,
           data: data.facility,
+
           capacity: event.capacity,
           duration: event.duration,
           noFRoom: event.noFRoom,

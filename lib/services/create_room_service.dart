@@ -12,6 +12,7 @@ class CreateRoomService{
       'price': room.price,
       'rate': "8.0",
       'type': room.type ,
+      'room_book':0,
       'roomName': room.roomName ,
       'capacity': room.capacity ,
       'facilities': room.data ,
@@ -39,6 +40,13 @@ class CreateRoomService{
       'photos': room.photos ,
       'no_room': room.noRoom ,
       'no_of_room': room.noFRoom ,
+    });
+  }
+
+  //* service untuk mengurangi jumlah booking jika ingin checkout
+        static Future<void> updateRoomBook(idRoom, roomBook) async {
+    _userCollection.document(idRoom).updateData({
+      'room_book': roomBook,
     });
   }
 }
