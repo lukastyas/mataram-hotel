@@ -54,10 +54,10 @@ class _MyBookingPageState extends State<MyBookingPage> {
                   onTap: () {
                     context.bloc<PageBloc>().add(widget.pageEvent);
                   },
-                  child: Icon(
-                    Icons.arrow_back,
-                    color: Colors.black,
-                  ),
+                  // child: Icon(
+                  //   Icons.arrow_back,
+                  //   color: Colors.black,
+                  // ),
                 ),
               ),
             ),

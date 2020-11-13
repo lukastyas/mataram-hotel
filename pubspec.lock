@@ -99,6 +99,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.14.12"
+  contactus:
+    dependency: "direct dev"
+    description:
+      name: contactus
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.7"
   convert:
     dependency: transitive
     description:
@@ -700,6 +707,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.6"
+  typicons_flutter:
+    dependency: transitive
+    description:
+      name: typicons_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.2"
   url_launcher:
     dependency: transitive
     description:

@@ -157,7 +157,7 @@ class CreateRoom extends StatelessWidget {
                           children: <Widget>[
                             MataramDropdown(
                               onChangedDropDown: (val) {
-                                print(" value ku");
+                                print("value ku");
                                 state.createRoomModel.typeValue = val;
                                 context
                                     .bloc<CreateRoomBloc>()

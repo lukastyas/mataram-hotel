@@ -8,7 +8,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-     User user;
+    User user;
     return WillPopScope(
       onWillPop: () async {
         context.bloc<PageBloc>().add(GoToMainPage());
@@ -26,7 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   BlocBuilder<UserBloc, UserState>(
                     builder: (_, userState) {
                       if (userState is UserLoaded) {
-                         user = userState.user;
+                        user = userState.user;
 
                         return Column(
                           children: <Widget>[
@@ -133,20 +133,25 @@ class _ProfilePageState extends State<ProfilePage> {
                             MediaQuery.of(context).size.width -
                                 2 * defaultMargin),
                       ),
-                      Row(
-                        children: <Widget>[
-                          SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: Image.asset("assets/help_centre.png")),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            "Help Centre",
-                            style: blackTextFont.copyWith(fontSize: 16),
-                          )
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          context.bloc<PageBloc>().add(GoToContactUsPage());
+                        },
+                        child: Row(
+                          children: <Widget>[
+                            SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: Image.asset("assets/help_centre.png")),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "Help Centre",
+                              style: blackTextFont.copyWith(fontSize: 16),
+                            )
+                          ],
+                        ),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 10, bottom: 16),

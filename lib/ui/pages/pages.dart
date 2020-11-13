@@ -55,3 +55,4 @@ part 'review_page.dart';
 part 'my_booking_page_user.dart';
 part 'scan_qr_page.dart';
 part 'edit_room.dart';
+part 'contact_us.dart';
