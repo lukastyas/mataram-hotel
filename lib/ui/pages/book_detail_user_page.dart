@@ -127,14 +127,14 @@ class _BookDetailUserPageState extends State<BookDetailUserPage> {
                     top: 50,
                     left: 80,
                   ),
-                  child: MataramButton(
-                    onPressed: () async {},
-                    title: Text(
-                      "Please Review Us",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    color: 'edit',
-                  ),
+                  // child: MataramButton(
+                  //   onPressed: () async {},
+                  //   title: Text(
+                  //     "Please Review Us",
+                  //     style: TextStyle(color: Colors.white),
+                  //   ),
+                  //   color: 'edit',
+                  // ),
                 )
               ],
             ),

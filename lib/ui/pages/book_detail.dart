@@ -62,7 +62,7 @@ class BookDetail extends StatelessWidget {
                           width: 100,
                           padding: const EdgeInsets.only(top: 50.0, bottom: 30),
                           child: Text(
-                            "Checkout Room",
+                            "Books",
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
@@ -196,7 +196,7 @@ class BookDetail extends StatelessWidget {
                             return;
                           },
                           title: Text(
-                            "Checkout  Now",
+                            "Book  Now",
                             style: TextStyle(color: Colors.white),
                           ),
                           color: 'edit',

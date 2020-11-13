@@ -151,8 +151,9 @@ class GotoCreateRoom extends PageEvent {
   @override
   List<Object> get props => [];
 }
+
 class GotoEditRoom extends PageEvent {
-  final RoomModel room ;
+  final RoomModel room;
 
   GotoEditRoom(this.room);
   @override
@@ -170,6 +171,11 @@ class GotoBookingDetail extends PageEvent {
 
   GotoBookingDetail(this.book, this.pageEvent);
 
+  @override
+  List<Object> get props => [];
+}
+
+class GoToContactUsPage extends PageEvent {
   @override
   List<Object> get props => [];
 }

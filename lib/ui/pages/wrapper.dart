@@ -32,17 +32,19 @@ class Wrapper extends StatelessWidget {
                             : (pageState is OnEditProfilePage)
                                 ? EditProfilePage(pageState.user)
                                 : (pageState is OnMyBookingPage)
-                                    ? MyBookingPage(pageState.bookModels,
-                                        pageState.pageEvent, pageState.role, pageState.roomModel)
+                                    ? MyBookingPage(
+                                        pageState.bookModels,
+                                        pageState.pageEvent,
+                                        pageState.role,
+                                        pageState.roomModel)
                                     : (pageState is OnSearchRoomPage)
                                         ? SearchRoom(
                                             typeRoom: pageState.typeRoom)
-                                        : 
-                                        (pageState is OnRoomDetailPage)
+                                        : (pageState is OnRoomDetailPage)
                                             ? RoomDetail(
                                                 room: pageState.roomModel,
-                                              ):
-                                      (pageState is OnBookDetailPage)
+                                              )
+                                            : (pageState is OnBookDetailPage)
                                                 ? BookDetail(firebaseUser.uid,
                                                     pageState.roomModel, user:pageState.user)
                                                 : (pageState is OnTransferPage)
@@ -60,7 +62,8 @@ class Wrapper extends StatelessWidget {
                                                                 .idOrder,
                                                             room: pageState
                                                                 .roomModel,
-                                                                wallet: pageState.wallet,
+                                                            wallet: pageState
+                                                                .wallet,
                                                           )
                                                         : (pageState
                                                                 is OnBookingDetail)
@@ -71,22 +74,23 @@ class Wrapper extends StatelessWidget {
                                                                     pageState
                                                                         .pageEvent,
                                                               )
-                                                        : (pageState
-                                                                is OnEditRoom)
-                                                            ? EditProfile(
-                                                                room: pageState
-                                                                    .room,
-                                                                    edit : true
-                                                              )
                                                             : (pageState
-                                                                    is OnScanPage)
-                                                                ? ScanQRPage()
+                                                                    is OnEditRoom)
+                                                                ? EditProfile(
+                                                                    room: pageState
+                                                                        .room,
+                                                                    edit: true)
                                                                 : (pageState
-                                                                        is OnCreateRoom)
-                                                                    ? CreateRoom()
-                                                                : (pageState
-                                                                        is OnNewestPageGlobal)
-                                                                    ? Newest()
-                                                                    : MainPage());
+                                                                        is OnScanPage)
+                                                                    ? ScanQRPage()
+                                                                    : (pageState
+                                                                            is OnCreateRoom)
+                                                                        ? CreateRoom()
+                                                                        : (pageState
+                                                                                is OnNewestPageGlobal)
+                                                                            ? Newest()
+                                                                            : (pageState is OnContactUsPage)
+                                                                                ? ContactUs()
+                                                                                : MainPage());
   }
 }

@@ -93,7 +93,7 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
       List<BookModels> book = await BookService.getBook();
       String statusCheckin;
       String idRoom;
-      int roomBook;
+      int roomBooks;
 
       book.map((element) {
         print("book[0].statuscheckIn");
@@ -110,7 +110,7 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
         if (idRoom == e.id) {
           print(e.id);
 
-          roomBook = e.roomBook;
+          roomBooks = e.roomBook;
         }
       }).toList();
 
@@ -120,7 +120,7 @@ class SendEvidenceBloc extends Bloc<SendEvidenceEvent, SendEvidenceState> {
           // idRoom: event.,
           checkOut: time.toString(),
         ));
-        await CreateRoomService.updateRoomBook(idRoom, roomBook - 1);
+        await CreateRoomService.updateRoomBook(idRoom, roomBooks- 1);
         yield Errors(message: "Success");
         // yield ScanResult(statuCheckin: statusCheckin);
       } else if (statusCheckin == "2") {

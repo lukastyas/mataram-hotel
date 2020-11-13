@@ -66,10 +66,10 @@ class RoomPageAdmin extends StatelessWidget {
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
                                         image: (userState.user.profilePicture ==
-                                                ""
+                                            ""
                                             ? AssetImage("assets/user_pic.png")
                                             : NetworkImage(
-                                                userState.user.profilePicture)),
+                                            userState.user.profilePicture)),
                                         fit: BoxFit.cover)),
                               )
                             ],

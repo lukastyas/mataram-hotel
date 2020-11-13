@@ -108,6 +108,8 @@ class PageBloc extends Bloc<PageEvent, PageState> {
     } else if (event is GotoNewestPage) {
       var book = await BookService.getBook();
       yield OnNewestPage(book);
+    } else if (event is GoToContactUsPage) {
+       yield OnContactUsPage();
     }
   }
 }

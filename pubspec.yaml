@@ -60,6 +60,7 @@ dev_dependencies:
   flutter_widget_from_html: ^0.5.0
   rxdart: ^0.23.0
   flutter_datetime_picker: ^1.4.0
+  contactus: ^1.1.7
   
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
