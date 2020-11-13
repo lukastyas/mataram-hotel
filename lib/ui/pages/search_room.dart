@@ -710,7 +710,7 @@ class SearchRoom extends StatelessWidget {
                                                                     .room[index]
                                                                     .roomName),
                                                                 Text(
-                                                                    "No of room : ${state.dataSearch.room[index].noFRoom}"),
+                                                                    "No of room : ${state.dataSearch.room[index].noFRoom -  state.dataSearch.room[index].roomBook}"),
                                                                 Text(
                                                                     "Rp. ${state.dataSearch.room[index].price.toString()} / Night"),
                                                               ],
@@ -1015,7 +1015,7 @@ class SearchRoom extends StatelessWidget {
                                                                                 index]
                                                                             .rate ==
                                                                         "null"
-                                                                    ? "4.0"
+                                                                    ? "8.0"
                                                                     : state
                                                                         .dataSearch
                                                                         .room[
